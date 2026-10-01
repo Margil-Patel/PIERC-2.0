@@ -20,40 +20,42 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B0F17;
+  background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E293B;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #e11d48;
 }
 
 /* Glassmorphism helpers */
 .glass-panel {
-  background: rgba(17, 24, 39, 0.75);
+  background: rgba(255, 249, 250, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(247, 230, 233, 0.8);
+  box-shadow: 0 10px 30px rgba(225, 29, 72, 0.05);
 }
 
 .glass-panel-light {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(253, 242, 244, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  border: 1px solid rgba(247, 230, 233, 0.8);
 }
 
 /* Glow effects */
-.glow-cyan {
-  box-shadow: 0 0 24px -2px rgba(56, 189, 248, 0.25);
+.glow-cyan,
+.glow-pink {
+  box-shadow: 0 0 24px -2px rgba(225, 29, 72, 0.28);
 }
 
 .glow-primary {
-  box-shadow: 0 0 24px -2px rgba(30, 64, 175, 0.35);
+  box-shadow: 0 0 24px -2px rgba(225, 29, 72, 0.25);
 }
 
 /* Pulse animation utility */

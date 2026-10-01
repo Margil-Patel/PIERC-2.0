@@ -53,7 +53,7 @@ export default function App() {
   };
 
   return (
-    <div className="site flex flex-col min-h-screen text-white antialiased">
+    <div className="site flex flex-col min-h-screen text-slate-900 bg-white antialiased">
       {/* Dual-Tier Header & Top Announcement Bar */}
       <Header
         activeSection={activeSection}
@@ -62,7 +62,7 @@ export default function App() {
       />
 
       {/* Main Content Body */}
-      <main className="w-full bg-[#050912] flex-1">
+      <main className="w-full bg-white flex-1">
         <div className="flex flex-col w-full">
           {/* 1. Master Hero Section */}
           <HeroSection onOpenIncubationModal={handleOpenIncubationModal} />
@@ -70,11 +70,11 @@ export default function App() {
           {/* 2. Audited Ecosystem Impact Metrics Ribbon */}
           <MetricsRibbon />
 
-          {/* 3. The Four Pillars (Ideation, Innovation, Incubation, Growth) */}
-          <PillarsSection onOpenIncubationModal={handleOpenIncubationModal} />
-
-          {/* 4. Structured Founder Runway / Journey */}
+          {/* 3. Incubation Cell Spaceship Mission Journey */}
           <JourneySection onOpenIncubationModal={handleOpenIncubationModal} />
+
+          {/* 4. The Four Pillars (Ideation, Innovation, Incubation, Growth) */}
+          <PillarsSection onOpenIncubationModal={handleOpenIncubationModal} />
 
           {/* 5. Flagship Accelerators Suite */}
           <ProgramsSection onOpenIncubationModal={handleOpenIncubationModal} />
