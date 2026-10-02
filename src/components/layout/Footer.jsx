@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer({ onOpenIncubationModal, onOpenMentorModal }) {
   const [email, setEmail] = useState('');
@@ -23,8 +24,8 @@ export default function Footer({ onOpenIncubationModal, onOpenMentorModal }) {
           {/* Main Info Column */}
           <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-surface-container-lowest flex items-center justify-center p-1.5 shadow-sm">
+              <Link to="/" className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-surface-container-lowest flex items-center justify-center p-1.5 shadow-sm group-hover:scale-105 transition-transform">
                   <img
                     alt="PIERC Official Brand Mark"
                     className="h-7 w-auto object-contain"
@@ -39,7 +40,7 @@ export default function Footer({ onOpenIncubationModal, onOpenMentorModal }) {
                     Parul University
                   </span>
                 </div>
-              </div>
+              </Link>
               
               <p className="font-body-sm text-body-sm text-outline-variant max-w-sm leading-relaxed">
                 Parul Innovation &amp; Entrepreneurship Research Centre is Gujarat's premier university-anchored deep-tech incubator and startup catalyst, translating pioneering collegiate intellectual property into venture-scale market leaders.
@@ -80,10 +81,10 @@ export default function Footer({ onOpenIncubationModal, onOpenMentorModal }) {
             <ul className="space-y-2.5 font-body-sm text-body-sm text-outline-variant">
               <li><button onClick={() => onOpenIncubationModal('pre-incubation')} className="hover:text-canvas-light transition-colors text-left">Pre-Incubation Track</button></li>
               <li><button onClick={() => onOpenIncubationModal('growthpad')} className="hover:text-canvas-light transition-colors text-left">Growthpad Accelerator</button></li>
-              <li><button onClick={() => onOpenIncubationModal('nivesh')} className="hover:text-canvas-light transition-colors text-left">Startup Nivesh 3.0</button></li>
-              <li><button onClick={() => onOpenIncubationModal('healthtech')} className="hover:text-canvas-light transition-colors text-left">HealthTech Accelerator</button></li>
-              <li><a href="#fablab-infrastructure" className="hover:text-canvas-light transition-colors">FabLab Prototyping</a></li>
-              <li><a href="#flagship-programs" className="hover:text-canvas-light transition-colors">BioNEST Bio-Incubator</a></li>
+              <li><Link to="/programs" className="hover:text-canvas-light transition-colors">Startup Nivesh 3.0</Link></li>
+              <li><Link to="/programs" className="hover:text-canvas-light transition-colors">HealthTech Accelerator</Link></li>
+              <li><Link to="/fablab" className="hover:text-canvas-light transition-colors">FabLab Prototyping</Link></li>
+              <li><Link to="/programs" className="hover:text-canvas-light transition-colors">BioNEST Bio-Incubator</Link></li>
             </ul>
           </div>
 
@@ -93,11 +94,11 @@ export default function Footer({ onOpenIncubationModal, onOpenMentorModal }) {
               Initiatives
             </span>
             <ul className="space-y-2.5 font-body-sm text-body-sm text-outline-variant">
-              <li><a href="#flagship-platforms" className="hover:text-canvas-light transition-colors">Vadodara Startup Festival</a></li>
-              <li><a href="#flagship-platforms" className="hover:text-canvas-light transition-colors">Vadodara Hackathon</a></li>
-              <li><a href="#regional-studios" className="hover:text-canvas-light transition-colors">Centers of Excellence</a></li>
+              <li><Link to="/flagships" className="hover:text-canvas-light transition-colors">Vadodara Startup Festival</Link></li>
+              <li><Link to="/flagships" className="hover:text-canvas-light transition-colors">Vadodara Hackathon</Link></li>
+              <li><Link to="/studios" className="hover:text-canvas-light transition-colors">Regional Studios</Link></li>
               <li><button onClick={() => onOpenMentorModal()} className="hover:text-canvas-light transition-colors text-left">Global Mentor Network</button></li>
-              <li><a href="#ecosystem-pillars" className="hover:text-canvas-light transition-colors">IP &amp; Tech Transfer</a></li>
+              <li><Link to="/about" className="hover:text-canvas-light transition-colors">IP &amp; Tech Transfer</Link></li>
               <li><a href="https://www.paruluniversity.ac.in/mbaeis_2026_gsn/" target="_blank" rel="noreferrer" className="hover:text-canvas-light transition-colors">MBA EIS Program</a></li>
             </ul>
           </div>
@@ -180,9 +181,9 @@ export default function Footer({ onOpenIncubationModal, onOpenMentorModal }) {
           <div className="flex items-center gap-4 flex-wrap">
             <p>© 2026 PIERC, Parul University. All rights reserved.</p>
             <span className="hidden md:inline">•</span>
-            <a href="#leadership-governance" className="hover:text-canvas-light transition-colors">Board of Governors</a>
+            <Link to="/leadership" className="hover:text-canvas-light transition-colors">Board of Governors</Link>
             <span className="hidden md:inline">•</span>
-            <a href="#ecosystem-pillars" className="hover:text-canvas-light transition-colors">Startup Policy &amp; Guidelines</a>
+            <Link to="/about" className="hover:text-canvas-light transition-colors">Startup Policy &amp; Guidelines</Link>
             <span className="hidden md:inline">•</span>
             <span className="text-outline">Section 8 Reg. No: U80903GJ2015NPL084478</span>
           </div>

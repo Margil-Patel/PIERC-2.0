@@ -1,29 +1,19 @@
 import React, { useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 const navItems = [
-  { label: 'About', href: '#ecosystem-pillars' },
-  { label: 'Programs', href: '#flagship-programs' },
-  { label: 'FabLab', href: '#fablab-infrastructure' },
-  { label: 'Flagships', href: '#flagship-platforms' },
-  { label: 'Impact', href: '#impact-metrics' },
-  { label: 'Studios', href: '#regional-studios' },
-  { label: 'Leadership', href: '#leadership-governance' },
+  { label: 'About', path: '/about' },
+  { label: 'Programs', path: '/programs' },
+  { label: 'FabLab', path: '/fablab' },
+  { label: 'Flagships', path: '/flagships' },
+  { label: 'Studios', path: '/studios' },
+  { label: 'Leadership', path: '/leadership' },
+  { label: 'Apply', path: '/apply' },
 ];
 
-export default function Header({ onOpenIncubationModal, activeSection = 'About', onNavigate }) {
+export default function Header({ onOpenIncubationModal }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const handleNavClick = (e, item) => {
-    e.preventDefault();
-    setMobileOpen(false);
-    if (onNavigate) {
-      onNavigate(item.label.toLowerCase());
-    }
-    const target = document.querySelector(item.href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const navigate = useNavigate();
 
   return (
     <>
@@ -54,9 +44,9 @@ export default function Header({ onOpenIncubationModal, activeSection = 'About',
           NAVIGATION
       ========================================= */}
       <header className="navbar">
-        <div
-          className="brand"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        <Link
+          to="/"
+          className="brand hover:opacity-90 transition-opacity"
         >
           <div className="brand-mark">
             P
@@ -69,35 +59,26 @@ export default function Header({ onOpenIncubationModal, activeSection = 'About',
               PARUL UNIVERSITY
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Desktop Nav Items */}
         <nav className="nav-links">
-          {navItems.map((item) => {
-            const isActive =
-              activeSection &&
-              activeSection.toLowerCase() === item.label.toLowerCase();
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item)}
-                className={`nav-link ${isActive ? 'active' : ''}`}
-              >
-                {item.label}
-              </a>
-            );
-          })}
+          {navItems.map((item) => (
+            <NavLink
+              key={item.label}
+              to={item.path}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              {item.label}
+            </NavLink>
+          ))}
         </nav>
 
         {/* Desktop Right Actions */}
         <div className="nav-actions">
           {/* Search button */}
           <button
-            onClick={() => {
-              const target = document.getElementById('flagship-programs');
-              if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => navigate('/programs')}
             className="search-btn"
             title="Search Programs"
             aria-label="Search Programs"
@@ -108,17 +89,12 @@ export default function Header({ onOpenIncubationModal, activeSection = 'About',
             </svg>
           </button>
 
-          <a
-            href="#flagship-programs"
-            onClick={(e) => {
-              e.preventDefault();
-              const target = document.getElementById('flagship-programs');
-              if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }}
+          <Link
+            to="/programs"
             className="explore-link"
           >
             Explore Programs
-          </a>
+          </Link>
 
           <button
             onClick={() => onOpenIncubationModal?.()}
@@ -133,7 +109,6 @@ export default function Header({ onOpenIncubationModal, activeSection = 'About',
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 text-[#aeb7c7] hover:text-white"
             aria-label="Toggle Menu"
-            style={{ display: 'none' }}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -148,14 +123,18 @@ export default function Header({ onOpenIncubationModal, activeSection = 'About',
       {mobileOpen && (
         <div className="lg:hidden bg-[#070c16] border-b border-white/10 px-6 py-4 flex flex-col gap-3">
           {navItems.map((item) => (
-            <a
+            <NavLink
               key={item.label}
-              href={item.href}
-              onClick={(e) => handleNavClick(e, item)}
-              className="text-[#aeb7c7] hover:text-[#38bdf8] text-sm py-1.5"
+              to={item.path}
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                `text-sm py-1.5 transition-colors ${
+                  isActive ? 'text-[#38bdf8] font-bold' : 'text-[#aeb7c7] hover:text-[#38bdf8]'
+                }`
+              }
             >
               {item.label}
-            </a>
+            </NavLink>
           ))}
           <button
             onClick={() => {

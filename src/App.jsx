@@ -1,33 +1,32 @@
 import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import ScrollToTop from './components/common/ScrollToTop';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import HeroSection from './components/sections/HeroSection';
-import MetricsRibbon from './components/sections/MetricsRibbon';
-import PillarsSection from './components/sections/PillarsSection';
-import JourneySection from './components/sections/JourneySection';
-import ProgramsSection from './components/sections/ProgramsSection';
-import FabLabSection from './components/sections/FabLabSection';
-import FlagshipsSection from './components/sections/FlagshipsSection';
-import RegionalStudiosSection from './components/sections/RegionalStudiosSection';
-import LeadershipSection from './components/sections/LeadershipSection';
-import CtaSection from './components/sections/CtaSection';
 
-import IncubationModal from './components/modals/IncubationModal';
+// Pages
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import ProgramsPage from './pages/ProgramsPage';
+import FabLabPage from './pages/FabLabPage';
+import FlagshipsPage from './pages/FlagshipsPage';
+import StudiosPage from './pages/StudiosPage';
+import LeadershipPage from './pages/LeadershipPage';
+import ApplyIncubationPage from './pages/ApplyIncubationPage';
+import NotFoundPage from './pages/NotFoundPage';
+
+// Modals
 import FabLabBookingModal from './components/modals/FabLabBookingModal';
 import MentorModal from './components/modals/MentorModal';
 import PlatformModal from './components/modals/PlatformModal';
 
-export default function App() {
-  const [activeSection, setActiveSection] = useState('about');
+function AppContent() {
+  const navigate = useNavigate();
   
   // Initialize High-Performance Scroll Reveal System
   useScrollReveal();
-  
-  // Modals state
-  const [incubationModalOpen, setIncubationModalOpen] = useState(false);
-  const [selectedProgram, setSelectedProgram] = useState('nivesh');
 
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [selectedBay, setSelectedBay] = useState('');
@@ -38,8 +37,7 @@ export default function App() {
   const [selectedPlatform, setSelectedPlatform] = useState(null);
 
   const handleOpenIncubationModal = (programId = 'nivesh') => {
-    setSelectedProgram(programId);
-    setIncubationModalOpen(true);
+    navigate(`/apply?program=${encodeURIComponent(programId)}`);
   };
 
   const handleOpenBookingModal = (bayName = '') => {
@@ -56,47 +54,89 @@ export default function App() {
     <div className="site flex flex-col min-h-screen text-slate-900 bg-white antialiased">
       {/* Dual-Tier Header & Top Announcement Bar */}
       <Header
-        activeSection={activeSection}
-        onNavigate={setActiveSection}
         onOpenIncubationModal={handleOpenIncubationModal}
       />
 
       {/* Main Content Body */}
       <main className="w-full bg-white flex-1">
-        <div className="flex flex-col w-full">
-          {/* 1. Master Hero Section */}
-          <HeroSection onOpenIncubationModal={handleOpenIncubationModal} />
-
-          {/* 2. Audited Ecosystem Impact Metrics Ribbon */}
-          <MetricsRibbon />
-
-          {/* 3. Incubation Cell Spaceship Mission Journey */}
-          <JourneySection onOpenIncubationModal={handleOpenIncubationModal} />
-
-          {/* 4. The Four Pillars (Ideation, Innovation, Incubation, Growth) */}
-          <PillarsSection onOpenIncubationModal={handleOpenIncubationModal} />
-
-          {/* 5. Flagship Accelerators Suite */}
-          <ProgramsSection onOpenIncubationModal={handleOpenIncubationModal} />
-
-          {/* 6. MIT-Aligned FabLab & Prototyping Infrastructure */}
-          <FabLabSection onOpenBookingModal={handleOpenBookingModal} />
-
-          {/* 7. Flagship Initiatives & Western India Conventions */}
-          <FlagshipsSection onSelectPlatform={handleOpenPlatformModal} />
-
-          {/* 8. Distributed Multi-City Regional Studios */}
-          <RegionalStudiosSection onOpenIncubationModal={handleOpenIncubationModal} />
-
-          {/* 9. Institutional Leadership & Board of Governors */}
-          <LeadershipSection onOpenMentorModal={() => setMentorModalOpen(true)} />
-
-          {/* 10. Immersive Final Call to Action */}
-          <CtaSection
-            onOpenIncubationModal={handleOpenIncubationModal}
-            onOpenMentorModal={() => setMentorModalOpen(true)}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                onOpenIncubationModal={handleOpenIncubationModal}
+                onOpenBookingModal={handleOpenBookingModal}
+                onOpenMentorModal={() => setMentorModalOpen(true)}
+                onOpenPlatformModal={handleOpenPlatformModal}
+              />
+            }
           />
-        </div>
+          <Route
+            path="/about"
+            element={
+              <AboutPage
+                onOpenIncubationModal={handleOpenIncubationModal}
+                onOpenMentorModal={() => setMentorModalOpen(true)}
+              />
+            }
+          />
+          <Route
+            path="/programs"
+            element={
+              <ProgramsPage
+                onOpenIncubationModal={handleOpenIncubationModal}
+                onOpenMentorModal={() => setMentorModalOpen(true)}
+              />
+            }
+          />
+          <Route
+            path="/fablab"
+            element={
+              <FabLabPage
+                onOpenBookingModal={handleOpenBookingModal}
+                onOpenIncubationModal={handleOpenIncubationModal}
+                onOpenMentorModal={() => setMentorModalOpen(true)}
+              />
+            }
+          />
+          <Route
+            path="/flagships"
+            element={
+              <FlagshipsPage
+                onOpenPlatformModal={handleOpenPlatformModal}
+                onOpenIncubationModal={handleOpenIncubationModal}
+                onOpenMentorModal={() => setMentorModalOpen(true)}
+              />
+            }
+          />
+          <Route
+            path="/studios"
+            element={
+              <StudiosPage
+                onOpenIncubationModal={handleOpenIncubationModal}
+                onOpenMentorModal={() => setMentorModalOpen(true)}
+              />
+            }
+          />
+          <Route
+            path="/leadership"
+            element={
+              <LeadershipPage
+                onOpenMentorModal={() => setMentorModalOpen(true)}
+                onOpenIncubationModal={handleOpenIncubationModal}
+              />
+            }
+          />
+          <Route
+            path="/apply"
+            element={<ApplyIncubationPage />}
+          />
+          <Route
+            path="/apply-incubation"
+            element={<ApplyIncubationPage />}
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </main>
 
       {/* Institutional Footer */}
@@ -106,12 +146,6 @@ export default function App() {
       />
 
       {/* Interactive Modals */}
-      <IncubationModal
-        isOpen={incubationModalOpen}
-        onClose={() => setIncubationModalOpen(false)}
-        initialProgram={selectedProgram}
-      />
-
       <FabLabBookingModal
         isOpen={bookingModalOpen}
         onClose={() => setBookingModalOpen(false)}
@@ -130,5 +164,14 @@ export default function App() {
         onRegister={(platformTitle) => handleOpenIncubationModal(`event-${platformTitle}`)}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <AppContent />
+    </BrowserRouter>
   );
 }

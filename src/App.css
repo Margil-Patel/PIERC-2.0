@@ -302,32 +302,7 @@ a {
    HERO GRID & GLOW
 ========================================= */
 .hero-grid {
-  position: absolute;
-  inset: 0;
-  z-index: -3;
-  background-image:
-    linear-gradient(
-      rgba(203, 213, 225, 0.3) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(203, 213, 225, 0.3) 1px,
-      transparent 1px
-    );
-  background-size: 52px 52px;
-  mask-image:
-    linear-gradient(
-      to bottom,
-      black 60%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
-  -webkit-mask-image:
-    linear-gradient(
-      to bottom,
-      black 60%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
+  display: none;
 }
 
 .hero-glow {
@@ -764,20 +739,7 @@ a {
    DIGITAL PERSPECTIVE FLOOR
 ========================================= */
 .digital-floor {
-  position: absolute;
-  width: 85%;
-  height: 140px;
-  right: 5%;
-  bottom: 2%;
-  transform: perspective(400px) rotateX(65deg);
-  background-image:
-    linear-gradient(rgba(203, 213, 225, 0.35) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(203, 213, 225, 0.35) 1px, transparent 1px);
-  background-size: 45px 30px;
-  opacity: 0.4;
-  mask-image: linear-gradient(to bottom, transparent, black 30%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 30%, transparent);
-  z-index: 1;
+  display: none;
 }
 
 /* =========================================

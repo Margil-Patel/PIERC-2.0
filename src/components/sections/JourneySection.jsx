@@ -252,7 +252,9 @@ export default function JourneySection({ onOpenIncubationModal }) {
   const trackRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateScrollProgress = () => {
       if (!trackRef.current) return;
       const rect = trackRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
@@ -267,10 +269,19 @@ export default function JourneySection({ onOpenIncubationModal }) {
       progress = Math.max(0, Math.min(1, progress));
 
       setScrollProgress(progress);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollProgress);
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    updateScrollProgress();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -281,7 +292,7 @@ export default function JourneySection({ onOpenIncubationModal }) {
   const generateActiveCurvePathD = (progress) => {
     if (progress <= 0) return "";
     const points = [];
-    const steps = Math.max(2, Math.floor(progress * 60));
+    const steps = Math.max(2, Math.floor(progress * 80));
     for (let i = 0; i <= steps; i++) {
       const t = (i / steps) * progress;
       const pos = getPathPosition(t);
@@ -295,43 +306,33 @@ export default function JourneySection({ onOpenIncubationModal }) {
   return (
     <section
       id="journey"
-      className="relative w-full bg-graphite-deep text-canvas-light py-24 lg:py-36 overflow-hidden border-b border-graphite-border select-none"
+      className="relative w-full bg-gradient-to-b from-white via-pink-50/40 to-slate-50 text-slate-900 py-24 lg:py-36 overflow-hidden border-b border-slate-200 select-none"
     >
-      {/* Deep Space Background Glows */}
+      {/* Light Background Atmosphere Glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-primary-container/20 rounded-full blur-[120px]" />
-        <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-secondary/15 rounded-full blur-[120px]" />
-        <div className="absolute bottom-10 left-10 w-[600px] h-[600px] bg-rose-laser/10 rounded-full blur-[140px]" />
-
-        {/* Space Dust Particles */}
-        <div className="particles">
-          <span style={{ top: '8%', left: '12%' }} />
-          <span style={{ top: '22%', left: '88%' }} />
-          <span style={{ top: '38%', left: '20%' }} />
-          <span style={{ top: '54%', left: '82%' }} />
-          <span style={{ top: '70%', left: '15%' }} />
-          <span style={{ top: '86%', left: '78%' }} />
-        </div>
+        <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-pink-200/30 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-rose-200/20 rounded-full blur-[120px]" />
+        <div className="absolute bottom-10 left-10 w-[600px] h-[600px] bg-pink-300/20 rounded-full blur-[140px]" />
       </div>
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-container/30 border border-primary-container/50 text-rose-laser font-label-caps text-xs uppercase tracking-widest font-semibold shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-electric-pink animate-ping" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-pink-200 text-rose-700 font-label-caps text-xs uppercase tracking-widest font-semibold shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
             <span>🚀 Incubation Cell Mission Trajectory</span>
           </div>
 
-          <h2 className="font-headline-xl text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-canvas-light">
+          <h2 className="font-headline-xl text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
             Your Idea Takes Off Here.
           </h2>
 
-          <p className="font-body-lg text-base sm:text-lg text-outline-variant leading-relaxed">
+          <p className="font-body-lg text-base sm:text-lg text-slate-600 leading-relaxed">
             Scroll down to watch your startup navigate the incubation ecosystem along a curved flight trajectory from inception to market expansion.
           </p>
 
-          <div className="pt-2 flex items-center justify-center gap-2 text-xs font-label-code text-rose-laser uppercase tracking-wider font-semibold">
+          <div className="pt-2 flex items-center justify-center gap-2 text-xs font-mono text-rose-600 uppercase tracking-wider font-semibold">
             <span>Scroll Down to Launch Mission</span>
             <span className="animate-bounce text-sm">↓</span>
           </div>
@@ -348,9 +349,9 @@ export default function JourneySection({ onOpenIncubationModal }) {
           >
             <defs>
               <linearGradient id="flightCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#fb7185" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="#f43f5e" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#db2777" stopOpacity="0.8" />
+                <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#e11d48" stopOpacity="0.95" />
+                <stop offset="100%" stopColor="#be123c" stopOpacity="0.8" />
               </linearGradient>
 
               <filter id="curvePathGlow" x="-20%" y="-20%" width="140%" height="140%">
@@ -359,7 +360,7 @@ export default function JourneySection({ onOpenIncubationModal }) {
               </filter>
             </defs>
 
-            {/* Active Glowing Laser Flight Path (Ends EXACTLY at Spaceship Nose, NO DASHES, NO FORWARD LINES) */}
+            {/* Active Glowing Laser Flight Path */}
             {activeCurveD && (
               <path
                 d={activeCurveD}
@@ -378,34 +379,34 @@ export default function JourneySection({ onOpenIncubationModal }) {
               top: `${shipPos.y}%`,
               transform: `translate(-50%, -50%) rotate(${shipPos.angle}deg)`
             }}
-            className="absolute z-30 pointer-events-none transition-all duration-200 ease-out"
+            className="absolute z-30 pointer-events-none"
           >
             {/* Futuristic Rocket Ship SVG */}
-            <div className="relative w-14 h-16 drop-shadow-[0_0_25px_rgba(244,63,94,0.95)]">
+            <div className="relative w-14 h-16 drop-shadow-[0_0_20px_rgba(244,63,94,0.6)]">
               <svg viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                 {/* Rocket Body */}
                 <path
                   d="M24 2L4 38L12 48L24 42L36 48L44 38L24 2Z"
                   fill="url(#shipBodyGrad)"
-                  stroke="#fb7185"
+                  stroke="#e11d48"
                   strokeWidth="1.5"
                 />
                 {/* Cockpit Canopy */}
                 <path
                   d="M24 10L18 26H30L24 10Z"
-                  fill="#f43f5e"
+                  fill="#fb7185"
                   opacity="0.9"
                 />
                 {/* Engine Thruster Glows */}
                 <circle cx="16" cy="44" r="3" fill="#e11d48" />
                 <circle cx="32" cy="44" r="3" fill="#e11d48" />
-                <circle cx="24" cy="40" r="4.5" fill="#fb7185" />
+                <circle cx="24" cy="40" r="4.5" fill="#f43f5e" />
 
                 <defs>
                   <linearGradient id="shipBodyGrad" x1="24" y1="2" x2="24" y2="48" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#080b11" />
+                    <stop stopColor="#0f172a" />
                     <stop offset="0.6" stopColor="#1e293b" />
-                    <stop offset="1" stopColor="#4c0519" />
+                    <stop offset="1" stopColor="#be123c" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -434,72 +435,72 @@ export default function JourneySection({ onOpenIncubationModal }) {
                     className="absolute -translate-x-1/2 z-20 flex items-center justify-center pointer-events-none"
                   >
                     <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center font-label-code text-xs font-bold transition-all duration-500 ${
+                      className={`w-10 h-10 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all duration-500 ${
                         isPassed
-                          ? 'bg-gradient-to-r from-primary-container to-secondary text-white shadow-[0_0_22px_rgba(244,63,94,0.95)] scale-125 ring-4 ring-rose-laser/40'
-                          : 'bg-graphite-deep border border-graphite-border/80 text-outline-variant scale-100'
+                          ? 'bg-rose-600 text-white shadow-lg shadow-rose-600/30 scale-125 ring-4 ring-rose-200'
+                          : 'bg-white border border-slate-300 text-slate-400 scale-100'
                       }`}
                     >
                       {cp.stage}
                     </div>
                   </div>
 
-                  {/* Mission Card Box - Width 38% with Safety Padding so Spaceship Never Overlaps */}
+                  {/* Mission Card Box */}
                   <div
                     className={`w-full md:w-[38%] max-w-sm ml-14 md:ml-0 transition-all duration-700 ease-out transform ${
                       isPassed
                         ? 'opacity-100 translate-y-0 scale-100 filter-none'
-                        : 'opacity-20 translate-y-10 scale-95 blur-sm'
+                        : 'opacity-40 translate-y-10 scale-95'
                     }`}
                   >
                     <div
                       className={`p-6 sm:p-8 rounded-3xl transition-all duration-500 border ${
                         isPassed
-                          ? 'bg-graphite-deep/90 border-primary-container/50 backdrop-blur-xl shadow-[0_10px_35px_rgba(225,29,72,0.18)] hover:border-rose-laser'
-                          : 'bg-graphite-surface/30 border-graphite-border/30 backdrop-blur-sm'
+                          ? 'bg-gradient-to-br from-white via-pink-50/90 to-pink-100/60 border-2 border-pink-300 shadow-xl shadow-pink-200/60 hover:border-rose-400'
+                          : 'bg-gradient-to-br from-white/90 to-pink-50/40 border border-pink-200/60 shadow-sm'
                       }`}
                     >
                       {/* Top Header */}
                       <div className="flex items-center justify-between gap-3 mb-4">
-                        <span className={`px-3 py-1 rounded-full font-label-code text-xs font-bold uppercase tracking-wider transition-colors ${
+                        <span className={`px-3 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-colors ${
                           isPassed
-                            ? 'bg-primary-container/30 border border-primary-container/40 text-rose-laser'
-                            : 'bg-graphite-surface/50 border border-graphite-border text-outline-variant'
+                            ? 'bg-rose-500 text-white shadow-xs'
+                            : 'bg-pink-100 border border-pink-200 text-rose-700'
                         }`}>
                           STAGE {cp.stage} • {cp.timeframe}
                         </span>
-                        <span className="font-label-caps text-[10px] text-outline-variant uppercase tracking-widest font-semibold">
+                        <span className="text-[10px] text-rose-500 uppercase tracking-widest font-bold">
                           Mission Checkpoint
                         </span>
                       </div>
 
                       {/* Stage Name & Tagline */}
-                      <h3 className="font-headline-sm text-2xl font-extrabold text-canvas-light tracking-tight">
+                      <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">
                         {cp.name}
                       </h3>
-                      <p className={`font-display-hero text-base font-bold italic mt-1 mb-3 leading-snug transition-colors ${
-                        isPassed ? 'text-rose-laser' : 'text-outline-variant'
+                      <p className={`text-base font-bold italic mt-1 mb-3 leading-snug transition-colors ${
+                        isPassed ? 'text-rose-600' : 'text-slate-500'
                       }`}>
                         "{cp.tagline}"
                       </p>
 
                       {/* Core Summary */}
-                      <p className="font-body-md text-sm text-outline-variant leading-relaxed mb-5">
+                      <p className="text-sm text-slate-700 leading-relaxed mb-5">
                         {cp.summary}
                       </p>
 
                       {/* Key Deliverables Chips */}
-                      <div className="space-y-2 pt-2 border-t border-graphite-border/60 mb-6">
-                        <span className="font-label-caps text-[10px] text-surface-variant uppercase tracking-wider font-bold block">
+                      <div className="space-y-2 pt-2 border-t border-pink-200/60 mb-6">
+                        <span className="text-[10px] text-rose-700 uppercase tracking-wider font-bold block">
                           Stage Deliverables:
                         </span>
                         <div className="flex flex-wrap gap-2">
                           {cp.deliverables.map((item, dIdx) => (
                             <span
                               key={dIdx}
-                              className="px-2.5 py-1 rounded-lg bg-graphite-surface border border-graphite-border text-xs text-canvas-light font-medium flex items-center gap-1.5"
+                              className="px-2.5 py-1 rounded-lg bg-white/90 border border-pink-200/80 text-xs text-rose-950 font-medium flex items-center gap-1.5 shadow-2xs"
                             >
-                              <span className={isPassed ? 'text-electric-pink font-bold' : 'text-outline-variant'}>✓</span> {item}
+                              <span className={isPassed ? 'text-rose-600 font-bold' : 'text-slate-400'}>✓</span> {item}
                             </span>
                           ))}
                         </div>
@@ -508,10 +509,10 @@ export default function JourneySection({ onOpenIncubationModal }) {
                       {/* Launch Action Button */}
                       <button
                         onClick={() => onOpenIncubationModal(cp.name.toLowerCase())}
-                        className={`w-full py-3 px-5 rounded-xl font-body-md text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                        className={`w-full py-3 px-5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
                           isPassed
-                            ? 'bg-gradient-to-r from-primary-container to-secondary hover:from-deep-rose hover:to-primary-container text-white shadow-[0_4px_16px_rgba(225,29,72,0.3)] hover:scale-[1.02]'
-                            : 'bg-graphite-surface text-outline-variant border border-graphite-border'
+                            ? 'bg-rose-600 hover:bg-rose-700 text-white shadow-md hover:shadow-rose-600/20 hover:scale-[1.02]'
+                            : 'bg-pink-100 text-rose-800 border border-pink-200 hover:bg-pink-200'
                         }`}
                       >
                         <span>Apply for {cp.name} Phase</span>
@@ -538,18 +539,18 @@ export default function JourneySection({ onOpenIncubationModal }) {
         </div>
 
         {/* Footer Progression Ribbon */}
-        <div className="mt-16 text-center font-label-caps text-xs text-outline-variant uppercase tracking-widest flex items-center justify-center gap-3 sm:gap-6 flex-wrap">
-          <span className="text-rose-laser font-bold">01 IDEA</span>
+        <div className="mt-16 text-center text-xs text-slate-500 font-mono uppercase tracking-widest flex items-center justify-center gap-3 sm:gap-6 flex-wrap">
+          <span className="text-rose-600 font-bold">01 IDEA</span>
           <span>→</span>
-          <span className="text-rose-laser font-bold">02 VALIDATE</span>
+          <span className="text-rose-600 font-bold">02 VALIDATE</span>
           <span>→</span>
-          <span className="text-rose-laser font-bold">03 BUILD</span>
+          <span className="text-rose-600 font-bold">03 BUILD</span>
           <span>→</span>
-          <span className="text-rose-laser font-bold">04 MENTOR</span>
+          <span className="text-rose-600 font-bold">04 MENTOR</span>
           <span>→</span>
-          <span className="text-rose-laser font-bold">05 LAUNCH</span>
+          <span className="text-rose-600 font-bold">05 LAUNCH</span>
           <span>→</span>
-          <span className="text-rose-laser font-bold">06 GROW</span>
+          <span className="text-rose-600 font-bold">06 GROW</span>
         </div>
 
       </div>
