@@ -32,25 +32,25 @@ export default function VideoBannerSection() {
       <div className="relative z-10 flex flex-col items-center justify-center px-4 text-center group cursor-pointer" onClick={handleScrollToHero}>
         
         {/* Pulsing Backlight aura */}
-        <div className="absolute w-72 sm:w-96 h-36 sm:h-48 bg-rose-500/30 blur-3xl rounded-full pointer-events-none transition-all duration-700 group-hover:scale-125" />
+        <div className="absolute w-48 sm:w-64 h-20 sm:h-32 bg-rose-500/30 blur-3xl rounded-full pointer-events-none transition-all duration-700 group-hover:scale-125" />
 
         {/* Flashing White Logo Image */}
         <img
           src={piercWhiteLogo}
           alt="Parul Innovation & Entrepreneurship Research Centre - PIERC"
-          className="relative w-auto h-28 sm:h-36 md:h-48 max-w-[85vw] object-contain transition-all duration-500"
+          className="relative w-auto h-16 sm:h-22 md:h-28 max-w-[70vw] object-contain transition-all duration-500"
           style={{
             animation: 'piercLogoFlash 3.2s ease-in-out infinite'
           }}
         />
 
         {/* Subtitle tag */}
-        <div className="mt-6 flex items-center gap-3">
-          <span className="w-8 h-[1px] bg-rose-400/80" />
-          <span className="text-xs sm:text-sm font-mono tracking-[0.3em] font-semibold text-rose-200 uppercase drop-shadow">
+        <div className="mt-4 flex items-center gap-3">
+          <span className="w-6 sm:w-8 h-[1px] bg-rose-400/80" />
+          <span className="text-[11px] sm:text-xs font-mono tracking-[0.25em] sm:tracking-[0.3em] font-semibold text-rose-200 uppercase drop-shadow">
             Parul University Incubation Ecosystem
           </span>
-          <span className="w-8 h-[1px] bg-rose-400/80" />
+          <span className="w-6 sm:w-8 h-[1px] bg-rose-400/80" />
         </div>
       </div>
 

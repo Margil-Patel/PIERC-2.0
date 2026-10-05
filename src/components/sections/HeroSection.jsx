@@ -43,11 +43,170 @@ const stats = [
 export default function HeroSection({ onOpenIncubationModal }) {
   const [counts, setCounts] = useState(stats.map(() => 0));
 
-  // Bulb Cursor Distance Reactive Glow State
+  // Bulb Cursor Distance Reactive Glow State & Spaceship Flight Engine
   const bulbRef = useRef(null);
+  const shipRef = useRef(null);
   const targetGlowRef = useRef(0);
   const currentGlowRef = useRef(0);
   const [glowState, setGlowState] = useState(0);
+
+  // Spaceship flight state
+  const [isSpaceshipMode, setIsSpaceshipMode] = useState(false);
+  const flightStateRef = useRef('IDLE'); // 'IDLE' | 'IGNITED' | 'FLYING' | 'HOVER'
+  const currentAngleRef = useRef(0);
+  const mouseOffsetRef = useRef({ x: 0, y: 0 });
+  const ignitionTimerRef = useRef(null);
+
+  const handleIgniteSpaceship = () => {
+    if (!isSpaceshipMode) {
+      setIsSpaceshipMode(true);
+      flightStateRef.current = 'IGNITED';
+    }
+  };
+
+  // Monitor glowState for automatic ignition after close proximity
+  useEffect(() => {
+    if (glowState > 0.55) {
+      if (!ignitionTimerRef.current && !isSpaceshipMode) {
+        ignitionTimerRef.current = setTimeout(() => {
+          handleIgniteSpaceship();
+        }, 1200);
+      }
+    } else {
+      if (ignitionTimerRef.current) {
+        clearTimeout(ignitionTimerRef.current);
+        ignitionTimerRef.current = null;
+      }
+    }
+  }, [glowState, isSpaceshipMode]);
+
+  // Catmull-Rom Spline Waypoints across Hero Section (relative to bulb origin)
+  const WAYPOINTS = [
+    { x: 0, y: 0 },         // 0: Origin bulb position
+    { x: -180, y: -70 },    // 1: Initial upward takeoff launch
+    { x: -440, y: -120 },   // 2: High cruise over "INNOVATE" title
+    { x: -640, y: -60 },    // 3: Sweeping arc over "IDEATE"
+    { x: -700, y: 70 },     // 4: Banked turn down left margin
+    { x: -540, y: 200 },    // 5: Arching under "INCUBATE" heading right
+    { x: -260, y: 260 },    // 6: Gliding under table with brainstorming team
+    { x: 60, y: 150 },      // 7: Arching up around right side of team
+    { x: 20, y: 30 },       // 8: Smooth braking deceleration approach
+    { x: 0, y: 0 }          // 9: Touchdown & docking back at base
+  ];
+
+  const getSplinePoint = (waypoints, t) => {
+    const numSegments = waypoints.length - 1;
+    const p = Math.max(0, Math.min(numSegments, t * numSegments));
+    const i = Math.min(numSegments - 1, Math.floor(p));
+    const u = p - i;
+
+    const p0 = waypoints[Math.max(0, i - 1)];
+    const p1 = waypoints[i];
+    const p2 = waypoints[Math.min(waypoints.length - 1, i + 1)];
+    const p3 = waypoints[Math.min(waypoints.length - 1, i + 2)];
+
+    const u2 = u * u;
+    const u3 = u2 * u;
+
+    const x = 0.5 * (
+      (2 * p1.x) +
+      (-p0.x + p2.x) * u +
+      (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * u2 +
+      (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * u3
+    );
+
+    const y = 0.5 * (
+      (2 * p1.y) +
+      (-p0.y + p2.y) * u +
+      (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * u2 +
+      (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * u3
+    );
+
+    const dx = 0.5 * (
+      (-p0.x + p2.x) +
+      2 * (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * u +
+      3 * (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * u2
+    );
+
+    const dy = 0.5 * (
+      (-p0.y + p2.y) +
+      2 * (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * u +
+      3 * (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * u2
+    );
+
+    return { x, y, dx, dy };
+  };
+
+  // High-Performance Hardware-Accelerated Animation Loop (60/120 FPS)
+  useEffect(() => {
+    let animId;
+    let startTime = null;
+
+    const updateFlight = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = (timestamp - startTime) / 1000;
+
+      if (isSpaceshipMode && shipRef.current) {
+        if (flightStateRef.current === 'IGNITED') {
+          startTime = timestamp;
+          flightStateRef.current = 'FLYING';
+        }
+
+        if (flightStateRef.current === 'FLYING') {
+          const flightDuration = 8.5; // Majestic 8.5s flight loop
+          const currentElapsed = (timestamp - startTime) / 1000;
+          let t = currentElapsed / flightDuration;
+
+          if (t >= 1) {
+            t = 1;
+            flightStateRef.current = 'HOVER';
+          }
+
+          // Smooth cosine curve for acceleration & braking
+          const easedT = 0.5 - 0.5 * Math.cos(t * Math.PI);
+          const { x, y, dx, dy } = getSplinePoint(WAYPOINTS, easedT);
+
+          // Calculate forward tangent angle
+          let targetAngle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+
+          // Shortest-path angle unwrapping (no 360° flip pops)
+          let deltaAngle = (targetAngle - currentAngleRef.current) % 360;
+          if (deltaAngle > 180) deltaAngle -= 360;
+          if (deltaAngle < -180) deltaAngle += 360;
+
+          currentAngleRef.current += deltaAngle * 0.14;
+
+          // Aerodynamic bank roll in turns
+          const bankRoll = Math.max(-22, Math.min(22, deltaAngle * 0.55));
+          const finalAngle = currentAngleRef.current + bankRoll;
+
+          // Smooth depth scale zoom
+          const scale = 1.12 + Math.sin(easedT * Math.PI) * 0.22;
+
+          // Interactive subtle mouse steering reaction
+          const mx = mouseOffsetRef.current.x * 0.04;
+          const my = mouseOffsetRef.current.y * 0.04;
+
+          shipRef.current.style.transform = `translate3d(${(x + mx).toFixed(2)}px, ${(y + my).toFixed(2)}px, 0px) rotate(${finalAngle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        } else if (flightStateRef.current === 'HOVER') {
+          // Organic floating hover with thruster micro-adjustments
+          const hoverY = Math.sin(elapsed * 2.2) * 5;
+          const hoverX = Math.cos(elapsed * 1.8) * 3;
+          const hoverAngle = Math.sin(elapsed * 1.5) * 2.5;
+
+          const mx = mouseOffsetRef.current.x * 0.04;
+          const my = mouseOffsetRef.current.y * 0.04;
+
+          shipRef.current.style.transform = `translate3d(${(hoverX + mx).toFixed(2)}px, ${(hoverY + my).toFixed(2)}px, 0px) rotate(${hoverAngle.toFixed(2)}deg) scale(1.12)`;
+        }
+      }
+
+      animId = requestAnimationFrame(updateFlight);
+    };
+
+    animId = requestAnimationFrame(updateFlight);
+    return () => cancelAnimationFrame(animId);
+  }, [isSpaceshipMode]);
 
   // Stats Animation Counter
   useEffect(() => {
@@ -77,7 +236,7 @@ export default function HeroSection({ onOpenIncubationModal }) {
     return () => window.cancelAnimationFrame(animId);
   }, []);
 
-  // Continuous Cursor Distance Calculation & Smooth Lerp Loop
+  // Continuous Cursor Distance Calculation & Mouse Offset Tracking
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!bulbRef.current) return;
@@ -86,11 +245,14 @@ export default function HeroSection({ onOpenIncubationModal }) {
       const bulbY = rect.top + rect.height / 2;
 
       const dist = Math.hypot(e.clientX - bulbX, e.clientY - bulbY);
-      const maxDistance = 380; // Distance in px where bulb begins to react
+      const maxDistance = 380; // Distance in px where bulb reacts
 
-      // Normalized glow intensity between 0 (far) and 1 (directly hovering over bulb)
+      mouseOffsetRef.current = {
+        x: e.clientX - bulbX,
+        y: e.clientY - bulbY
+      };
+
       const rawTarget = Math.max(0, 1 - dist / maxDistance);
-      // Non-linear cubic curve for refined responsiveness
       targetGlowRef.current = Math.pow(rawTarget, 1.4);
     };
 
@@ -98,7 +260,6 @@ export default function HeroSection({ onOpenIncubationModal }) {
 
     let animationFrameId;
     const updateGlow = () => {
-      // Lerp smooth interpolation
       currentGlowRef.current += (targetGlowRef.current - currentGlowRef.current) * 0.12;
       setGlowState(currentGlowRef.current);
       animationFrameId = requestAnimationFrame(updateGlow);
@@ -229,6 +390,57 @@ export default function HeroSection({ onOpenIncubationModal }) {
           10%, 25% { transform: translateY(-14px) scale(1.5); opacity: 0.95; }
           35% { transform: translateY(-22px) scale(0.8); opacity: 0.2; }
         }
+
+        /* Spaceship Rocket Thruster Ignition Animations */
+        @keyframes rocketFlamePulse {
+          0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
+          50% { transform: scaleY(1.35) scaleX(1.2); opacity: 1; filter: drop-shadow(0 0 16px #f97316); }
+        }
+
+        @keyframes rocketThrustHover {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-4px) rotate(-1.5deg); }
+        }
+
+        @keyframes ignitionBlast {
+          0% { transform: scale(0.4); opacity: 1; }
+          100% { transform: scale(2.2); opacity: 0; }
+        }
+
+        /* Silky Smooth Continuous Flight Path */
+        @keyframes spaceshipSmoothFlight {
+          0% {
+            transform: translate3d(0px, 0px, 0px) rotate(0deg) scale(1);
+          }
+          /* Takeoff & cruise left towards three big words */
+          14% {
+            transform: translate3d(-240px, -45px, 0px) rotate(-40deg) scale(1.2);
+          }
+          /* Arching around top of three big words (IDEATE. INNOVATE. INCUBATE.) */
+          30% {
+            transform: translate3d(-520px, -135px, 0px) rotate(-120deg) scale(1.3);
+          }
+          /* Sweeping around left outer side of three big words */
+          44% {
+            transform: translate3d(-650px, 30px, 0px) rotate(-200deg) scale(1.25);
+          }
+          /* Sweeping under bottom of three big words heading right towards table */
+          58% {
+            transform: translate3d(-480px, 180px, 0px) rotate(-280deg) scale(1.2);
+          }
+          /* Gliding under table where group of people is discussing */
+          74% {
+            transform: translate3d(-140px, 270px, 0px) rotate(-340deg) scale(1.15);
+          }
+          /* Ascending back up from under table towards docking position */
+          88% {
+            transform: translate3d(25px, 90px, 0px) rotate(-385deg) scale(1.2);
+          }
+          /* Touchdown & docking into steady hover */
+          100% {
+            transform: translate3d(0px, 0px, 0px) rotate(-360deg) scale(1.15);
+          }
+        }
       `}</style>
       {/* =========================================
           HERO SECTION
@@ -308,6 +520,8 @@ export default function HeroSection({ onOpenIncubationModal }) {
           ===================================== */}
           <div
             ref={bulbRef}
+            onClick={handleIgniteSpaceship}
+            title="Click to launch Incubation Spaceship!"
             className="relative z-20 mt-24 sm:mt-36 mb-[-40px] flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-105"
             style={{
               transform: `translateY(${-glowState * 6}px)`
@@ -367,91 +581,191 @@ export default function HeroSection({ onOpenIncubationModal }) {
               />
             </div>
 
-            {/* Glass Bulb SVG Illustration */}
-            <div className="relative w-20 h-24 sm:w-22 sm:h-26 drop-shadow-md">
-              <svg viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                <defs>
-                  {/* Glass Body Fill Gradient */}
-                  <linearGradient id="glassBodyGrad" x1="16" y1="6" x2="64" y2="76" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#ffffff" stopOpacity={0.4 + glowState * 0.3} />
-                    <stop offset="0.5" stopColor={glowState > 0.4 ? "#fef08a" : "#f1f5f9"} stopOpacity={0.25 + glowState * 0.3} />
-                    <stop offset="1" stopColor={glowState > 0.4 ? "#fbbf24" : "#e2e8f0"} stopOpacity={0.35 + glowState * 0.3} />
-                  </linearGradient>
+            {/* Graphic Container (Bulb morphs into Spaceship Rocket on Ignition) */}
+            <div className="relative w-20 h-28 sm:w-24 sm:h-32 flex items-center justify-center">
+              
+              {/* STATE 1: IDEA BULB SVG */}
+              <div
+                className="absolute inset-0 transition-all duration-500 flex items-center justify-center pointer-events-none"
+                style={{
+                  opacity: isSpaceshipMode ? 0 : 1,
+                  transform: isSpaceshipMode ? 'scale(0.7) translateY(12px) rotate(-10deg)' : 'scale(1) translateY(0)',
+                  filter: `drop-shadow(0 0 ${4 + glowState * 14}px rgba(253, 224, 71, 0.6))`
+                }}
+              >
+                <svg viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                  <defs>
+                    {/* Glass Body Fill Gradient */}
+                    <linearGradient id="glassBodyGrad" x1="16" y1="6" x2="64" y2="76" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#ffffff" stopOpacity={0.4 + glowState * 0.3} />
+                      <stop offset="0.5" stopColor={glowState > 0.4 ? "#fef08a" : "#f1f5f9"} stopOpacity={0.25 + glowState * 0.3} />
+                      <stop offset="1" stopColor={glowState > 0.4 ? "#fbbf24" : "#e2e8f0"} stopOpacity={0.35 + glowState * 0.3} />
+                    </linearGradient>
 
-                  {/* Filament Gradient */}
-                  <linearGradient id="filamentGrad" x1="26" y1="26" x2="54" y2="60" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#ffffff" />
-                    <stop offset="0.4" stopColor={glowState > 0.3 ? "#fde047" : "#fb7185"} />
-                    <stop offset="1" stopColor={glowState > 0.3 ? "#f59e0b" : "#e11d48"} />
-                  </linearGradient>
+                    {/* Filament Gradient */}
+                    <linearGradient id="filamentGrad" x1="26" y1="26" x2="54" y2="60" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#ffffff" />
+                      <stop offset="0.4" stopColor={glowState > 0.3 ? "#fde047" : "#fb7185"} />
+                      <stop offset="1" stopColor={glowState > 0.3 ? "#f59e0b" : "#e11d48"} />
+                    </linearGradient>
 
-                  {/* Base Metallic Collar Gradient */}
-                  <linearGradient id="baseMetalGrad" x1="28" y1="72" x2="52" y2="92" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#94a3b8" />
-                    <stop offset="0.5" stopColor="#cbd5e1" />
-                    <stop offset="1" stopColor="#64748b" />
-                  </linearGradient>
+                    {/* Base Metallic Collar Gradient */}
+                    <linearGradient id="baseMetalGrad" x1="28" y1="72" x2="52" y2="92" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#94a3b8" />
+                      <stop offset="0.5" stopColor="#cbd5e1" />
+                      <stop offset="1" stopColor="#64748b" />
+                    </linearGradient>
 
-                  {/* Dynamic Glow Filter */}
-                  <filter id="filamentGlowFilter" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation={1.5 + glowState * 3.5} result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                </defs>
+                    {/* Dynamic Glow Filter */}
+                    <filter id="filamentGlowFilter" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation={1.5 + glowState * 3.5} result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
 
-                {/* Outer Glass Envelope */}
-                <path
-                  d="M 40 8 C 22 8, 12 20, 12 36 C 12 46, 20 54, 25 62 L 28 72 H 52 L 55 62 C 60 54, 68 46, 68 36 C 68 20, 58 8, 40 8 Z"
-                  fill="url(#glassBodyGrad)"
-                  stroke={glowState > 0.3 ? "#facc15" : "#cbd5e1"}
-                  strokeWidth={1.5 + glowState * 0.8}
-                  strokeOpacity={0.6 + glowState * 0.4}
-                />
+                  {/* Outer Glass Envelope */}
+                  <path
+                    d="M 40 8 C 22 8, 12 20, 12 36 C 12 46, 20 54, 25 62 L 28 72 H 52 L 55 62 C 60 54, 68 46, 68 36 C 68 20, 58 8, 40 8 Z"
+                    fill="url(#glassBodyGrad)"
+                    stroke={glowState > 0.3 ? "#facc15" : "#cbd5e1"}
+                    strokeWidth={1.5 + glowState * 0.8}
+                    strokeOpacity={0.6 + glowState * 0.4}
+                  />
 
-                {/* Glass Curved Highlight Reflection */}
-                <path
-                  d="M 22 20 C 17 28, 17 38, 21 46"
-                  stroke="#ffffff"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeOpacity={0.4 + glowState * 0.5}
-                />
+                  {/* Glass Curved Highlight Reflection */}
+                  <path
+                    d="M 22 20 C 17 28, 17 38, 21 46"
+                    stroke="#ffffff"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeOpacity={0.4 + glowState * 0.5}
+                  />
 
-                {/* Base Metallic Collar */}
-                <path d="M 28 72 H 52 V 77 H 28 Z" fill="url(#baseMetalGrad)" stroke="#475569" strokeWidth="0.5" />
-                <path d="M 30 77 H 50 V 82 H 30 Z" fill="url(#baseMetalGrad)" stroke="#475569" strokeWidth="0.5" />
-                <path d="M 32 82 H 48 V 87 H 32 Z" fill="url(#baseMetalGrad)" stroke="#475569" strokeWidth="0.5" />
-                <ellipse cx="40" cy="89" rx="5" ry="2.5" fill="#334155" />
+                  {/* Base Metallic Collar */}
+                  <path d="M 28 72 H 52 V 77 H 28 Z" fill="url(#baseMetalGrad)" stroke="#475569" strokeWidth="0.5" />
+                  <path d="M 30 77 H 50 V 82 H 30 Z" fill="url(#baseMetalGrad)" stroke="#475569" strokeWidth="0.5" />
+                  <path d="M 32 82 H 48 V 87 H 32 Z" fill="url(#baseMetalGrad)" stroke="#475569" strokeWidth="0.5" />
+                  <ellipse cx="40" cy="89" rx="5" ry="2.5" fill="#334155" />
 
-                {/* Lead Wires */}
-                <line x1="33" y1="72" x2="33" y2="48" stroke={glowState > 0.4 ? "#fef08a" : "#94a3b8"} strokeWidth="1.2" strokeOpacity="0.8" />
-                <line x1="47" y1="72" x2="47" y2="48" stroke={glowState > 0.4 ? "#fef08a" : "#94a3b8"} strokeWidth="1.2" strokeOpacity="0.8" />
+                  {/* Lead Wires */}
+                  <line x1="33" y1="72" x2="33" y2="48" stroke={glowState > 0.4 ? "#fef08a" : "#94a3b8"} strokeWidth="1.2" strokeOpacity="0.8" />
+                  <line x1="47" y1="72" x2="47" y2="48" stroke={glowState > 0.4 ? "#fef08a" : "#94a3b8"} strokeWidth="1.2" strokeOpacity="0.8" />
 
-                {/* Inner Glowing Filament Curve */}
-                <path
-                  d="M 33 48 L 35 36 L 40 26 L 45 36 L 47 48"
-                  fill="none"
-                  stroke="url(#filamentGrad)"
-                  strokeWidth={2 + glowState * 1.5}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  filter="url(#filamentGlowFilter)"
-                  style={{
-                    filter: `brightness(${filamentBrightness})`
-                  }}
-                />
+                  {/* Inner Glowing Filament Curve */}
+                  <path
+                    d="M 33 48 L 35 36 L 40 26 L 45 36 L 47 48"
+                    fill="none"
+                    stroke="url(#filamentGrad)"
+                    strokeWidth={2 + glowState * 1.5}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    filter="url(#filamentGlowFilter)"
+                    style={{
+                      filter: `brightness(${filamentBrightness})`
+                    }}
+                  />
 
-                {/* Core Spark Element */}
-                <circle
-                  cx="40"
-                  cy="28"
-                  r={3 + glowState * 3}
-                  fill="#ffffff"
-                  style={{
-                    filter: `drop-shadow(0 0 ${4 + glowState * 10}px #fde047)`
-                  }}
-                />
-              </svg>
+                  {/* Core Spark Element */}
+                  <circle
+                    cx="40"
+                    cy="28"
+                    r={3 + glowState * 3}
+                    fill="#ffffff"
+                    style={{
+                      filter: `drop-shadow(0 0 ${4 + glowState * 10}px #fde047)`
+                    }}
+                  />
+                </svg>
+              </div>
+
+              {/* STATE 2: IGNITED FUTURISTIC SPACESHIP ROCKET SVG */}
+              <div
+                ref={shipRef}
+                className="absolute inset-0 transition-opacity duration-500 flex items-center justify-center pointer-events-none z-30"
+                style={{
+                  opacity: isSpaceshipMode ? 1 : 0,
+                  filter: 'drop-shadow(0 0 25px rgba(244, 63, 94, 0.95)) drop-shadow(0 0 45px rgba(251, 191, 36, 0.8))'
+                }}
+              >
+                {/* Ignition Blast Shockwave Ring */}
+                {isSpaceshipMode && (
+                  <div
+                    className="absolute w-24 h-24 rounded-full border-2 border-amber-300 pointer-events-none"
+                    style={{
+                      animation: 'ignitionBlast 0.8s ease-out infinite'
+                    }}
+                  />
+                )}
+
+                <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full overflow-visible">
+                  <defs>
+                    <linearGradient id="shipBodyGrad" x1="50" y1="5" x2="50" y2="85" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#ffffff" />
+                      <stop offset="0.4" stopColor="#f8fafc" />
+                      <stop offset="0.8" stopColor="#e2e8f0" />
+                      <stop offset="1" stopColor="#cbd5e1" />
+                    </linearGradient>
+                    <linearGradient id="shipWingGrad" x1="15" y1="50" x2="85" y2="90" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#f43f5e" />
+                      <stop offset="0.5" stopColor="#e11d48" />
+                      <stop offset="1" stopColor="#9f1239" />
+                    </linearGradient>
+                    <linearGradient id="shipFlameGrad" x1="50" y1="85" x2="50" y2="125" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#ffffff" />
+                      <stop offset="0.25" stopColor="#fde047" />
+                      <stop offset="0.65" stopColor="#f97316" />
+                      <stop offset="1" stopColor="#ef4444" stopOpacity="0" />
+                    </linearGradient>
+                    <filter id="rocketFlameGlow">
+                      <feGaussianBlur stdDeviation="3.5" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  {/* Left Fin */}
+                  <path d="M 30 55 L 10 82 C 8 85, 12 92, 20 90 L 33 80 Z" fill="url(#shipWingGrad)" stroke="#be123c" strokeWidth="0.8" />
+                  
+                  {/* Right Fin */}
+                  <path d="M 70 55 L 90 82 C 92 85, 88 92, 80 90 L 67 80 Z" fill="url(#shipWingGrad)" stroke="#be123c" strokeWidth="0.8" />
+
+                  {/* Center Fin Stabilizer */}
+                  <path d="M 50 60 L 46 88 L 50 86 L 54 88 Z" fill="#9f1239" />
+
+                  {/* Main Fuselage Rocket Body */}
+                  <path
+                    d="M 50 5 C 34 26, 30 52, 32 80 H 68 C 70 52, 66 26, 50 5 Z"
+                    fill="url(#shipBodyGrad)"
+                    stroke="#94a3b8"
+                    strokeWidth="1.5"
+                  />
+
+                  {/* Red Nose Cone Tip */}
+                  <path d="M 50 5 C 43 16, 41 28, 41 34 H 59 C 59 28, 57 16, 50 5 Z" fill="#f43f5e" />
+
+                  {/* Cockpit Window */}
+                  <circle cx="50" cy="42" r="10" fill="#0f172a" stroke="#cbd5e1" strokeWidth="1.8" />
+                  <circle cx="50" cy="42" r="7.5" fill="#38bdf8" />
+                  <ellipse cx="47.5" cy="39.5" rx="3" ry="1.5" fill="#ffffff" opacity="0.85" />
+
+                  {/* Rocket Engine Nozzle Collar */}
+                  <path d="M 37 80 H 63 L 66 87 H 34 Z" fill="#1e293b" stroke="#475569" strokeWidth="1" />
+
+                  {/* Main Engine Plasma Plume (Animated pulsing thruster flame) */}
+                  <g style={{ transformOrigin: '50px 87px', animation: 'rocketFlamePulse 0.12s ease-in-out infinite alternate' }}>
+                    <path
+                      d="M 38 87 Q 50 128 50 135 Q 50 128 62 87 Q 50 105 38 87 Z"
+                      fill="url(#shipFlameGrad)"
+                      filter="url(#rocketFlameGlow)"
+                    />
+                    <path
+                      d="M 43 87 Q 50 115 50 120 Q 50 115 57 87 Z"
+                      fill="#ffffff"
+                      filter="url(#rocketFlameGlow)"
+                    />
+                  </g>
+                </svg>
+              </div>
+
             </div>
           </div>
 

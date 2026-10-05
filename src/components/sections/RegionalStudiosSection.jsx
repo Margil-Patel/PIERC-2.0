@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { regionalStudios } from '../../data/ecosystemData';
+import ParallaxCard from '../common/ParallaxCard';
 
 export default function RegionalStudiosSection({ onOpenIncubationModal }) {
   const [activeStudio, setActiveStudio] = useState(0);
 
   return (
-    <section id="regional-studios" className="w-full bg-surface-container-low py-20 lg:py-28 border-b border-hairline-light">
+    <section id="regional-studios" className="w-full bg-surface-container-low py-20 lg:py-28 border-b border-hairline-light overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -23,17 +24,18 @@ export default function RegionalStudiosSection({ onOpenIncubationModal }) {
         </div>
 
         {/* 4-Grid Regional Studios */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal-stagger">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {regionalStudios.map((studio, idx) => {
             const isSelected = activeStudio === idx;
             return (
-              <div
+              <ParallaxCard
                 key={studio.id}
+                index={idx}
                 onClick={() => setActiveStudio(idx)}
                 className={`p-6 rounded-3xl bg-surface-card border transition-all duration-300 space-y-5 flex flex-col justify-between cursor-pointer ${
                   isSelected
-                    ? 'border-primary shadow-xl ring-2 ring-primary/20 scale-[1.01]'
-                    : 'border-hairline-light shadow-sm hover:shadow-md hover:border-primary/30'
+                    ? 'border-primary ring-2 ring-primary/20'
+                    : 'border-hairline-light hover:border-primary/30'
                 }`}
               >
                 <div className="space-y-4">
@@ -84,7 +86,7 @@ export default function RegionalStudiosSection({ onOpenIncubationModal }) {
                     Connect with {studio.name.replace(' Studio', '')} →
                   </button>
                 </div>
-              </div>
+              </ParallaxCard>
             );
           })}
         </div>

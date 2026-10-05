@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ecosystemMetrics } from '../../data/ecosystemData';
+import ParallaxCard from '../common/ParallaxCard';
 
 export default function MetricsRibbon() {
   const sectionRef = useRef(null);
@@ -75,7 +76,7 @@ export default function MetricsRibbon() {
     <section
       id="impact-metrics"
       ref={sectionRef}
-      className="w-full bg-surface-container-low py-12 border-b border-hairline-light"
+      className="w-full bg-surface-container-low py-12 border-b border-hairline-light overflow-hidden"
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -96,11 +97,12 @@ export default function MetricsRibbon() {
         </div>
 
         {/* 6-Grid Metrics Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 reveal-stagger">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
           {ecosystemMetrics.map((metric, idx) => (
-            <div
+            <ParallaxCard
               key={idx}
-              className="p-5 rounded-2xl bg-surface-card border border-hairline-light shadow-sm hover:shadow-lg hover:border-primary/30 transition-all group flex flex-col justify-between"
+              index={idx}
+              className="p-5 rounded-2xl bg-surface-card border border-hairline-light shadow-sm hover:border-primary/30 transition-all group flex flex-col justify-between"
             >
               <div>
                 <span className="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider block font-semibold">
@@ -120,7 +122,7 @@ export default function MetricsRibbon() {
                   {metric.description}
                 </p>
               </div>
-            </div>
+            </ParallaxCard>
           ))}
         </div>
 

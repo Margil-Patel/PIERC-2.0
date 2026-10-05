@@ -295,7 +295,7 @@ a {
     ),
     #ffffff;
   isolation: isolate;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* =========================================

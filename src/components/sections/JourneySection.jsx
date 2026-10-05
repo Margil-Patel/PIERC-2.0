@@ -77,7 +77,8 @@ function getPathPosition(t) {
 
   const dx = nextX - x;
   const dy = nextY - y;
-  const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+  // Aspect-ratio weighted tangent angle for accurate pixel alignment along curve
+  const angle = Math.atan2(dy, dx * 0.45) * (180 / Math.PI) + 90;
 
   return { x, y, angle };
 }
@@ -108,10 +109,10 @@ function IdeaSparkBulb({ scrollProgress, stageIndex, totalStages }) {
   }
 
   return (
-    <div className="relative flex items-center justify-center p-4">
+    <div className="relative flex items-center justify-center p-3">
       {/* Outer Radial Light Halo */}
       <div
-        className={`absolute w-36 h-36 rounded-full blur-2xl transition-all duration-700 pointer-events-none ${
+        className={`absolute w-28 h-28 rounded-full blur-xl transition-all duration-700 pointer-events-none ${
           isLit
             ? 'bg-gradient-to-r from-amber-400/40 via-yellow-500/30 to-amber-300/20 scale-125 opacity-100'
             : isApproaching
@@ -122,7 +123,7 @@ function IdeaSparkBulb({ scrollProgress, stageIndex, totalStages }) {
 
       {/* Shockwave Energy Pulse Ring upon Ignition */}
       {isIgniting && (
-        <div className="absolute w-44 h-44 rounded-full border border-amber-300/60 animate-ping pointer-events-none" />
+        <div className="absolute w-32 h-32 rounded-full border border-amber-300/60 animate-ping pointer-events-none" />
       )}
 
       {/* Orbiting Tiny Energy Particles */}
@@ -139,7 +140,7 @@ function IdeaSparkBulb({ scrollProgress, stageIndex, totalStages }) {
           opacity: bulbOpacity,
           transform: `scale(${bulbScale})`,
         }}
-        className={`relative w-20 h-24 transition-all duration-500 ease-out cursor-pointer ${
+        className={`relative w-16 h-20 transition-all duration-500 ease-out cursor-pointer ${
           isFlickering ? 'animate-pulse' : ''
         }`}
       >
@@ -249,10 +250,12 @@ function IdeaSparkBulb({ scrollProgress, stageIndex, totalStages }) {
 
 export default function JourneySection({ onOpenIncubationModal }) {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const targetProgressRef = useRef(0);
+  const smoothProgressRef = useRef(0);
   const trackRef = useRef(null);
 
   useEffect(() => {
-    let ticking = false;
+    let animId;
 
     const updateScrollProgress = () => {
       if (!trackRef.current) return;
@@ -260,39 +263,56 @@ export default function JourneySection({ onOpenIncubationModal }) {
       const windowHeight = window.innerHeight;
 
       const topOffset = rect.top;
-      const totalHeight = rect.height - windowHeight / 2;
+      const totalHeight = rect.height - windowHeight * 0.6;
 
       if (totalHeight <= 0) return;
 
-      const currentScroll = windowHeight / 2 - topOffset;
+      const currentScroll = windowHeight * 0.4 - topOffset;
       let progress = currentScroll / totalHeight;
-      progress = Math.max(0, Math.min(1, progress));
-
-      setScrollProgress(progress);
-      ticking = false;
+      targetProgressRef.current = Math.max(0, Math.min(1, progress));
     };
 
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateScrollProgress);
-        ticking = true;
-      }
+      updateScrollProgress();
+    };
+
+    const loop = () => {
+      // Smooth exponential decay lerp for buttery scroll tracking
+      smoothProgressRef.current += (targetProgressRef.current - smoothProgressRef.current) * 0.12;
+      setScrollProgress(smoothProgressRef.current);
+      animId = requestAnimationFrame(loop);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     updateScrollProgress();
+    animId = requestAnimationFrame(loop);
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(animId);
+    };
   }, []);
 
   // Calculate spaceship flight position along the curved trajectory
   const shipPos = getPathPosition(scrollProgress);
 
-  // Generate ACTIVE curve path that stops EXACTLY at the spaceship's position (nothing ahead)
+  // Generate FULL background curve path for trajectory guide line
+  const generateFullCurvePathD = () => {
+    const points = [];
+    const steps = 100;
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const pos = getPathPosition(t);
+      points.push(`${i === 0 ? 'M' : 'L'} ${pos.x} ${pos.y}`);
+    }
+    return points.join(' ');
+  };
+
+  // Generate ACTIVE curve path that stops EXACTLY at the spaceship's position
   const generateActiveCurvePathD = (progress) => {
     if (progress <= 0) return "";
     const points = [];
-    const steps = Math.max(2, Math.floor(progress * 80));
+    const steps = Math.max(2, Math.floor(progress * 100));
     for (let i = 0; i <= steps; i++) {
       const t = (i / steps) * progress;
       const pos = getPathPosition(t);
@@ -301,45 +321,49 @@ export default function JourneySection({ onOpenIncubationModal }) {
     return points.join(' ');
   };
 
+  const fullCurveD = generateFullCurvePathD();
   const activeCurveD = generateActiveCurvePathD(scrollProgress);
+
+  // Dynamic 3D depth scale as rocket flies down track
+  const shipDepthScale = 1 + Math.sin(scrollProgress * Math.PI) * 0.12;
 
   return (
     <section
       id="journey"
-      className="relative w-full bg-gradient-to-b from-white via-pink-50/40 to-slate-50 text-slate-900 py-24 lg:py-36 overflow-hidden border-b border-slate-200 select-none"
+      className="relative w-full bg-gradient-to-b from-white via-pink-50/40 to-slate-50 text-slate-900 py-14 lg:py-24 overflow-hidden border-b border-slate-200 select-none"
     >
       {/* Light Background Atmosphere Glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-pink-200/30 rounded-full blur-[120px]" />
-        <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-rose-200/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-10 left-10 w-[600px] h-[600px] bg-pink-300/20 rounded-full blur-[140px]" />
+        <div className="absolute top-10 left-1/4 w-[400px] h-[400px] bg-pink-200/30 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 right-10 w-[400px] h-[400px] bg-rose-200/20 rounded-full blur-[100px]" />
+        <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-pink-300/20 rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-pink-200 text-rose-700 font-label-caps text-xs uppercase tracking-widest font-semibold shadow-sm">
+        <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 border border-pink-200 text-rose-700 font-label-caps text-[11px] uppercase tracking-widest font-semibold shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
             <span>🚀 Incubation Cell Mission Trajectory</span>
           </div>
 
-          <h2 className="font-headline-xl text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
+          <h2 className="font-headline-xl text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900">
             Your Idea Takes Off Here.
           </h2>
 
-          <p className="font-body-lg text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p className="font-body-lg text-sm sm:text-base text-slate-600 leading-relaxed">
             Scroll down to watch your startup navigate the incubation ecosystem along a curved flight trajectory from inception to market expansion.
           </p>
 
-          <div className="pt-2 flex items-center justify-center gap-2 text-xs font-mono text-rose-600 uppercase tracking-wider font-semibold">
+          <div className="pt-1 flex items-center justify-center gap-1.5 text-xs font-mono text-rose-600 uppercase tracking-wider font-semibold">
             <span>Scroll Down to Launch Mission</span>
             <span className="animate-bounce text-sm">↓</span>
           </div>
         </div>
 
         {/* Spacious Vertical Flight Runway Track */}
-        <div ref={trackRef} className="relative w-full max-w-5xl mx-auto min-h-[1700px] lg:min-h-[1900px] py-10">
+        <div ref={trackRef} className="relative w-full max-w-4xl mx-auto min-h-[1200px] lg:min-h-[1350px] py-6">
 
           {/* SVG Curved Flight Path Overlay */}
           <svg
@@ -349,9 +373,9 @@ export default function JourneySection({ onOpenIncubationModal }) {
           >
             <defs>
               <linearGradient id="flightCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.8" />
+                <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.85" />
                 <stop offset="50%" stopColor="#e11d48" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#be123c" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#be123c" stopOpacity="0.85" />
               </linearGradient>
 
               <filter id="curvePathGlow" x="-20%" y="-20%" width="140%" height="140%">
@@ -360,13 +384,23 @@ export default function JourneySection({ onOpenIncubationModal }) {
               </filter>
             </defs>
 
+            {/* Faint Background Trajectory Guide Path */}
+            <path
+              d={fullCurveD}
+              fill="none"
+              stroke="#cbd5e1"
+              strokeWidth="0.4"
+              strokeDasharray="1.5 1.5"
+              opacity="0.6"
+            />
+
             {/* Active Glowing Laser Flight Path */}
             {activeCurveD && (
               <path
                 d={activeCurveD}
                 fill="none"
                 stroke="url(#flightCurveGrad)"
-                strokeWidth="0.85"
+                strokeWidth="0.9"
                 filter="url(#curvePathGlow)"
               />
             )}
@@ -377,12 +411,19 @@ export default function JourneySection({ onOpenIncubationModal }) {
             style={{
               left: `${shipPos.x}%`,
               top: `${shipPos.y}%`,
-              transform: `translate(-50%, -50%) rotate(${shipPos.angle}deg)`
+              transform: `translate(-50%, -50%) rotate(${shipPos.angle}deg) scale(${shipDepthScale})`,
             }}
             className="absolute z-30 pointer-events-none"
           >
+            {/* Thruster Energy Particles Trail */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 flex gap-1 pointer-events-none">
+              <span className="w-1.5 h-4 rounded-full bg-rose-500 blur-[2px] animate-pulse" />
+              <span className="w-2 h-6 rounded-full bg-amber-400 blur-[2px] animate-ping" />
+              <span className="w-1.5 h-4 rounded-full bg-rose-500 blur-[2px] animate-pulse" />
+            </div>
+
             {/* Futuristic Rocket Ship SVG */}
-            <div className="relative w-14 h-16 drop-shadow-[0_0_20px_rgba(244,63,94,0.6)]">
+            <div className="relative w-11 h-14 drop-shadow-[0_0_20px_rgba(244,63,94,0.75)]">
               <svg viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                 {/* Rocket Body */}
                 <path
@@ -395,12 +436,12 @@ export default function JourneySection({ onOpenIncubationModal }) {
                 <path
                   d="M24 10L18 26H30L24 10Z"
                   fill="#fb7185"
-                  opacity="0.9"
+                  opacity="0.95"
                 />
                 {/* Engine Thruster Glows */}
-                <circle cx="16" cy="44" r="3" fill="#e11d48" />
-                <circle cx="32" cy="44" r="3" fill="#e11d48" />
-                <circle cx="24" cy="40" r="4.5" fill="#f43f5e" />
+                <circle cx="16" cy="44" r="3.5" fill="#e11d48" />
+                <circle cx="32" cy="44" r="3.5" fill="#e11d48" />
+                <circle cx="24" cy="40" r="5" fill="#f43f5e" />
 
                 <defs>
                   <linearGradient id="shipBodyGrad" x1="24" y1="2" x2="24" y2="48" gradientUnits="userSpaceOnUse">
@@ -414,7 +455,7 @@ export default function JourneySection({ onOpenIncubationModal }) {
           </div>
 
           {/* 6 Sequential Mission Checkpoints */}
-          <div className="relative z-10 space-y-28 lg:space-y-36">
+          <div className="relative z-10 space-y-16 lg:space-y-24">
             {checkpointsData.map((cp, idx) => {
               const nodeThreshold = idx / (checkpointsData.length - 1);
               const isPassed = scrollProgress >= (nodeThreshold - 0.03);
@@ -435,9 +476,9 @@ export default function JourneySection({ onOpenIncubationModal }) {
                     className="absolute -translate-x-1/2 z-20 flex items-center justify-center pointer-events-none"
                   >
                     <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all duration-500 ${
+                      className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-[11px] font-bold transition-all duration-500 ${
                         isPassed
-                          ? 'bg-rose-600 text-white shadow-lg shadow-rose-600/30 scale-125 ring-4 ring-rose-200'
+                          ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30 scale-110 ring-3 ring-rose-200'
                           : 'bg-white border border-slate-300 text-slate-400 scale-100'
                       }`}
                     >
@@ -447,58 +488,58 @@ export default function JourneySection({ onOpenIncubationModal }) {
 
                   {/* Mission Card Box */}
                   <div
-                    className={`w-full md:w-[38%] max-w-sm ml-14 md:ml-0 transition-all duration-700 ease-out transform ${
+                    className={`w-full md:w-[36%] max-w-xs sm:max-w-sm ml-12 md:ml-0 transition-all duration-700 ease-out transform ${
                       isPassed
                         ? 'opacity-100 translate-y-0 scale-100 filter-none'
-                        : 'opacity-40 translate-y-10 scale-95'
+                        : 'opacity-40 translate-y-8 scale-95'
                     }`}
                   >
                     <div
-                      className={`p-6 sm:p-8 rounded-3xl transition-all duration-500 border ${
+                      className={`p-5 sm:p-6 rounded-2xl transition-all duration-500 border ${
                         isPassed
-                          ? 'bg-gradient-to-br from-white via-pink-50/90 to-pink-100/60 border-2 border-pink-300 shadow-xl shadow-pink-200/60 hover:border-rose-400'
-                          : 'bg-gradient-to-br from-white/90 to-pink-50/40 border border-pink-200/60 shadow-sm'
+                          ? 'bg-gradient-to-br from-white via-pink-50/90 to-pink-100/60 border-2 border-pink-300 shadow-lg shadow-pink-200/50 hover:border-rose-400'
+                          : 'bg-gradient-to-br from-white/90 to-pink-50/40 border border-pink-200/60 shadow-2xs'
                       }`}
                     >
                       {/* Top Header */}
-                      <div className="flex items-center justify-between gap-3 mb-4">
-                        <span className={`px-3 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-colors ${
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className={`px-2.5 py-0.5 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
                           isPassed
-                            ? 'bg-rose-500 text-white shadow-xs'
+                            ? 'bg-rose-500 text-white shadow-2xs'
                             : 'bg-pink-100 border border-pink-200 text-rose-700'
                         }`}>
                           STAGE {cp.stage} • {cp.timeframe}
                         </span>
-                        <span className="text-[10px] text-rose-500 uppercase tracking-widest font-bold">
+                        <span className="text-[9px] text-rose-500 uppercase tracking-widest font-bold">
                           Mission Checkpoint
                         </span>
                       </div>
 
                       {/* Stage Name & Tagline */}
-                      <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+                      <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
                         {cp.name}
                       </h3>
-                      <p className={`text-base font-bold italic mt-1 mb-3 leading-snug transition-colors ${
+                      <p className={`text-sm font-bold italic mt-0.5 mb-2.5 leading-snug transition-colors ${
                         isPassed ? 'text-rose-600' : 'text-slate-500'
                       }`}>
                         "{cp.tagline}"
                       </p>
 
                       {/* Core Summary */}
-                      <p className="text-sm text-slate-700 leading-relaxed mb-5">
+                      <p className="text-xs sm:text-sm text-slate-700 leading-relaxed mb-4">
                         {cp.summary}
                       </p>
 
                       {/* Key Deliverables Chips */}
-                      <div className="space-y-2 pt-2 border-t border-pink-200/60 mb-6">
-                        <span className="text-[10px] text-rose-700 uppercase tracking-wider font-bold block">
+                      <div className="space-y-1.5 pt-2 border-t border-pink-200/60 mb-4">
+                        <span className="text-[9px] text-rose-700 uppercase tracking-wider font-bold block">
                           Stage Deliverables:
                         </span>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1.5">
                           {cp.deliverables.map((item, dIdx) => (
                             <span
                               key={dIdx}
-                              className="px-2.5 py-1 rounded-lg bg-white/90 border border-pink-200/80 text-xs text-rose-950 font-medium flex items-center gap-1.5 shadow-2xs"
+                              className="px-2 py-0.5 rounded-md bg-white/90 border border-pink-200/80 text-[11px] text-rose-950 font-medium flex items-center gap-1 shadow-2xs"
                             >
                               <span className={isPassed ? 'text-rose-600 font-bold' : 'text-slate-400'}>✓</span> {item}
                             </span>
@@ -509,9 +550,9 @@ export default function JourneySection({ onOpenIncubationModal }) {
                       {/* Launch Action Button */}
                       <button
                         onClick={() => onOpenIncubationModal(cp.name.toLowerCase())}
-                        className={`w-full py-3 px-5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                        className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
                           isPassed
-                            ? 'bg-rose-600 hover:bg-rose-700 text-white shadow-md hover:shadow-rose-600/20 hover:scale-[1.02]'
+                            ? 'bg-rose-600 hover:bg-rose-700 text-white shadow-md hover:shadow-rose-600/20 hover:scale-[1.01]'
                             : 'bg-pink-100 text-rose-800 border border-pink-200 hover:bg-pink-200'
                         }`}
                       >
@@ -523,7 +564,7 @@ export default function JourneySection({ onOpenIncubationModal }) {
                   </div>
 
                   {/* STANDALONE IDEA SPARK LIGHTBULB ON OPPOSITE SIDE OF CURVED TRAJECTORY */}
-                  <div className="hidden md:flex md:w-[38%] max-w-sm items-center justify-center pointer-events-none">
+                  <div className="hidden md:flex md:w-[36%] max-w-xs items-center justify-center pointer-events-none">
                     <IdeaSparkBulb
                       scrollProgress={scrollProgress}
                       stageIndex={idx}
@@ -539,7 +580,7 @@ export default function JourneySection({ onOpenIncubationModal }) {
         </div>
 
         {/* Footer Progression Ribbon */}
-        <div className="mt-16 text-center text-xs text-slate-500 font-mono uppercase tracking-widest flex items-center justify-center gap-3 sm:gap-6 flex-wrap">
+        <div className="mt-10 text-center text-xs text-slate-500 font-mono uppercase tracking-widest flex items-center justify-center gap-3 sm:gap-5 flex-wrap">
           <span className="text-rose-600 font-bold">01 IDEA</span>
           <span>→</span>
           <span className="text-rose-600 font-bold">02 VALIDATE</span>
