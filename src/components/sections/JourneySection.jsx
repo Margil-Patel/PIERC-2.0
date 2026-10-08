@@ -476,7 +476,7 @@ export default function JourneySection({ onOpenIncubationModal }) {
                     className="absolute -translate-x-1/2 z-20 flex items-center justify-center pointer-events-none"
                   >
                     <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-[11px] font-bold transition-all duration-500 ${
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-mono text-[10px] sm:text-[11px] font-bold transition-all duration-500 ${
                         isPassed
                           ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30 scale-110 ring-3 ring-rose-200'
                           : 'bg-white border border-slate-300 text-slate-400 scale-100'
@@ -488,14 +488,14 @@ export default function JourneySection({ onOpenIncubationModal }) {
 
                   {/* Mission Card Box */}
                   <div
-                    className={`w-full md:w-[36%] max-w-xs sm:max-w-sm ml-12 md:ml-0 transition-all duration-700 ease-out transform ${
+                    className={`w-full md:w-[38%] max-w-md px-2 sm:px-0 transition-all duration-700 ease-out transform ${
                       isPassed
                         ? 'opacity-100 translate-y-0 scale-100 filter-none'
                         : 'opacity-40 translate-y-8 scale-95'
                     }`}
                   >
                     <div
-                      className={`p-5 sm:p-6 rounded-2xl transition-all duration-500 border ${
+                      className={`p-4 sm:p-6 rounded-2xl transition-all duration-500 border ${
                         isPassed
                           ? 'bg-gradient-to-br from-white via-pink-50/90 to-pink-100/60 border-2 border-pink-300 shadow-lg shadow-pink-200/50 hover:border-rose-400'
                           : 'bg-gradient-to-br from-white/90 to-pink-50/40 border border-pink-200/60 shadow-2xs'
