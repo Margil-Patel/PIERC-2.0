@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "sync-data": "node scripts/syncPiercData.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },

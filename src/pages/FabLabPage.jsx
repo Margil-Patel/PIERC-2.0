@@ -2,6 +2,7 @@ import React from 'react';
 import FabLabSection from '../components/sections/FabLabSection';
 import CtaSection from '../components/sections/CtaSection';
 import ParallaxCard from '../components/common/ParallaxCard';
+import { fabLabInventory } from '../data/ecosystemData';
 
 export default function FabLabPage({ onOpenBookingModal, onOpenIncubationModal, onOpenMentorModal }) {
   return (
@@ -47,62 +48,40 @@ export default function FabLabPage({ onOpenBookingModal, onOpenIncubationModal, 
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <ParallaxCard index={0} className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 hover:border-amber-400/60 hover:bg-slate-800 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 space-y-3 flex flex-col justify-between">
-              <div className="space-y-3">
-                <span className="text-amber-400 font-bold text-xs uppercase tracking-wider">Bay 01</span>
-                <h3 className="text-lg font-bold text-white">Additive Addicts 3D Farm</h3>
-                <p className="text-slate-400 text-sm">Industrial FDM, Formlabs Resin SLA, and Multi-Material Carbon Fiber Printers.</p>
-              </div>
-              <button
-                onClick={() => onOpenBookingModal('Additive Manufacturing')}
-                className="text-amber-400 font-semibold text-xs hover:underline block pt-2 text-left"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {fabLabInventory.map((item, idx) => (
+              <ParallaxCard
+                key={item.key || idx}
+                index={idx}
+                className="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/80 hover:border-amber-400/60 hover:bg-slate-800 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 space-y-3 flex flex-col justify-between group overflow-hidden"
               >
-                Reserve Slot →
-              </button>
-            </ParallaxCard>
-
-            <ParallaxCard index={1} className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 hover:border-amber-400/60 hover:bg-slate-800 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 space-y-3 flex flex-col justify-between">
-              <div className="space-y-3">
-                <span className="text-amber-400 font-bold text-xs uppercase tracking-wider">Bay 02</span>
-                <h3 className="text-lg font-bold text-white">CNC Precision Milling</h3>
-                <p className="text-slate-400 text-sm">5-Axis Subtractive CNC Router, Lathes, Precision Metal &amp; Wood Cutting.</p>
-              </div>
-              <button
-                onClick={() => onOpenBookingModal('CNC Subtractive Machining')}
-                className="text-amber-400 font-semibold text-xs hover:underline block pt-2 text-left"
-              >
-                Reserve Slot →
-              </button>
-            </ParallaxCard>
-
-            <ParallaxCard index={2} className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 hover:border-amber-400/60 hover:bg-slate-800 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 space-y-3 flex flex-col justify-between">
-              <div className="space-y-3">
-                <span className="text-amber-400 font-bold text-xs uppercase tracking-wider">Bay 03</span>
-                <h3 className="text-lg font-bold text-white">CO2 Laser Cutter &amp; Engraver</h3>
-                <p className="text-slate-400 text-sm">High-speed 150W Laser Engraving for Acrylics, Sheet Metal, Wood &amp; Composites.</p>
-              </div>
-              <button
-                onClick={() => onOpenBookingModal('Laser Precision Cutting')}
-                className="text-amber-400 font-semibold text-xs hover:underline block pt-2 text-left"
-              >
-                Reserve Slot →
-              </button>
-            </ParallaxCard>
-
-            <ParallaxCard index={3} className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 hover:border-amber-400/60 hover:bg-slate-800 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 space-y-3 flex flex-col justify-between">
-              <div className="space-y-3">
-                <span className="text-amber-400 font-bold text-xs uppercase tracking-wider">Bay 04</span>
-                <h3 className="text-lg font-bold text-white">SMD Electronics &amp; IoT Lab</h3>
-                <p className="text-slate-400 text-sm">Pick-and-place PCB Assembly, Reflow Ovens, Oscilloscopes, Spectrum Analyzers.</p>
-              </div>
-              <button
-                onClick={() => onOpenBookingModal('Electronics Assembly')}
-                className="text-amber-400 font-semibold text-xs hover:underline block pt-2 text-left"
-              >
-                Reserve Slot →
-              </button>
-            </ParallaxCard>
+                <div className="space-y-3">
+                  <div className="h-40 -mx-5 -mt-5 mb-3 bg-slate-950 overflow-hidden relative border-b border-slate-700/80">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute bottom-2 left-3 px-2 py-0.5 rounded-full bg-slate-900/90 border border-slate-700 text-amber-400 text-[10px] font-semibold tracking-wider uppercase">
+                      {item.category}
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-white group-hover:text-amber-300 transition-colors">
+                    {item.title}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => onOpenBookingModal(item.title)}
+                  className="text-amber-400 font-semibold text-xs hover:underline block pt-2 text-left"
+                >
+                  Reserve Equipment →
+                </button>
+              </ParallaxCard>
+            ))}
           </div>
         </div>
       </section>
