@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 
 const navItems = [
-  { label: 'About', path: '/about' },
-  { label: 'Programs', path: '/programs' },
-  { label: 'FabLab', path: '/fablab' },
-  { label: 'Flagships', path: '/flagships' },
-  { label: 'Studios', path: '/studios' },
-  { label: 'Leadership', path: '/leadership' },
-  { label: 'Apply', path: '/apply' },
+  { label: 'About', path: '/about', icon: 'info' },
+  { label: 'Programs', path: '/programs', icon: 'rocket_launch' },
+  { label: 'FabLab', path: '/fablab', icon: 'precision_manufacturing' },
+  { label: 'Flagships', path: '/flagships', icon: 'festival' },
+  { label: 'Studios', path: '/studios', icon: 'apartment' },
+  { label: 'Leadership', path: '/leadership', icon: 'groups' },
+  { label: 'Apply', path: '/apply', icon: 'edit_document' },
 ];
 
 export default function Header({ onOpenIncubationModal }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Close mobile drawer on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
 
   // Lock body scroll when mobile navigation drawer is active
   React.useEffect(() => {
@@ -50,12 +68,12 @@ export default function Header({ onOpenIncubationModal }) {
             APPLY NOW →
           </button>
           <span className="top-divider" />
-          <span>Parul University Tech Transfer</span>
+          <span className="hidden sm:inline">Parul University Tech Transfer</span>
         </div>
       </div>
 
       {/* =========================================
-          NAVIGATION
+          NAVIGATION BAR
       ========================================= */}
       <header className="navbar">
         <Link
@@ -89,7 +107,7 @@ export default function Header({ onOpenIncubationModal }) {
           ))}
         </nav>
 
-        {/* Desktop Right Actions & Mobile Hamburger */}
+        {/* Desktop & Mobile Right Actions */}
         <div className="nav-actions">
           {/* Search button */}
           <button
@@ -116,7 +134,7 @@ export default function Header({ onOpenIncubationModal }) {
 
           <button
             onClick={() => onOpenIncubationModal?.()}
-            className="apply-button hidden lg:inline-flex"
+            className="apply-button hidden sm:inline-flex"
           >
             Apply for Incubation
             <span>→</span>
@@ -154,9 +172,31 @@ export default function Header({ onOpenIncubationModal }) {
           />
 
           {/* Drawer Menu Container - Full Width */}
-          <div className="fixed inset-x-0 top-[96px] bottom-0 z-50 bg-[#080d1a] border-t border-rose-500/20 shadow-2xl px-6 py-6 flex flex-col justify-between overflow-y-auto animate-fadeIn w-full">
+          <div className="fixed inset-x-0 top-[72px] sm:top-[80px] bottom-0 z-50 bg-[#080d1a] border-t border-rose-500/20 shadow-2xl px-6 py-5 flex flex-col justify-between overflow-y-auto animate-fadeIn w-full">
             <div className="flex flex-col gap-1">
-              <div className="text-[11px] font-bold uppercase tracking-widest text-rose-500 mb-2 px-1">
+              {/* Header inside drawer */}
+              <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/10">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-400 font-extrabold text-sm flex items-center justify-center">
+                    P
+                  </div>
+                  <div>
+                    <span className="font-bold text-white text-sm block leading-none">PIERC Navigation</span>
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider">Parul University</span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="w-8 h-8 rounded-full bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <div className="text-[11px] font-bold uppercase tracking-widest text-rose-500 mb-1 px-1">
                 Navigation Menu
               </div>
               {navItems.map((item) => (
@@ -165,26 +205,29 @@ export default function Header({ onOpenIncubationModal }) {
                   to={item.path}
                   onClick={() => setMobileOpen(false)}
                   className={({ isActive }) =>
-                    `flex items-center justify-between py-3.5 px-4 rounded-xl text-base font-semibold transition-all ${
+                    `flex items-center justify-between py-3 px-4 rounded-xl text-base font-semibold transition-all ${
                       isActive
                         ? 'bg-rose-500/15 text-rose-400 font-bold border border-rose-500/30'
                         : 'text-slate-300 hover:text-white hover:bg-white/5'
                     }`
                   }
                 >
-                  <span>{item.label}</span>
+                  <div className="flex items-center gap-3">
+                    {item.icon && <span className="material-symbols-outlined text-[20px]">{item.icon}</span>}
+                    <span>{item.label}</span>
+                  </div>
                   <span className="text-slate-500 text-sm">→</span>
                 </NavLink>
               ))}
             </div>
 
-            <div className="pt-6 mt-4 border-t border-white/10 flex flex-col gap-3">
+            <div className="pt-4 mt-3 border-t border-white/10 flex flex-col gap-3">
               <button
                 onClick={() => {
                   setMobileOpen(false);
                   onOpenIncubationModal?.();
                 }}
-                className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 text-white font-bold text-base shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 text-white font-bold text-sm shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2"
               >
                 <span>Apply for Incubation</span>
                 <span>→</span>
@@ -195,14 +238,20 @@ export default function Header({ onOpenIncubationModal }) {
                   setMobileOpen(false);
                   navigate('/programs');
                 }}
-                className="w-full py-3.5 px-6 rounded-xl border border-white/15 text-slate-300 hover:text-white font-medium text-sm flex items-center justify-center gap-2"
+                className="w-full py-3 px-6 rounded-xl border border-white/15 text-slate-300 hover:text-white font-medium text-xs flex items-center justify-center gap-2 transition-colors"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <span>Explore Programs &amp; Initiatives</span>
+                <span>Explore All 6 Cohort Programs</span>
               </button>
+
+              {/* Emergency & Helpline strip */}
+              <div className="pt-2 flex items-center justify-between text-[11px] text-slate-400">
+                <span>Campus Helpline: 0266-8260350</span>
+                <span className="text-rose-400 font-semibold">Limda, Vadodara</span>
+              </div>
             </div>
           </div>
         </div>

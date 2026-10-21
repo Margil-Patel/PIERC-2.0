@@ -829,23 +829,32 @@ a {
     display: none;
   }
   .hero {
-    min-height: 800px;
-    align-items: flex-start;
-    padding-top: 65px;
+    min-height: auto;
+    padding: 50px 5% 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 36px;
   }
   .hero-content {
-    width: 65%;
+    width: 100%;
+    max-width: 650px;
   }
   .brain-area {
-    width: 60%;
-    right: -5%;
-    top: 25%;
+    position: relative;
+    width: 100%;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    height: auto;
+    min-height: 280px;
+    margin-top: 10px;
   }
   .brain-image {
-    width: min(480px, 90%);
+    width: min(440px, 92%);
   }
   .hero-title {
-    font-size: 65px;
+    font-size: clamp(48px, 11vw, 72px);
   }
   .stats-container {
     grid-template-columns: repeat(3, 1fr);
@@ -874,15 +883,15 @@ a {
   .brand-name {
     font-size: 18px;
   }
-  .apply-button {
-    padding: 10px 14px;
-    font-size: 11px;
+  .brand-university {
+    font-size: 9px;
   }
   .hero {
     min-height: auto;
-    padding: 36px 16px 20px;
+    padding: 32px 16px 24px;
     display: flex;
     flex-direction: column;
+    gap: 28px;
   }
   .hero-content {
     width: 100%;
@@ -893,38 +902,46 @@ a {
     margin-bottom: 16px;
   }
   .hero-title {
-    font-size: clamp(40px, 12vw, 60px);
+    font-size: clamp(38px, 11vw, 58px);
     line-height: 0.94;
     margin-bottom: 20px;
   }
   .hero-description {
-    font-size: 15px;
+    font-size: 14.5px;
     line-height: 1.6;
-    margin-bottom: 24px;
     max-width: 100%;
+    margin-bottom: 24px;
   }
   .hero-buttons {
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-direction: column;
     width: 100%;
+    gap: 12px;
+  }
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 13.5px;
   }
   .brain-area {
     position: relative;
     width: 100%;
     height: auto;
-    min-height: 280px;
+    min-height: 260px;
     top: auto;
     bottom: auto;
     right: auto;
-    margin-top: 24px;
+    margin-top: 16px;
   }
   .brain-image {
+    width: min(380px, 94%);
     position: relative;
-    width: 100%;
-    max-width: 360px;
-    margin: 0 auto;
     right: auto;
     top: auto;
+    margin: 0 auto;
   }
   .brain-label {
     display: none;
@@ -940,12 +957,16 @@ a {
     grid-template-columns: repeat(2, 1fr);
   }
   .stat {
-    padding: 18px 16px;
+    padding: 18px 14px;
     min-height: 85px;
     border-right: 1px solid #e2e8f0;
     border-bottom: 1px solid #e2e8f0;
   }
   .stat:nth-child(2n) {
+    border-right: none;
+  }
+  .stat:nth-child(5) {
+    grid-column: span 2;
     border-right: none;
   }
   .stat:first-child {
@@ -959,28 +980,18 @@ a {
   }
 }
 
-@media (max-width: 580px) {
-  .hero-buttons {
-    flex-direction: column;
-    width: 100%;
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(32px, 10vw, 44px);
   }
-  .primary-button, 
-  .secondary-button {
-    width: 100%;
-    justify-content: center;
-    padding: 14px 20px;
-  }
-}
-
-@media (max-width: 440px) {
   .brand-university {
     display: none;
   }
-  .hero-title {
-    font-size: clamp(34px, 11vw, 44px);
-  }
   .stat-number {
     font-size: 22px;
+  }
+  .stat-label {
+    font-size: 8.5px;
   }
 }
 
@@ -1115,6 +1126,12 @@ a {
 .reveal-stagger.is-revealed > *:nth-child(6) { transition-delay: 400ms; }
 .reveal-stagger.is-revealed > *:nth-child(7) { transition-delay: 480ms; }
 .reveal-stagger.is-revealed > *:nth-child(8) { transition-delay: 560ms; }
+
+/* Ensure hover interactions on cards are immediate and never lag due to reveal delays */
+.reveal-stagger > *:hover,
+.reveal-stagger.is-revealed > *:hover {
+  transition-delay: 0ms !important;
+}
 
 /* Final CTA Word-by-Word Sequential Reveal */
 .reveal-cta-words {
