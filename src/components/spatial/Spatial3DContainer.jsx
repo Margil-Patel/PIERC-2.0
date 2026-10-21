@@ -137,17 +137,19 @@ export function Spatial3DContainer({ children, perspective = 1400 }) {
     >
       <div
         className="spatial-environment relative w-full overflow-hidden"
-        style={{
-          perspective: isReducedMotion ? 'none' : isMobile ? '1000px' : `${perspective}px`,
-          perspectiveOrigin: '50% 50%',
-          transformStyle: 'preserve-3d',
-        }}
       >
         {/* =========================================================
             BACKGROUND DEPTH SYSTEM (5 PARALLAX LAYERS)
         ========================================================= */}
         {!isReducedMotion && (
-          <div className="spatial-background-system fixed inset-0 pointer-events-none z-0 overflow-hidden">
+          <div
+            className="spatial-background-system fixed inset-0 pointer-events-none z-0 overflow-hidden"
+            style={{
+              perspective: isMobile ? '1000px' : `${perspective}px`,
+              perspectiveOrigin: '50% 50%',
+              transformStyle: 'preserve-3d',
+            }}
+          >
             {/* LAYER 1: Far Background Dynamic Gradient */}
             <div
               className="absolute inset-0 transition-colors duration-1000"

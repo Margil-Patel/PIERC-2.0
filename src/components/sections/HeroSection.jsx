@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import brainstormingImg from '../../assets/brainstorming-team.jpg';
+import ParallaxCard from '../common/ParallaxCard';
 
 const stats = [
   {
@@ -238,25 +239,32 @@ export default function HeroSection({ onOpenIncubationModal }) {
 
   // Continuous Cursor Distance Calculation & Mouse Offset Tracking
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handlePointerMove = (e) => {
       if (!bulbRef.current) return;
       const rect = bulbRef.current.getBoundingClientRect();
       const bulbX = rect.left + rect.width / 2;
       const bulbY = rect.top + rect.height / 2;
 
-      const dist = Math.hypot(e.clientX - bulbX, e.clientY - bulbY);
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      if (clientX === undefined || clientY === undefined) return;
+
+      const dist = Math.hypot(clientX - bulbX, clientY - bulbY);
       const maxDistance = 380; // Distance in px where bulb reacts
 
       mouseOffsetRef.current = {
-        x: e.clientX - bulbX,
-        y: e.clientY - bulbY
+        x: clientX - bulbX,
+        y: clientY - bulbY
       };
 
       const rawTarget = Math.max(0, 1 - dist / maxDistance);
       targetGlowRef.current = Math.pow(rawTarget, 1.4);
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mousemove', handlePointerMove, { passive: true });
+    window.addEventListener('touchmove', handlePointerMove, { passive: true });
+    window.addEventListener('touchstart', handlePointerMove, { passive: true });
 
     let animationFrameId;
     const updateGlow = () => {
@@ -268,7 +276,9 @@ export default function HeroSection({ onOpenIncubationModal }) {
     animationFrameId = requestAnimationFrame(updateGlow);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', handlePointerMove);
+      window.removeEventListener('touchmove', handlePointerMove);
+      window.removeEventListener('touchstart', handlePointerMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -952,7 +962,11 @@ export default function HeroSection({ onOpenIncubationModal }) {
       <section className="stats-section" id="impact-metrics-strip">
         <div className="stats-container">
           {stats.map((stat, index) => (
-            <div className="stat" key={stat.label}>
+            <ParallaxCard
+              key={stat.label}
+              index={index}
+              className="stat rounded-xl bg-white/70 border border-slate-200/80 shadow-2xs hover:border-rose-400/50"
+            >
               <div className="stat-number">
                 {stat.prefix}
                 {counts[index] !== undefined ? counts[index] : stat.target}
@@ -961,7 +975,7 @@ export default function HeroSection({ onOpenIncubationModal }) {
               <div className="stat-label">
                 {stat.label}
               </div>
-            </div>
+            </ParallaxCard>
           ))}
         </div>
       </section>

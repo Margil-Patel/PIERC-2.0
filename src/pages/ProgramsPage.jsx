@@ -1,6 +1,7 @@
 import React from 'react';
 import ProgramsSection from '../components/sections/ProgramsSection';
 import CtaSection from '../components/sections/CtaSection';
+import ParallaxCard from '../components/common/ParallaxCard';
 
 export default function ProgramsPage({ onOpenIncubationModal, onOpenMentorModal }) {
   return (
@@ -48,7 +49,7 @@ export default function ProgramsPage({ onOpenIncubationModal, onOpenMentorModal 
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+            <ParallaxCard index={0} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
               <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xl">
                 ₹
               </div>
@@ -56,9 +57,9 @@ export default function ProgramsPage({ onOpenIncubationModal, onOpenMentorModal 
               <p className="text-slate-600 text-sm leading-relaxed">
                 Direct access to SSIP 2.0 grants, NIDHI-PRAYAS seed funding up to ₹10 Lakhs, and investor pitch sessions with national VCs.
               </p>
-            </div>
+            </ParallaxCard>
 
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+            <ParallaxCard index={1} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
               <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xl">
                 ⚡
               </div>
@@ -66,9 +67,9 @@ export default function ProgramsPage({ onOpenIncubationModal, onOpenMentorModal 
               <p className="text-slate-600 text-sm leading-relaxed">
                 Unlimited access to 3D printers, CNC mills, laser cutters, PCB fabrication, and high-performance computing hardware.
               </p>
-            </div>
+            </ParallaxCard>
 
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+            <ParallaxCard index={2} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
               <div className="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xl">
                 🧠
               </div>
@@ -76,7 +77,7 @@ export default function ProgramsPage({ onOpenIncubationModal, onOpenMentorModal 
               <p className="text-slate-600 text-sm leading-relaxed">
                 1-on-1 advisory from 150+ industry veterans, IP attorneys, regulatory experts, and serial exit founders.
               </p>
-            </div>
+            </ParallaxCard>
           </div>
         </div>
       </section>

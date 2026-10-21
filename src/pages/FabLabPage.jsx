@@ -1,6 +1,7 @@
 import React from 'react';
 import FabLabSection from '../components/sections/FabLabSection';
 import CtaSection from '../components/sections/CtaSection';
+import ParallaxCard from '../components/common/ParallaxCard';
 
 export default function FabLabPage({ onOpenBookingModal, onOpenIncubationModal, onOpenMentorModal }) {
   return (
@@ -47,53 +48,53 @@ export default function FabLabPage({ onOpenBookingModal, onOpenIncubationModal, 
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3">
+            <ParallaxCard index={0} className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3 flex flex-col justify-between">
               <span className="text-amber-400 font-bold text-xs uppercase tracking-wider">Bay 01</span>
               <h3 className="text-lg font-bold text-white">Additive Addicts 3D Farm</h3>
               <p className="text-slate-400 text-sm">Industrial FDM, Formlabs Resin SLA, and Multi-Material Carbon Fiber Printers.</p>
               <button
                 onClick={() => onOpenBookingModal('Additive Manufacturing')}
-                className="text-amber-400 font-semibold text-xs hover:underline block pt-2"
+                className="text-amber-400 font-semibold text-xs hover:underline block pt-2 text-left"
               >
                 Reserve Slot →
               </button>
-            </div>
+            </ParallaxCard>
 
-            <div className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3">
+            <ParallaxCard index={1} className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3 flex flex-col justify-between">
               <span className="text-amber-400 font-bold text-xs uppercase tracking-wider">Bay 02</span>
               <h3 className="text-lg font-bold text-white">CNC Precision Milling</h3>
               <p className="text-slate-400 text-sm">5-Axis Subtractive CNC Router, Lathes, Precision Metal &amp; Wood Cutting.</p>
               <button
                 onClick={() => onOpenBookingModal('CNC Subtractive Machining')}
-                className="text-amber-400 font-semibold text-xs hover:underline block pt-2"
+                className="text-amber-400 font-semibold text-xs hover:underline block pt-2 text-left"
               >
                 Reserve Slot →
               </button>
-            </div>
+            </ParallaxCard>
 
-            <div className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3">
+            <ParallaxCard index={2} className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3 flex flex-col justify-between">
               <span className="text-amber-400 font-bold text-xs uppercase tracking-wider">Bay 03</span>
               <h3 className="text-lg font-bold text-white">CO2 Laser Cutter &amp; Engraver</h3>
               <p className="text-slate-400 text-sm">High-speed 150W Laser Engraving for Acrylics, Sheet Metal, Wood &amp; Composites.</p>
               <button
                 onClick={() => onOpenBookingModal('Laser Precision Cutting')}
-                className="text-amber-400 font-semibold text-xs hover:underline block pt-2"
+                className="text-amber-400 font-semibold text-xs hover:underline block pt-2 text-left"
               >
                 Reserve Slot →
               </button>
-            </div>
+            </ParallaxCard>
 
-            <div className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3">
+            <ParallaxCard index={3} className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3 flex flex-col justify-between">
               <span className="text-amber-400 font-bold text-xs uppercase tracking-wider">Bay 04</span>
               <h3 className="text-lg font-bold text-white">SMD Electronics &amp; IoT Lab</h3>
               <p className="text-slate-400 text-sm">Pick-and-place PCB Assembly, Reflow Ovens, Oscilloscopes, Spectrum Analyzers.</p>
               <button
                 onClick={() => onOpenBookingModal('Electronics Assembly')}
-                className="text-amber-400 font-semibold text-xs hover:underline block pt-2"
+                className="text-amber-400 font-semibold text-xs hover:underline block pt-2 text-left"
               >
                 Reserve Slot →
               </button>
-            </div>
+            </ParallaxCard>
           </div>
         </div>
       </section>

@@ -26,34 +26,35 @@ export default function MentorModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-graphite-deep/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-xl bg-surface-card border border-hairline-light rounded-3xl shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-graphite-deep/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
+      <div className="relative w-full max-w-xl bg-surface-card border border-hairline-light rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         
         {/* Header */}
-        <div className="bg-graphite-deep text-canvas-light px-6 py-5 flex items-center justify-between border-b border-graphite-border">
+        <div className="bg-graphite-deep text-canvas-light px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between border-b border-graphite-border shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center text-electric-glow">
+            <div className="w-10 h-10 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center text-electric-glow shrink-0">
               <span className="material-symbols-outlined text-[22px]">groups</span>
             </div>
             <div>
-              <span className="font-label-caps text-xs text-electric-glow uppercase tracking-wider font-semibold">
+              <span className="font-label-caps text-[10px] sm:text-xs text-electric-glow uppercase tracking-wider font-semibold">
                 PIERC Stewardship Network
               </span>
-              <h3 className="font-headline-sm text-lg font-bold text-canvas-light">
+              <h3 className="font-headline-sm text-base sm:text-lg font-bold text-canvas-light">
                 Join as Mentor or Angel Investor
               </h3>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-graphite-surface hover:bg-graphite-border text-canvas-light flex items-center justify-center transition-colors"
+            className="w-10 h-10 rounded-full bg-graphite-surface hover:bg-graphite-border text-canvas-light flex items-center justify-center transition-colors shrink-0"
+            aria-label="Close Modal"
           >
-            <span className="material-symbols-outlined text-[18px]">close</span>
+            <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 sm:p-8">
+        <div className="p-5 sm:p-8 overflow-y-auto flex-1">
           {submitted ? (
             <div className="text-center py-6 space-y-4">
               <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">

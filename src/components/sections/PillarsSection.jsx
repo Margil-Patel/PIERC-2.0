@@ -26,23 +26,23 @@ export default function PillarsSection({ onOpenIncubationModal }) {
         {/* Four Pillars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {fourPillars.map((pillar, idx) => {
-            const isExpanded = expandedPillar === idx;
             return (
               <ParallaxCard
                 key={idx}
                 index={idx}
-                className="p-5 sm:p-6 rounded-2xl bg-surface-card border border-hairline-light shadow-2xs hover:border-primary/40 transition-all duration-300 flex flex-col justify-between group"
+                onClick={() => onOpenIncubationModal(pillar.name.toLowerCase())}
+                className="p-5 sm:p-6 rounded-2xl bg-surface-card border border-hairline-light shadow-2xs hover:border-primary/40 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
               >
                 <div className="space-y-4">
-                  <div className="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors shadow-2xs">
+                  <div className="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-2xs">
                     <span className="material-symbols-outlined text-[24px]">{pillar.icon}</span>
                   </div>
 
                   <div className="space-y-1.5">
-                    <span className="font-label-code text-[11px] text-outline uppercase font-semibold">
+                    <span className="font-label-code text-[11px] text-outline group-hover:text-primary uppercase font-semibold transition-colors duration-300">
                       Pillar {pillar.number}
                     </span>
-                    <h3 className="font-headline-md text-xl font-bold text-on-surface">
+                    <h3 className="font-headline-md text-xl font-bold text-on-surface group-hover:text-primary transition-colors duration-300">
                       {pillar.name}
                     </h3>
                     <p className="font-body-md text-xs sm:text-sm text-on-surface-variant leading-relaxed">
@@ -54,7 +54,7 @@ export default function PillarsSection({ onOpenIncubationModal }) {
                   <ul className="space-y-1.5 pt-2 border-t border-hairline-light/60">
                     {pillar.details.map((detail, dIdx) => (
                       <li key={dIdx} className="flex items-center gap-2 text-xs text-on-surface font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 group-hover:scale-125 transition-transform duration-300"></span>
                         <span>{detail}</span>
                       </li>
                     ))}
@@ -63,11 +63,14 @@ export default function PillarsSection({ onOpenIncubationModal }) {
 
                 <div className="pt-5">
                   <button
-                    onClick={() => onOpenIncubationModal(pillar.name.toLowerCase())}
-                    className="w-full py-2 px-3.5 rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-primary transition-all flex items-center justify-between font-label-caps text-[11px] uppercase tracking-wider font-semibold group-hover:bg-primary-container group-hover:text-on-primary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenIncubationModal(pillar.name.toLowerCase());
+                    }}
+                    className="w-full py-2.5 px-3.5 rounded-xl bg-surface-container group-hover:bg-primary text-primary group-hover:text-on-primary transition-all duration-300 flex items-center justify-between font-label-caps text-[11px] uppercase tracking-wider font-semibold shadow-xs group-hover:shadow-md group-hover:shadow-primary/20 active:scale-95"
                   >
                     <span>{pillar.tagline}</span>
-                    <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+                    <span className="material-symbols-outlined text-[15px] transform group-hover:translate-x-1.5 transition-transform duration-300">arrow_forward</span>
                   </button>
                 </div>
               </ParallaxCard>

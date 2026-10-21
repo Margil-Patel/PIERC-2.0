@@ -1,5 +1,6 @@
 import React from 'react';
 import { boardOfGovernors, operatingLeadership } from '../../data/ecosystemData';
+import ParallaxCard from '../common/ParallaxCard';
 
 export default function LeadershipSection({ onOpenMentorModal }) {
   return (
@@ -31,11 +32,12 @@ export default function LeadershipSection({ onOpenMentorModal }) {
           <h3 className="reveal-on-scroll font-label-caps text-xs uppercase tracking-widest text-outline font-bold mb-6">
             Board of Governors
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal-stagger">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {boardOfGovernors.map((gov, idx) => (
-              <div
+              <ParallaxCard
                 key={idx}
-                className="p-6 rounded-3xl bg-surface-card border border-hairline-light shadow-sm hover:shadow-lg hover:border-primary/40 transition-all space-y-4"
+                index={idx}
+                className="p-6 rounded-3xl bg-surface-card border border-hairline-light shadow-sm hover:border-primary/40 space-y-4 cursor-pointer"
               >
                 <div className="w-16 h-16 rounded-2xl bg-surface-container flex items-center justify-center text-primary font-headline-md text-2xl font-extrabold shadow-inner">
                   {gov.initials}
@@ -51,7 +53,7 @@ export default function LeadershipSection({ onOpenMentorModal }) {
                     {gov.bio}
                   </p>
                 </div>
-              </div>
+              </ParallaxCard>
             ))}
           </div>
         </div>
@@ -61,9 +63,13 @@ export default function LeadershipSection({ onOpenMentorModal }) {
           <h3 className="font-label-caps text-xs uppercase tracking-widest text-outline font-bold mb-6">
             Operating Incubation Leadership
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 reveal-stagger">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {operatingLeadership.map((member, idx) => (
-              <div key={idx} className="space-y-1 p-3 rounded-2xl bg-surface-container-low border border-hairline-light/60">
+              <ParallaxCard
+                key={idx}
+                index={idx}
+                className="space-y-1 p-3 rounded-2xl bg-surface-container-low border border-hairline-light/60 hover:border-primary/40 cursor-pointer"
+              >
                 <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary font-bold text-xs mb-2">
                   {member.name.split(' ').map(n => n[0]).join('')}
                 </div>
@@ -76,7 +82,7 @@ export default function LeadershipSection({ onOpenMentorModal }) {
                 <span className="font-body-sm text-[11px] text-on-surface-variant block mt-1">
                   {member.domain}
                 </span>
-              </div>
+              </ParallaxCard>
             ))}
           </div>
         </div>

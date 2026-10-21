@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { fabLabBays } from '../../data/ecosystemData';
+import ParallaxCard from '../common/ParallaxCard';
 
 export default function FabLabSection({ onOpenBookingModal }) {
   const [activeBay, setActiveBay] = useState(0);
@@ -31,41 +32,47 @@ export default function FabLabSection({ onOpenBookingModal }) {
             </p>
 
             <div className="space-y-3 pt-2 reveal-stagger">
-              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-graphite-surface border border-graphite-border">
-                <span className="material-symbols-outlined text-electric-glow text-[24px] mt-0.5 shrink-0">print</span>
-                <div>
-                  <h4 className="font-headline-sm text-sm font-bold text-canvas-light">
-                    Additive Manufacturing &amp; 3D Printing
-                  </h4>
-                  <p className="font-body-sm text-xs text-outline-variant mt-1 leading-relaxed">
-                    SLA, SLS, and industrial FDM printers supporting aerospace polymers and functional biocompatible resins.
-                  </p>
+              <ParallaxCard index={0} className="p-4 rounded-2xl bg-graphite-surface border border-graphite-border">
+                <div className="flex items-start gap-3.5">
+                  <span className="material-symbols-outlined text-electric-glow text-[24px] mt-0.5 shrink-0">print</span>
+                  <div>
+                    <h4 className="font-headline-sm text-sm font-bold text-canvas-light">
+                      Additive Manufacturing &amp; 3D Printing
+                    </h4>
+                    <p className="font-body-sm text-xs text-outline-variant mt-1 leading-relaxed">
+                      SLA, SLS, and industrial FDM printers supporting aerospace polymers and functional biocompatible resins.
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </ParallaxCard>
 
-              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-graphite-surface border border-graphite-border">
-                <span className="material-symbols-outlined text-electric-glow text-[24px] mt-0.5 shrink-0">memory</span>
-                <div>
-                  <h4 className="font-headline-sm text-sm font-bold text-canvas-light">
-                    Electronics &amp; Embedded PCB Bay
-                  </h4>
-                  <p className="font-body-sm text-xs text-outline-variant mt-1 leading-relaxed">
-                    Micro-soldering, signal analyzers, high-speed oscilloscope clusters, and multi-layer SMD reflow ovens.
-                  </p>
+              <ParallaxCard index={1} className="p-4 rounded-2xl bg-graphite-surface border border-graphite-border">
+                <div className="flex items-start gap-3.5">
+                  <span className="material-symbols-outlined text-electric-glow text-[24px] mt-0.5 shrink-0">memory</span>
+                  <div>
+                    <h4 className="font-headline-sm text-sm font-bold text-canvas-light">
+                      Electronics &amp; Embedded PCB Bay
+                    </h4>
+                    <p className="font-body-sm text-xs text-outline-variant mt-1 leading-relaxed">
+                      Micro-soldering, signal analyzers, high-speed oscilloscope clusters, and multi-layer SMD reflow ovens.
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </ParallaxCard>
 
-              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-graphite-surface border border-graphite-border">
-                <span className="material-symbols-outlined text-electric-glow text-[24px] mt-0.5 shrink-0">carpenter</span>
-                <div>
-                  <h4 className="font-headline-sm text-sm font-bold text-canvas-light">
-                    CNC Milling &amp; Precision Laser Cutters
-                  </h4>
-                  <p className="font-body-sm text-xs text-outline-variant mt-1 leading-relaxed">
-                    Sub-millimeter subtractive manufacturing for aluminum, composites, acrylics, and structural tooling.
-                  </p>
+              <ParallaxCard index={2} className="p-4 rounded-2xl bg-graphite-surface border border-graphite-border">
+                <div className="flex items-start gap-3.5">
+                  <span className="material-symbols-outlined text-electric-glow text-[24px] mt-0.5 shrink-0">carpenter</span>
+                  <div>
+                    <h4 className="font-headline-sm text-sm font-bold text-canvas-light">
+                      CNC Milling &amp; Precision Laser Cutters
+                    </h4>
+                    <p className="font-body-sm text-xs text-outline-variant mt-1 leading-relaxed">
+                      Sub-millimeter subtractive manufacturing for aluminum, composites, acrylics, and structural tooling.
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </ParallaxCard>
             </div>
 
             <div className="pt-2">
@@ -83,8 +90,9 @@ export default function FabLabSection({ onOpenBookingModal }) {
             {fabLabBays.map((bay, idx) => {
               const isActive = activeBay === idx;
               return (
-                <div
+                <ParallaxCard
                   key={bay.id}
+                  index={idx}
                   onClick={() => setActiveBay(idx)}
                   className={`p-5 rounded-3xl bg-graphite-surface border transition-all duration-300 flex flex-col justify-between cursor-pointer space-y-4 ${
                     isActive
@@ -135,7 +143,7 @@ export default function FabLabSection({ onOpenBookingModal }) {
                   >
                     Reserve {bay.name} Slot →
                   </button>
-                </div>
+                </ParallaxCard>
               );
             })}
           </div>

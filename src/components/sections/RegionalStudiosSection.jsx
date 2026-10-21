@@ -32,27 +32,32 @@ export default function RegionalStudiosSection({ onOpenIncubationModal }) {
                 key={studio.id}
                 index={idx}
                 onClick={() => setActiveStudio(idx)}
-                className={`p-6 rounded-3xl bg-surface-card border transition-all duration-300 space-y-5 flex flex-col justify-between cursor-pointer ${
+                className={`p-6 rounded-3xl bg-surface-card border space-y-5 flex flex-col justify-between cursor-pointer ${
                   isSelected
-                    ? 'border-primary ring-2 ring-primary/20'
-                    : 'border-hairline-light hover:border-primary/30'
+                    ? 'border-primary ring-2 ring-primary/25 shadow-lg shadow-primary/10'
+                    : 'border-hairline-light hover:border-primary/40'
                 }`}
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center text-primary shadow-sm">
-                      <span className="material-symbols-outlined text-[24px]">{studio.icon}</span>
+                    <div className="w-12 h-12 rounded-2xl bg-surface-container group-hover:bg-primary group-hover:text-on-primary group-hover:scale-110 group-hover:rotate-6 flex items-center justify-center text-primary shadow-sm transition-all duration-300">
+                      <span className="material-symbols-outlined text-[24px] group-hover:scale-105 transition-transform duration-300">{studio.icon}</span>
                     </div>
-                    <span className="text-[11px] font-label-code text-primary font-bold bg-surface-container px-2.5 py-1 rounded-full">
-                      {studio.stats}
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      {isSelected && (
+                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse" title="Active Studio" />
+                      )}
+                      <span className="text-[11px] font-label-code text-primary font-bold bg-surface-container group-hover:bg-primary/15 px-2.5 py-1 rounded-full transition-colors duration-300">
+                        {studio.stats}
+                      </span>
+                    </div>
                   </div>
 
                   <div>
-                    <span className="font-label-code text-xs text-primary font-semibold block">
+                    <span className="font-label-code text-xs text-primary font-semibold block group-hover:translate-x-1 transition-transform duration-300">
                       {studio.tag}
                     </span>
-                    <h3 className="font-headline-md text-xl font-bold text-on-surface mt-1">
+                    <h3 className="font-headline-md text-xl font-bold text-on-surface mt-1 group-hover:text-primary transition-colors duration-300">
                       {studio.name}
                     </h3>
                     <p className="font-body-sm text-xs text-on-surface-variant mt-2 leading-relaxed">
@@ -60,7 +65,7 @@ export default function RegionalStudiosSection({ onOpenIncubationModal }) {
                     </p>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-surface-container-low border border-hairline-light space-y-1">
+                  <div className="p-3 rounded-xl bg-surface-container-low border border-hairline-light group-hover:border-primary/25 group-hover:bg-surface-card space-y-1 transition-all duration-300">
                     <span className="text-[11px] font-label-caps text-outline-variant uppercase tracking-wider block font-semibold">
                       Location
                     </span>
@@ -70,7 +75,7 @@ export default function RegionalStudiosSection({ onOpenIncubationModal }) {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-hairline-light/60 space-y-2">
+                <div className="pt-4 border-t border-hairline-light/60 space-y-3">
                   <div className="text-on-surface font-label-code text-xs flex flex-col">
                     <span className="font-semibold text-primary">{studio.lead}</span>
                     <span className="text-[11px] text-outline">{studio.role}</span>
@@ -81,9 +86,10 @@ export default function RegionalStudiosSection({ onOpenIncubationModal }) {
                       e.stopPropagation();
                       onOpenIncubationModal(`studio-${studio.id}`);
                     }}
-                    className="w-full py-2 rounded-xl bg-surface-container hover:bg-primary hover:text-on-primary text-primary text-xs font-semibold font-label-caps uppercase tracking-wider transition-colors"
+                    className="w-full py-2.5 px-4 rounded-xl bg-surface-container group-hover:bg-primary text-primary group-hover:text-on-primary text-xs font-semibold font-label-caps uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 shadow-sm group-hover:shadow-md group-hover:shadow-primary/20 active:scale-95"
                   >
-                    Connect with {studio.name.replace(' Studio', '')} →
+                    <span>Connect with {studio.name.replace(' Studio', '')}</span>
+                    <span className="transform group-hover:translate-x-1.5 transition-transform duration-300 font-bold text-sm">→</span>
                   </button>
                 </div>
               </ParallaxCard>
