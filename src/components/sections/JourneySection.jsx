@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Lightbulb, FlaskConical, Hammer, Users, Rocket, TrendingUp } from 'lucide-react';
 
+/* ==========================================================================
+   DESKTOP CHECKPOINTS DATA & HELPERS (PRESERVED UNCHANGED)
+   ========================================================================== */
 const checkpointsData = [
   {
     stage: "01",
@@ -83,7 +87,7 @@ function getPathPosition(t) {
   return { x, y, angle };
 }
 
-// Standalone Futuristic 3D-Inspired Light Bulb Visual Component
+// Standalone Futuristic 3D-Inspired Light Bulb Visual Component (Desktop)
 function IdeaSparkBulb({ scrollProgress, stageIndex, totalStages }) {
   const stageProgress = stageIndex / (totalStages - 1);
   const distance = Math.abs(scrollProgress - stageProgress);
@@ -248,26 +252,253 @@ function IdeaSparkBulb({ scrollProgress, stageIndex, totalStages }) {
   );
 }
 
+/* ==========================================================================
+   MOBILE CURVED S-PATH DATA & CONFIGURATION (< 768px)
+   Matches the 6 Desktop Stages: IDEA, VALIDATE, BUILD, MENTOR, LAUNCH, GROW
+   ========================================================================== */
+// Smooth continuous harmonic S-shaped cubic bezier path through 380 x 1100 coordinate space
+const MOBILE_PATH_D =
+  "M 80,25 " +
+  "C 85,45 95,60 105,80 " +
+  "C 115,115 195,135 215,165 " +
+  "C 235,195 270,220 275,250 " +
+  "C 280,285 185,305 165,335 " +
+  "C 145,365 100,390 105,420 " +
+  "C 110,455 195,475 215,505 " +
+  "C 235,535 270,560 275,590 " +
+  "C 280,625 185,645 165,675 " +
+  "C 145,705 100,730 105,760 " +
+  "C 110,795 195,815 215,845 " +
+  "C 235,875 270,900 275,930 " +
+  "C 280,980 220,1030 180,1070";
+
+// 6 Mobile Stages matching the Desktop Sequence Exactly
+const mobileStages = [
+  {
+    stage: "01",
+    name: "IDEA",
+    description: "Turn your idea into a possibility.",
+    icon: "lightbulb",
+    side: "right",
+    threshold: 0.08,
+    topPx: 45,
+    nodeX: 105,
+    nodeY: 80,
+  },
+  {
+    stage: "02",
+    name: "VALIDATE",
+    description: "Test, refine, and discover your potential.",
+    icon: "flask",
+    side: "left",
+    threshold: 0.25,
+    topPx: 215,
+    nodeX: 275,
+    nodeY: 250,
+  },
+  {
+    stage: "03",
+    name: "BUILD",
+    description: "Turn ideas into real products.",
+    icon: "build",
+    side: "right",
+    threshold: 0.42,
+    topPx: 385,
+    nodeX: 105,
+    nodeY: 420,
+  },
+  {
+    stage: "04",
+    name: "MENTOR",
+    description: "Learn from experts and industry mentors.",
+    icon: "mentor",
+    side: "left",
+    threshold: 0.58,
+    topPx: 555,
+    nodeX: 275,
+    nodeY: 590,
+  },
+  {
+    stage: "05",
+    name: "LAUNCH",
+    description: "Take your startup from prototype to market.",
+    icon: "launch",
+    side: "right",
+    threshold: 0.75,
+    topPx: 725,
+    nodeX: 105,
+    nodeY: 760,
+  },
+  {
+    stage: "06",
+    name: "GROW",
+    description: "Scale your idea into impact.",
+    icon: "grow",
+    side: "left",
+    threshold: 0.92,
+    topPx: 895,
+    nodeX: 275,
+    nodeY: 930,
+  },
+];
+
+// Waypoint dots at the inflection points between stages
+const mobileWaypoints = [
+  { id: 1, cx: 215, cy: 165, threshold: 0.16 },
+  { id: 2, cx: 165, cy: 335, threshold: 0.33 },
+  { id: 3, cx: 215, cy: 505, threshold: 0.50 },
+  { id: 4, cx: 165, cy: 675, threshold: 0.67 },
+  { id: 5, cx: 215, cy: 845, threshold: 0.83 },
+];
+
+function getStageIcon(type, isPassed) {
+  const iconClass = `w-5 h-5 ${isPassed ? 'text-white' : 'text-primary'}`;
+  switch (type) {
+    case 'lightbulb':
+      return <Lightbulb className={iconClass} />;
+    case 'flask':
+      return <FlaskConical className={iconClass} />;
+    case 'build':
+      return <Hammer className={iconClass} />;
+    case 'mentor':
+      return <Users className={iconClass} />;
+    case 'launch':
+      return <Rocket className={iconClass} />;
+    case 'grow':
+      return <TrendingUp className={iconClass} />;
+    default:
+      return <Rocket className={iconClass} />;
+  }
+}
+
+// Compact Mobile Spaceship Graphic with Thruster Exhaust Trail
+function MobileRocketGraphic() {
+  return (
+    <g className="pointer-events-none">
+      {/* Exhaust Thruster Plume & Flames */}
+      <g transform="translate(0, 18)">
+        <ellipse cx="0" cy="10" rx="9" ry="14" fill="url(#mobilePlumeGrad)" opacity="0.6" filter="url(#mobilePlumeBlur)" />
+        <path d="M-4.5,0 Q0,18 0,24 Q0,18 4.5,0 Z" fill="url(#mobileOuterFlameGrad)" />
+        <path d="M-2,0 Q0,12 0,16 Q0,12 2,0 Z" fill="#ffffff" />
+        <circle cx="-3.5" cy="20" r="1.3" fill="#fb7185" opacity="0.8" />
+        <circle cx="3" cy="24" r="1.1" fill="#facc15" opacity="0.85" />
+      </g>
+
+      {/* Main Rocket Ship Body */}
+      <g filter="url(#mobileRocketShadow)">
+        {/* Aerodynamic Side Wings / Fins */}
+        <path d="M-9,5 L-17,15 L-10,16 L-7,12 Z" fill="#be123c" stroke="#9f1239" strokeWidth="0.5" />
+        <path d="M9,5 L17,15 L10,16 L7,12 Z" fill="#be123c" stroke="#9f1239" strokeWidth="0.5" />
+
+        {/* Thruster Nozzle */}
+        <path d="M-4.5,14 L-5.5,18 H5.5 L4.5,14 Z" fill="#334155" stroke="#1e293b" strokeWidth="0.5" />
+
+        {/* Fuselage Capsule */}
+        <path
+          d="M0,-21 C7,-12 10,2 9,15 C6,16 -6,16 -9,15 C-10,2 -7,-12 0,-21 Z"
+          fill="url(#mobileShipBodyGrad)"
+          stroke="#fecdd3"
+          strokeWidth="0.8"
+        />
+
+        {/* Nose Cone (Pink Accent) */}
+        <path
+          d="M0,-21 C3.5,-16 6,-9 7,-5 C3.5,-4.2 -3.5,-4.2 -7,-5 C-6,-9 -3.5,-16 0,-21 Z"
+          fill="#e11d48"
+        />
+
+        {/* Cockpit Porthole Window */}
+        <circle cx="0" cy="2" r="4.2" fill="#0f172a" stroke="#ffffff" strokeWidth="0.9" />
+        <circle cx="0" cy="2" r="3" fill="url(#mobileCockpitGrad)" />
+        <ellipse cx="-1" cy="0.8" rx="1.1" ry="0.7" fill="#ffffff" opacity="0.9" />
+      </g>
+    </g>
+  );
+}
+
+/* ==========================================================================
+   MAIN COMPONENT
+   ========================================================================== */
 export default function JourneySection({ onOpenIncubationModal }) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const targetProgressRef = useRef(0);
   const smoothProgressRef = useRef(0);
+
+  // Desktop Runway Ref
   const trackRef = useRef(null);
+
+  // Mobile S-Curve Runway & Spaceship Refs
+  const mobileTrackRef = useRef(null);
+  const mobilePathRef = useRef(null);
+  const mobileActivePathRef = useRef(null);
+  const mobileCoreLaserRef = useRef(null);
+  const mobileShipRef = useRef(null);
+
+  // Update mobile active laser flight path & spaceship transform along path
+  const updateMobileTrajectory = (progress) => {
+    const path = mobilePathRef.current;
+    if (!path) return;
+
+    try {
+      const totalLen = path.getTotalLength();
+      if (!totalLen) return;
+
+      const clamped = Math.max(0, Math.min(1, progress));
+      const currentLen = clamped * totalLen;
+
+      // 1. Update Active Glowing Laser Flight Path (filling up exactly to spaceship)
+      const offset = totalLen * (1 - clamped);
+      if (mobileActivePathRef.current) {
+        mobileActivePathRef.current.style.strokeDasharray = `${totalLen}`;
+        mobileActivePathRef.current.style.strokeDashoffset = `${offset}`;
+      }
+      if (mobileCoreLaserRef.current) {
+        mobileCoreLaserRef.current.style.strokeDasharray = `${totalLen}`;
+        mobileCoreLaserRef.current.style.strokeDashoffset = `${offset}`;
+      }
+
+      // 2. Update Spaceship Position & Dynamic Tangent Heading
+      const ship = mobileShipRef.current;
+      if (ship) {
+        const pt = path.getPointAtLength(currentLen);
+        const delta = 2;
+        const nextPt = path.getPointAtLength(Math.min(totalLen, currentLen + delta));
+        const prevPt = path.getPointAtLength(Math.max(0, currentLen - delta));
+
+        const dx = nextPt.x - prevPt.x;
+        const dy = nextPt.y - prevPt.y;
+        const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+
+        ship.setAttribute('transform', `translate(${pt.x.toFixed(2)}, ${pt.y.toFixed(2)})`);
+        const innerGroup = ship.firstElementChild;
+        if (innerGroup) {
+          innerGroup.setAttribute('transform', `rotate(${angle.toFixed(2)})`);
+        }
+      }
+    } catch {
+      // ignore
+    }
+  };
 
   useEffect(() => {
     let animId;
 
     const updateScrollProgress = () => {
-      if (!trackRef.current) return;
-      const rect = trackRef.current.getBoundingClientRect();
+      const isMobile = window.innerWidth < 768;
+      const currentTrack = isMobile
+        ? (mobileTrackRef.current || trackRef.current)
+        : (trackRef.current || mobileTrackRef.current);
+
+      if (!currentTrack) return;
+      const rect = currentTrack.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
       const topOffset = rect.top;
-      const totalHeight = rect.height - windowHeight * 0.6;
+      const totalHeight = rect.height - windowHeight * (isMobile ? 0.45 : 0.6);
 
       if (totalHeight <= 0) return;
 
-      const currentScroll = windowHeight * 0.4 - topOffset;
+      const currentScroll = windowHeight * (isMobile ? 0.45 : 0.4) - topOffset;
       let progress = currentScroll / totalHeight;
       targetProgressRef.current = Math.max(0, Math.min(1, progress));
     };
@@ -280,23 +511,26 @@ export default function JourneySection({ onOpenIncubationModal }) {
       // Smooth exponential decay lerp for buttery scroll tracking
       smoothProgressRef.current += (targetProgressRef.current - smoothProgressRef.current) * 0.12;
       setScrollProgress(smoothProgressRef.current);
+      updateMobileTrajectory(smoothProgressRef.current);
       animId = requestAnimationFrame(loop);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
     updateScrollProgress();
+    updateMobileTrajectory(smoothProgressRef.current);
     animId = requestAnimationFrame(loop);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
       cancelAnimationFrame(animId);
     };
   }, []);
 
-  // Calculate spaceship flight position along the curved trajectory
+  // Desktop trajectory calculations (preserved)
   const shipPos = getPathPosition(scrollProgress);
 
-  // Generate FULL background curve path for trajectory guide line
   const generateFullCurvePathD = () => {
     const points = [];
     const steps = 100;
@@ -308,7 +542,6 @@ export default function JourneySection({ onOpenIncubationModal }) {
     return points.join(' ');
   };
 
-  // Generate ACTIVE curve path that stops EXACTLY at the spaceship's position
   const generateActiveCurvePathD = (progress) => {
     if (progress <= 0) return "";
     const points = [];
@@ -323,14 +556,12 @@ export default function JourneySection({ onOpenIncubationModal }) {
 
   const fullCurveD = generateFullCurvePathD();
   const activeCurveD = generateActiveCurvePathD(scrollProgress);
-
-  // Dynamic 3D depth scale as rocket flies down track
   const shipDepthScale = 1 + Math.sin(scrollProgress * Math.PI) * 0.12;
 
   return (
     <section
       id="journey"
-      className="relative w-full bg-gradient-to-b from-white via-pink-50/40 to-slate-50 text-slate-900 py-14 lg:py-24 overflow-hidden border-b border-slate-200 select-none"
+      className="relative w-full bg-gradient-to-b from-white via-pink-50/40 to-[#fff4f6] text-slate-900 py-12 lg:py-24 overflow-hidden border-b border-slate-200 select-none"
     >
       {/* Light Background Atmosphere Glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -341,8 +572,26 @@ export default function JourneySection({ onOpenIncubationModal }) {
 
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
+        {/* ==================================================================
+            MOBILE SECTION HEADER (< 768px)
+            ================================================================== */}
+        <div className="block md:hidden mb-8 px-1">
+          <div className="flex items-center gap-2 text-primary font-bold tracking-widest text-[11px] uppercase font-label-caps">
+            <span className="w-5 h-[2px] bg-primary rounded-full inline-block" />
+            <span>Our Ecosystem</span>
+          </div>
+          <h2 className="font-headline-md text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1.5 tracking-tight">
+            The Innovation Journey
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
+            Follow the journey from an idea to real-world impact.
+          </p>
+        </div>
+
+        {/* ==================================================================
+            DESKTOP SECTION HEADER (>= 768px)
+            ================================================================== */}
+        <div className="text-center max-w-2xl mx-auto mb-12 space-y-3 hidden md:block">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 border border-pink-200 text-rose-700 font-label-caps text-[11px] uppercase tracking-widest font-semibold shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
             <span>🚀 Incubation Cell Mission Trajectory</span>
@@ -362,8 +611,252 @@ export default function JourneySection({ onOpenIncubationModal }) {
           </div>
         </div>
 
-        {/* Spacious Vertical Flight Runway Track */}
-        <div ref={trackRef} className="relative w-full max-w-4xl mx-auto min-h-[1200px] lg:min-h-[1350px] py-6">
+        {/* ==================================================================
+            MOBILE CURVED S-PATH RUNWAY (< 768px)
+            ================================================================== */}
+        <div
+          ref={mobileTrackRef}
+          className="relative w-full max-w-md mx-auto h-[1100px] select-none block md:hidden mb-4"
+        >
+          {/* SVG Continuous S-Path, Glowing Laser Path, Numbered Badges & Rocket */}
+          <svg
+            viewBox="0 0 380 1100"
+            className="absolute inset-0 w-full h-full pointer-events-none z-10"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              {/* Active Glowing Laser Flight Gradient (matches Desktop) */}
+              <linearGradient id="mobileLaserGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.9" />
+                <stop offset="50%" stopColor="#e11d48" stopOpacity="0.98" />
+                <stop offset="100%" stopColor="#be123c" stopOpacity="0.9" />
+              </linearGradient>
+
+              {/* Laser Beam Glow Filter */}
+              <filter id="mobileCurvePathGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="2" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+
+              {/* Numbered Milestone Badge Shadow */}
+              <filter id="mobileBadgeShadow" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#be123c" floodOpacity="0.25" />
+              </filter>
+
+              {/* Thruster Plume & Rocket Filters */}
+              <filter id="mobilePlumeBlur" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="2.5" result="blur" />
+              </filter>
+              <filter id="mobileRocketShadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#be123c" floodOpacity="0.25" />
+              </filter>
+              <linearGradient id="mobilePlumeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.8" />
+                <stop offset="60%" stopColor="#fb923c" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#f43f5e" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="mobileOuterFlameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#f43f5e" />
+                <stop offset="50%" stopColor="#fb923c" />
+                <stop offset="100%" stopColor="#facc15" />
+              </linearGradient>
+              <linearGradient id="mobileShipBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#ffffff" />
+                <stop offset="50%" stopColor="#f8fafc" />
+                <stop offset="100%" stopColor="#e2e8f0" />
+              </linearGradient>
+              <linearGradient id="mobileCockpitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#38bdf8" />
+                <stop offset="100%" stopColor="#0284c7" />
+              </linearGradient>
+            </defs>
+
+            {/* 1. Faint Background Trajectory Guide Path (Dashed) */}
+            <path
+              ref={mobilePathRef}
+              d={MOBILE_PATH_D}
+              fill="none"
+              stroke="#fbcfe8"
+              strokeWidth="2.5"
+              strokeDasharray="6 6"
+              strokeLinecap="round"
+              opacity="0.75"
+            />
+
+            {/* 2. Active Glowing Laser Flight Path (Dynamically Fills Behind Rocket - Desktop Parity) */}
+            <path
+              ref={mobileActivePathRef}
+              d={MOBILE_PATH_D}
+              fill="none"
+              stroke="url(#mobileLaserGrad)"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              filter="url(#mobileCurvePathGlow)"
+              style={{
+                strokeDasharray: 1400,
+                strokeDashoffset: 1400,
+              }}
+            />
+
+            {/* Core Intense White Laser Beam */}
+            <path
+              ref={mobileCoreLaserRef}
+              d={MOBILE_PATH_D}
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              opacity="0.85"
+              style={{
+                strokeDasharray: 1400,
+                strokeDashoffset: 1400,
+              }}
+            />
+
+            {/* 3. Subtle Waypoint Dots at Inflection Crossings */}
+            {mobileWaypoints.map((w) => {
+              const isPassed = scrollProgress >= w.threshold;
+              return (
+                <circle
+                  key={w.id}
+                  cx={w.cx}
+                  cy={w.cy}
+                  r={isPassed ? "4" : "3.5"}
+                  fill={isPassed ? "#e11d48" : "#ffffff"}
+                  stroke={isPassed ? "#ffffff" : "#f472b6"}
+                  strokeWidth="1.5"
+                  className="transition-all duration-300"
+                />
+              );
+            })}
+
+            {/* 4. Numbered Checkpoint Badges DIRECTLY ON THE PATH (01 to 06) */}
+            {mobileStages.map((stage) => {
+              const isPassed = scrollProgress >= stage.threshold - 0.03;
+
+              return (
+                <g
+                  key={`badge-${stage.stage}`}
+                  transform={`translate(${stage.nodeX}, ${stage.nodeY})`}
+                  className="transition-all duration-500 pointer-events-none"
+                >
+                  {/* Outer Pulse Ring when Rocket Reaches/Passes */}
+                  {isPassed && (
+                    <circle
+                      cx="0"
+                      cy="0"
+                      r="18"
+                      fill="none"
+                      stroke="#f43f5e"
+                      strokeWidth="2"
+                      opacity="0.45"
+                      className="animate-ping"
+                    />
+                  )}
+
+                  {/* Main Circular Number Badge on Path */}
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="14"
+                    fill={isPassed ? "#e11d48" : "#ffffff"}
+                    stroke={isPassed ? "#ffffff" : "#f472b6"}
+                    strokeWidth={isPassed ? "2.5" : "2"}
+                    filter="url(#mobileBadgeShadow)"
+                    className="transition-all duration-500"
+                  />
+
+                  {/* Stage Number Text (01, 02, 03, 04, 05, 06) */}
+                  <text
+                    x="0"
+                    y="4"
+                    textAnchor="middle"
+                    fill={isPassed ? "#ffffff" : "#be123c"}
+                    fontSize="11"
+                    fontWeight="800"
+                    fontFamily="monospace"
+                    className="transition-colors duration-500 select-none"
+                  >
+                    {stage.stage}
+                  </text>
+                </g>
+              );
+            })}
+
+            {/* 5. Scroll-Driven Gliding Spaceship Following Tangent of the Path */}
+            <g ref={mobileShipRef} transform="translate(80, 25)">
+              <g transform="rotate(45)" className="pointer-events-none">
+                <MobileRocketGraphic />
+              </g>
+            </g>
+          </svg>
+
+          {/* 6 Alternating Stage Cards (Matching Desktop Sequence) */}
+          {mobileStages.map((stage) => {
+            const isPassed = scrollProgress >= stage.threshold;
+            const isRight = stage.side === 'right';
+
+            return (
+              <div
+                key={stage.name}
+                style={{ top: `${stage.topPx}px` }}
+                className={`absolute z-20 w-[58%] max-w-[225px] transition-all duration-300 ${
+                  isRight ? 'right-2.5 sm:right-4' : 'left-2.5 sm:left-4'
+                }`}
+              >
+                <div
+                  onClick={() => onOpenIncubationModal && onOpenIncubationModal(stage.name.toLowerCase())}
+                  className={`p-3 sm:p-3.5 rounded-[18px] sm:rounded-[20px] bg-white/95 backdrop-blur-sm transition-all duration-300 cursor-pointer flex items-center gap-3 border ${
+                    isPassed
+                      ? 'border-primary/50 shadow-[0_6px_20px_rgba(225,29,72,0.12)] scale-[1.02]'
+                      : 'border-pink-200/80 shadow-[0_4px_16px_rgba(225,29,72,0.05)] opacity-85 hover:opacity-100 hover:border-primary/30'
+                  }`}
+                >
+                  {/* Stage Icon */}
+                  <div
+                    className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                      isPassed ? 'bg-primary text-white shadow-sm' : 'bg-pink-50 text-primary'
+                    }`}
+                  >
+                    {getStageIcon(stage.icon, isPassed)}
+                  </div>
+
+                  {/* Stage Info */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-slate-900 leading-none">
+                      {stage.name}
+                    </h3>
+                    <p className="text-[11px] sm:text-xs text-slate-600 leading-tight mt-1">
+                      {stage.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ==================================================================
+            MOBILE PROGRESSION RIBBON (< 768px)
+            ================================================================== */}
+        <div className="mt-4 text-center text-[10px] text-slate-500 font-mono uppercase tracking-wider flex md:hidden items-center justify-center gap-1.5 sm:gap-2 flex-wrap px-2">
+          <span className="text-rose-600 font-bold">01 IDEA</span>
+          <span>→</span>
+          <span className="text-rose-600 font-bold">02 VALIDATE</span>
+          <span>→</span>
+          <span className="text-rose-600 font-bold">03 BUILD</span>
+          <span>→</span>
+          <span className="text-rose-600 font-bold">04 MENTOR</span>
+          <span>→</span>
+          <span className="text-rose-600 font-bold">05 LAUNCH</span>
+          <span>→</span>
+          <span className="text-rose-600 font-bold">06 GROW</span>
+        </div>
+
+        {/* ==================================================================
+            DESKTOP VERTICAL FLIGHT RUNWAY TRACK (>= 768px) (PRESERVED)
+            ================================================================== */}
+        <div ref={trackRef} className="relative w-full max-w-4xl mx-auto min-h-[1200px] lg:min-h-[1350px] py-6 hidden md:block">
 
           {/* SVG Curved Flight Path Overlay */}
           <svg
@@ -549,7 +1042,7 @@ export default function JourneySection({ onOpenIncubationModal }) {
 
                       {/* Launch Action Button */}
                       <button
-                        onClick={() => onOpenIncubationModal(cp.name.toLowerCase())}
+                        onClick={() => onOpenIncubationModal && onOpenIncubationModal(cp.name.toLowerCase())}
                         className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
                           isPassed
                             ? 'bg-rose-600 hover:bg-rose-700 text-white shadow-md hover:shadow-rose-600/20 hover:scale-[1.01]'
@@ -579,8 +1072,8 @@ export default function JourneySection({ onOpenIncubationModal }) {
 
         </div>
 
-        {/* Footer Progression Ribbon */}
-        <div className="mt-10 text-center text-xs text-slate-500 font-mono uppercase tracking-widest flex items-center justify-center gap-3 sm:gap-5 flex-wrap">
+        {/* Desktop Footer Progression Ribbon (>= 768px) */}
+        <div className="mt-10 text-center text-xs text-slate-500 font-mono uppercase tracking-widest hidden md:flex items-center justify-center gap-3 sm:gap-5 flex-wrap">
           <span className="text-rose-600 font-bold">01 IDEA</span>
           <span>→</span>
           <span className="text-rose-600 font-bold">02 VALIDATE</span>
@@ -594,6 +1087,33 @@ export default function JourneySection({ onOpenIncubationModal }) {
           <span className="text-rose-600 font-bold">06 GROW</span>
         </div>
 
+      </div>
+
+      {/* ==================================================================
+          MOBILE BOTTOM BLUSH CLOUD WAVES (< 768px)
+          ================================================================== */}
+      <div className="block md:hidden w-full -mt-6 pointer-events-none relative z-10">
+        <svg
+          viewBox="0 0 400 90"
+          className="w-full h-20 text-[#fce4ec]"
+          preserveAspectRatio="none"
+          fill="currentColor"
+        >
+          <path
+            d="M0,45 C70,25 130,55 200,35 C270,15 330,45 400,25 L400,90 L0,90 Z"
+            fill="#fdebed"
+            opacity="0.8"
+          />
+          <path
+            d="M0,60 C90,40 160,70 240,50 C320,30 360,55 400,45 L400,90 L0,90 Z"
+            fill="#fce2e8"
+            opacity="0.9"
+          />
+          <path
+            d="M0,75 C100,60 180,80 270,65 C340,55 380,70 400,65 L400,90 L0,90 Z"
+            fill="#fcd8e1"
+          />
+        </svg>
       </div>
     </section>
   );
