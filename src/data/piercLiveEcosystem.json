@@ -1,0 +1,631 @@
+{
+  "updatedAt": "2026-10-21T13:03:27.769Z",
+  "governors": [
+    {
+      "id": "1",
+      "name": "Dr. Devanshu J Patel",
+      "role": "President",
+      "bio": "Dr. Devanshu Patel, a dynamic visionary President of Parul University, whose unflinching commitment towards education has made an impact not only in Gujarat but in all the diversified States of India, and going beyond national borders.",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/Governors%2F549153Dr%20Devanshu.jpg?alt=media&token=047e0cde-8d5f-4479-b4a2-02edd875c938",
+      "initials": "DJ"
+    },
+    {
+      "id": "2",
+      "name": "Dr. Parul Patel",
+      "role": "Vice President (Student Affairs & General Administration) and Chair Admissions Committee, Parul University",
+      "bio": "Dr. Parul Patel is a resilient administrator, Managing trustee and Vice President of Parul University whose tenderheartedness has allowed her to maintain close relations with the students while guiding them through their academic journey.",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/Governors%2F768240parul%20patel.jpg?alt=media&token=6c974407-7cde-44a4-9fc6-9249902c180d",
+      "initials": "PP"
+    },
+    {
+      "id": "3",
+      "name": "Dr. Geetika Patel",
+      "role": "Vice President - Quality Research & Health Sciences at Parul University Medical Director, Parul University",
+      "bio": "Dr Geetika Madan Patel is a proficient doctor and administrator having pursued her MBBS and MD in Community Medicine with Gold Medal from the illustrious Maharaja Sayajirao University of Baroda. Currently she is the Member of Board of Governance and Medical Director of Parul University.",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/Governors%2FDr%20Geetika%20Patel%20Parul%20University.jpg?alt=media&token=43894d91-2c90-4336-94b8-fe9613699f35",
+      "initials": "GP"
+    },
+    {
+      "id": "4",
+      "name": "Dr. Komal Patel",
+      "role": "Vice President (Medical & Paramedical Health Sciences) & Medical Director, Parul University",
+      "bio": "Dr.Komal Patel serves as Member of the Governing Body in the University’s Medical Director. She oversees smooth functioning of the University’s Ayurveda Hospita along with the Department of Obstetrics and Gynaecology in Parul Sevashram Hospital. She is actively involved developing surgical departments within the Hospital.",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/Governors%2FKomal%20Patel.jpg?alt=media&token=e93361c4-9593-4bdd-b360-f72d0282d281",
+      "initials": "KP"
+    },
+    {
+      "id": "5",
+      "name": "Dr. Amit Ganatra",
+      "role": "Provost",
+      "bio": "I am truly honoured to be a part of PU and I believe that we will be able to go a long in achieving greater heights for the University across all spheres and as long as we work together, we will surely develop the future careers of our students and the many youths across the nation”, shared Dr. Ganatra.",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/Governors%2FAmit%20Ganatra%20.png?alt=media&token=f6b94688-24ac-4c70-b126-c0f214815e24",
+      "initials": "AG"
+    },
+    {
+      "id": "8",
+      "name": "Prof. Manish Pandya",
+      "role": "Registrar, Parul University",
+      "bio": "Prof. Manish Pandya is a passion driven academician whose career and depth of technical expertise has inspired his far reaching passion for innovation in education. With his career spanning for over 19 years in the industry and in higher education, Prof. Pandya has worked in numerous professional and academic capacities which have all been collectively contributing to the development of the youth of Gujarat and the future innovators of India.",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/manish.webp?alt=media&token=5299b143-d450-437d-9eb0-64543bd7be9b",
+      "initials": "MP"
+    }
+  ],
+  "team": [
+    {
+      "id": "1",
+      "name": "Mr. Jay Sudani",
+      "role": "Chief Executive Officer",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/JAY%20SUDANI.JPG?alt=media&token=b385f5fb-43f3-4028-8631-3235b424262e",
+      "linkedIn": "https://www.linkedin.com/in/jay-sudani-1b655490/",
+      "facebook": "https://www.facebook.com/jaysudani6",
+      "initials": "JS"
+    },
+    {
+      "id": "2",
+      "name": "Mr. Ajay Barot",
+      "role": "Strategic Lead",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/AJAY%20BAROT.JPG?alt=media&token=ff551368-b6ed-47c6-9ad3-66da6c5fc65d",
+      "linkedIn": "https://www.linkedin.com/in/ajay-barot-17867a114/",
+      "facebook": "https://www.facebook.com/barot.ajay",
+      "initials": "AB"
+    },
+    {
+      "id": "3",
+      "name": "Hardik Kharva",
+      "role": "Deputy Director",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/HARDIK.jpg?alt=media&token=faca960d-f610-441b-bcd2-1b4f5af65d03",
+      "linkedIn": "https://www.linkedin.com/in/hardik-kharva-36b977167/",
+      "facebook": "https://www.facebook.com/hardik.kharva.33",
+      "initials": "HK"
+    },
+    {
+      "id": "4",
+      "name": "Mr. Hutesh Baviskar",
+      "role": "Incubation Manager",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/HUTESH.JPG?alt=media&token=2ddfc523-b02f-4185-83bd-6ac95ab4eb02",
+      "linkedIn": "https://www.linkedin.com/in/hutesh-baviskar-79a49a85/",
+      "facebook": "https://www.facebook.com/hutesh.baviskar",
+      "initials": "HB"
+    },
+    {
+      "id": "5",
+      "name": "Mrs. Sonal Sudani",
+      "role": "Incubation Manager",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/SONAL%20SUDANI.JPG?alt=media&token=c134d20a-481b-4eae-bb68-327d32f51589",
+      "linkedIn": "https://www.linkedin.com/in/sonal-sudani-a813aa244/",
+      "facebook": "https://www.facebook.com/sonal.malaviya.9",
+      "initials": "SS"
+    },
+    {
+      "id": "10",
+      "name": "Pancham Baria",
+      "role": "Centre Head, Surat Startup Studio",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/PANCHAM%20BARIA.JPG?alt=media&token=22b4a2e7-1d1c-46a9-9af6-ed0ffa60e6fb",
+      "linkedIn": "https://linkedin.com/in/mr-pancham-baraiya-a8218a114/",
+      "facebook": "https://www.facebook.com/pancham.baraiya",
+      "initials": "PB"
+    },
+    {
+      "id": "11",
+      "name": "Juned Shaikh",
+      "role": "Centre Head, Ahmedabad Startup Studio",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/Juned%2520Shaikh.png?alt=media&token=77ac3a9e-eb54-44b1-9b76-12c9a2ea1b7a",
+      "linkedIn": "https://www.linkedin.com/in/shaikhjuned/",
+      "facebook": "https://www.facebook.com/shaikhmd.juned",
+      "initials": "JS"
+    },
+    {
+      "id": "12",
+      "name": "Anup Chaudhari",
+      "role": "Manager, Incubation Program",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/ANUP.jpg?alt=media&token=8b7acf9c-f666-47d2-a3c4-5feca3f421ba",
+      "linkedIn": "https://www.linkedin.com/in/anupkumar-chaudhari-6621b0178/",
+      "facebook": "https://www.facebook.com/ANUPKUMAR3370",
+      "initials": "AC"
+    },
+    {
+      "id": "13",
+      "name": "Prashant Khanna",
+      "role": "Manager, Incubation Program",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/PRASHANT.jpg?alt=media&token=c3007c6e-8cf2-410a-bec9-2485c3062a13",
+      "linkedIn": "https://www.linkedin.com/in/prashant-khanna-67aa54212/",
+      "facebook": "https://www.facebook.com/prashant.khanna",
+      "initials": "PK"
+    },
+    {
+      "id": "15",
+      "name": "Tushar Thakur",
+      "role": "Assistant Manager",
+      "image": "https://i.ibb.co/FkLhgR6J/tushar.jpg",
+      "linkedIn": "https://www.linkedin.com/in/tushar-thakur-81109a25b",
+      "facebook": "https://www.facebook.com/share/18doTNYSAe/",
+      "initials": "TT"
+    },
+    {
+      "id": "16",
+      "name": "Himanshu Das",
+      "role": "Fablab Engineer",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/himansu_das.jpg?alt=media&token=d4eb14b4-d69d-4ee8-ac72-96e1dc5b998b",
+      "linkedIn": "https://www.linkedin.com/in/himansusekhardas/",
+      "facebook": "",
+      "initials": "HD"
+    },
+    {
+      "id": "16",
+      "name": "Paritosh Sharma",
+      "role": "Assistant Manager",
+      "image": "https://i.ibb.co/hx4hmyzt/paritosh.jpg",
+      "linkedIn": "https://www.linkedin.com/in/paritosh-sharma-63722833b",
+      "facebook": "https://www.facebook.com/share/18HkYA3Z6y/",
+      "initials": "PS"
+    },
+    {
+      "id": "17",
+      "name": "Shlok Solanki",
+      "role": "Assistant Social Media Manager",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/Shlok%20Solanki.jpeg?alt=media&token=41220226-d17c-4be0-88ca-31599f4f587f",
+      "linkedIn": "https://www.linkedin.com/in/shlok-solanki-5579001aa?originalSubdomain=in",
+      "facebook": "",
+      "initials": "SS"
+    },
+    {
+      "id": "18",
+      "name": "Soor Solanki",
+      "role": "Facility Manager, Vadodara Startup Studio",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/Soor%20Solanki.jpeg?alt=media&token=ceebb7c0-6e27-4b00-8e6b-b3c4738b4fa7",
+      "linkedIn": "https://www.linkedin.com/in/soor-solanki-769bb2265?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+      "facebook": "",
+      "initials": "SS"
+    }
+  ],
+  "inventory": [
+    {
+      "key": "pcb",
+      "title": "SMD PCB Prototyping & Reflow Suite",
+      "category": "Electronics & Embedded",
+      "image": "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c307-b701-11ee-b929-f5a9fff8a41a.jpg"
+    },
+    {
+      "key": "vaccumforming",
+      "title": "Automated Vacuum Forming Station",
+      "category": "Thermoforming",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2FVaccumFoaming.png?alt=media&token=7629cd06-c716-4ab9-acf1-a8d291a94eca"
+    },
+    {
+      "key": "handtools",
+      "title": "Industrial Calibrated Hand Tools Suite",
+      "category": "Tooling & Prototyping",
+      "image": "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c305-b701-11ee-b929-f5a9fff8a41a.jpg"
+    },
+    {
+      "key": "lasercutter",
+      "title": "Industrial CO2 Laser Cutter & Engraver",
+      "category": "Subtractive & Laser",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2FLaser%20Cutter.png?alt=media&token=c719b9b4-bcbc-4b53-89b7-4a7b00286425"
+    },
+    {
+      "key": "router",
+      "title": "5-Axis Heavy-Duty CNC Router & Mill",
+      "category": "CNC Machining",
+      "image": "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c309-b701-11ee-b929-f5a9fff8a41a.jpg"
+    },
+    {
+      "key": "replicator",
+      "title": "MakerBot Replicator Industrial FDM",
+      "category": "Additive Manufacturing",
+      "image": "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c308-b701-11ee-b929-f5a9fff8a41a.jpg"
+    },
+    {
+      "key": "Vinyl",
+      "title": "Precision High-Speed Vinyl Cutter",
+      "category": "Precision Cutting",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2FVinylClutter.png?alt=media&token=97350014-5603-449e-b8da-2ab874ac5ac3"
+    },
+    {
+      "key": "scanner",
+      "title": "High-Precision 3D Optical Scanner",
+      "category": "3D Scanning & Metrology",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2F3D%20SCANNER.png?alt=media&token=646c8285-2721-4c0b-bef0-d13253a2cfa3"
+    },
+    {
+      "key": "esdWorkstation",
+      "title": "ESD-Safe Electronics Assembly Workstation",
+      "category": "Electronics & Embedded",
+      "image": "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c304-b701-11ee-b929-f5a9fff8a41a.png"
+    },
+    {
+      "key": "sla",
+      "title": "Formlabs SLA Precision Resin 3D Farm",
+      "category": "Additive Manufacturing",
+      "image": "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c30b-b701-11ee-b929-f5a9fff8a41a.jpg"
+    },
+    {
+      "key": "powertools",
+      "title": "High-Torque Workshop Power Tools",
+      "category": "Tooling & Prototyping",
+      "image": "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c308-b701-11ee-b929-f5a9fff8a41a.jpg"
+    },
+    {
+      "key": "workbench",
+      "title": "Heavy-Duty Hardware Fabrication Workbench",
+      "category": "Mechanical & Assembly",
+      "image": "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c30e-b701-11ee-b929-f5a9fff8a41a.jpg"
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FIMG_4936.PNG?alt=media&token=77e2f3f3-f147-406a-8a60-a75b35466936",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 1"
+    },
+    {
+      "id": 2,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FDSC01317.jpg?alt=media&token=ef0107ce-8aa9-407a-8d3d-46059c9ec29b",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 2"
+    },
+    {
+      "id": 3,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FIMG_7713.JPEG?alt=media&token=470ac0ba-a98f-49da-a73b-e560586f801e",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 3"
+    },
+    {
+      "id": 4,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FDSC01459.jpg?alt=media&token=5e8b1ca4-6e44-4751-9c84-ff51314b5815",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 4"
+    },
+    {
+      "id": 5,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FIMG_7718.JPEG?alt=media&token=5be564e6-6936-4984-aac2-3d3e17c505cc",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 5"
+    },
+    {
+      "id": 6,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FIMG_7720.JPEG?alt=media&token=8e82c5e2-36d2-4c7b-99d1-96b0e5d1990a",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 6"
+    },
+    {
+      "id": 7,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FIMG_7734.JPEG?alt=media&token=7ee982c2-7e0a-4810-b1de-e5be6cc3d402",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 7"
+    },
+    {
+      "id": 8,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FDSC08687.jpg?alt=media&token=4c4dd052-cec3-44dc-8d19-8429cc613c96",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 8"
+    },
+    {
+      "id": 9,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FDSC02677.jpg?alt=media&token=6afe45a0-db09-4e99-967f-b0f7a169dcab",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 9"
+    },
+    {
+      "id": 10,
+      "url": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/home_gallery%2FDSC01535.jpg?alt=media&token=aabf4d19-643c-4eb9-a57b-d6a0974e5902",
+      "caption": "PIERC Innovation & Startup Ecosystem Moment 10"
+    }
+  ],
+  "creativeSpaces": [
+    {
+      "key": "produce",
+      "title": "Produce Space",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2Fproduce.png?alt=media&token=23b0bdb3-d167-4147-b106-575dde73becb"
+    },
+    {
+      "key": "create",
+      "title": "Create Space",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2Fcreate.png?alt=media&token=d200eee1-f9a7-4762-ab6b-fef1b3a976e2"
+    },
+    {
+      "key": "develop",
+      "title": "Develop Space",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2Fdevelop.png?alt=media&token=a4bb7bb7-cd66-49f8-b96d-22036e4a197a"
+    },
+    {
+      "key": "learn",
+      "title": "Learn Space",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2Flearn.png?alt=media&token=07af0304-9c67-4011-a9e3-c64b2a85c3c0"
+    }
+  ],
+  "achievers": [
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F10.JPEG?alt=media&token=b79284bc-e3ac-4ab6-a99c-a40ba45ef603",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F11.JPEG?alt=media&token=dc5a00ae-046e-4fac-becb-d3d825740a04"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F12.JPEG?alt=media&token=b8a234bb-c817-4811-8959-a9de399bdfa1",
+      "id": "3"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F13.jpg?alt=media&token=79e87f3e-49e6-4319-a214-2af361c2fa62",
+      "id": "4"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F14.jpg?alt=media&token=333a96eb-9cee-4467-acc0-5da69e5c2b73",
+      "id": "5"
+    },
+    {
+      "id": "6",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F15.jpg?alt=media&token=e127b038-4112-4c27-8328-a6d07bff6d42"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F16.jpg?alt=media&token=bf204cc4-1d01-469f-8a63-7cfafabea8e9",
+      "id": "7"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F17.jpg?alt=media&token=c644c32c-97b8-43c8-9347-a70d8fbbeb24",
+      "id": "8"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F18.jpg?alt=media&token=7166d834-7ecc-42ff-b161-a201a7602aa4",
+      "id": "9"
+    },
+    {
+      "id": "10",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F6(1).JPEG?alt=media&token=b5a31b47-e381-4a0d-94cb-5de2f2b43869"
+    },
+    {
+      "id": "11",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F6.JPEG?alt=media&token=aed214c5-c963-4190-adac-74d975a93142"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F7.JPEG?alt=media&token=5eb31d02-efe4-49d0-af28-9eb7d23a7c6d",
+      "id": "12"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F8(1).JPEG?alt=media&token=3a0dccd3-014b-4b83-bf4c-c09eec209a2e",
+      "id": "13"
+    },
+    {
+      "id": "14",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F8.JPEG?alt=media&token=e0771679-26be-4020-9237-a26d7371cf1d"
+    },
+    {
+      "id": "15",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F9(1).JPEG?alt=media&token=24ae093b-add8-4350-b4fb-2dbeb053146b"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2F9.JPEG?alt=media&token=25560ee9-b3cf-4540-89f8-7a75ded1133c",
+      "id": "16"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2FWhatsApp%20Image%202024-03-17%20at%208.15.10%20PM.jpeg?alt=media&token=f9f82434-8195-4126-bc0b-1ede865ab529",
+      "id": "17"
+    },
+    {
+      "id": "18",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2FWhatsApp%20Image%202024-03-22%20at%207.50.26%20AM.jpeg?alt=media&token=7265fda0-b5a1-4d51-ab38-6bfb9298ed5d"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2FWhatsApp%20Image%202024-03-30%20at%201.38.48%20PM%20(1).jpeg?alt=media&token=c81f067e-090b-4dda-9273-2b6d453f321d",
+      "id": "19"
+    },
+    {
+      "id": "20",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2FWhatsApp%20Image%202024-03-30%20at%201.38.49%20PM%20(2).jpeg?alt=media&token=16c47676-ec3f-4b75-bc39-c4f6d8f1218d"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2FWhatsApp%20Image%202024-03-30%20at%201.38.49%20PM%20(3).jpeg?alt=media&token=80aa37bd-754e-4d12-b2ea-0cb0bd334234",
+      "id": "21"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2FWhatsApp%20Image%202024-03-30%20at%201.38.50%20PM%20(2).jpeg?alt=media&token=e3e54375-b23d-4eb5-94d6-8917811c0df2",
+      "id": "22"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2FWhatsApp%20Image%202024-03-30%20at%201.38.50%20PM%20(3).jpeg?alt=media&token=2a1f896c-3646-4120-8635-f4a718cd7642",
+      "id": "23"
+    },
+    {
+      "id": "24",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2FWhatsApp%20Image%202024-03-30%20at%201.38.51%20PM%20(2).jpeg?alt=media&token=97997d0d-005c-46c8-a0c7-b5cf969e13a6"
+    },
+    {
+      "id": "25",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achievers%2FWhatsApp%20Image%202024-03-30%20at%201.38.51%20PM%20(3).jpeg?alt=media&token=ed382343-2fe7-4cfd-bfae-5f88166b82b4"
+    }
+  ],
+  "achievements": [
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achivements%2F10.JPEG?alt=media&token=6c65d202-33c6-4675-a0e8-1d5b87ddc72f",
+      "id": "21"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achivements%2F13.jpeg?alt=media&token=9c81a9c8-6fec-4285-8b41-f424a2a09ed1",
+      "id": "24"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achivements%2F2.jpeg?alt=media&token=fc79c6ae-97f4-4d33-a359-098e1dfb2c39",
+      "id": "25"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achivements%2F3.jpg?alt=media&token=fe129fb7-0815-4180-82cb-c67e7c7819b4",
+      "id": "26"
+    },
+    {
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achivements%2F4.JPEG?alt=media&token=bd782e44-4c9f-410e-a681-db92289a49fb",
+      "id": "27"
+    },
+    {
+      "id": "28",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achivements%2F5.JPEG?alt=media&token=c4d46e6f-eb79-4e70-9f3d-821262d07970"
+    },
+    {
+      "id": "29",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achivements%2F7.JPG?alt=media&token=ee26e1b2-b8fd-48c5-a642-98b5695d2dfa"
+    },
+    {
+      "id": "22",
+      "image": "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/achivements%2Fmain.jpg?alt=media&token=78141844-79e6-4326-ac13-4688225b2270"
+    }
+  ],
+  "newsletters": [
+    {
+      "title": "March 2023",
+      "link": "10-fhw4k6CJykCYyiDvBXIsLP7xY03lGH"
+    },
+    {
+      "link": "14E9qRO3T5GhBd1ON1HenGoPNov93_6Gu",
+      "title": "May 2023"
+    },
+    {
+      "link": "1iDu3yFkPpi13_6j00czne-Jy7k4DqeWP",
+      "title": "July 2023"
+    },
+    {
+      "title": "August 2023",
+      "link": "1VQTvu67t23qxBRqmv4yKsnXmmKs9vPbt"
+    },
+    {
+      "title": "September & October 2023",
+      "link": "1OlfdiWlTNodblPiig69ql29pGJZBstKj"
+    },
+    {
+      "link": "1sfBbdwwLToKUHEF-a87Fv57skazP9x4Y",
+      "title": "November 2023"
+    },
+    {
+      "title": "December 2023",
+      "link": "1sFSst_EYyar_Xp0ie4VhFW2lUXPCtcG9"
+    },
+    {
+      "link": "1AZoybq-zTaB7gmEtaq6ft4SIziZFDX_w",
+      "title": "January 2024"
+    },
+    {
+      "link": "1txYYDpN8Mz62mybub2VHvrM8rcQHg_3D",
+      "title": "February 2024"
+    },
+    {
+      "title": "March 2024",
+      "link": "151KuQMSYtOSlKNHdQVIYMCGT1DIvJIw_"
+    },
+    {
+      "link": "1G3r00w7JMvp82sq32HUlry-K7vVAByus",
+      "title": "April 2024"
+    },
+    {
+      "link": "17vN9VSSdkA7ngmAsZ74M7dQGaWnkEh5O",
+      "title": "May 2024"
+    },
+    {
+      "link": "1gQHQOovW_9QD-TuPEM6kBGCS7xwp64h1",
+      "title": "June 2024"
+    },
+    {
+      "title": "July 2024",
+      "link": "14lh4mehkag6_mSVgka4Lfma4hjsLXbUY"
+    },
+    {
+      "link": "144ItFXe0ERr-KlubyP1Kv-Hir1BXzbfJ",
+      "title": "August 2024"
+    },
+    {
+      "link": "1F95bWWbYDd-i_DQkyaAsVGo5sgpLrgAi",
+      "title": "September 2024"
+    },
+    {
+      "title": "October 2024",
+      "link": "1wnkahqpCUb_M7-MuecWkzkhoZqotcmmv"
+    },
+    {
+      "link": "16PjPl-OUm3liYMWRz7KAr11X6IH3UiwS",
+      "title": "November 2024"
+    },
+    {
+      "title": "December 2024",
+      "link": "1Y0ysagZOTiUsfi-hCBLO8HBwgYinNIZW"
+    },
+    {
+      "link": "12u_tVjKBPiybCVfX58IXZ6gvzHRFhnIw",
+      "title": "January 2025"
+    },
+    {
+      "link": "1wxhDRd6cCjXGWUWrQK4oHd5IZbwraXaJ",
+      "title": "February 2025"
+    },
+    {
+      "title": "March 2025",
+      "link": "19MHvCWsIbbUbgNaW1-uqNCmJdh9v8eCP"
+    },
+    {
+      "title": "April 2025",
+      "link": "1pDH0kgT3FVzhrQUevpCDlJtHrNndyopq"
+    },
+    {
+      "link": "18wHeWPha62s7jHzI0K-z-HezWMgdZVnM",
+      "title": "May 2025"
+    },
+    {
+      "title": "June 2025",
+      "link": "1JMLGab6gKu2SYgaKMZGBIHGSjm_JBKDr"
+    },
+    {
+      "title": "July 2025",
+      "link": "14nYkv_kQWN6-Fjm54k5CpS6vwTtX5QvT"
+    },
+    {
+      "link": "1VlSke_dK66LmyixEkns7E0x2F0clNzUh",
+      "title": "August 2025"
+    },
+    {
+      "title": "September 2025",
+      "link": "11xMuc2egHtKrpY3m_DjzDO2wZYJl8Qe7"
+    },
+    {
+      "title": "October 2025",
+      "link": "1Hp7hnUNiKqpdsC2ubPqrSjtUeiHdQFxQ"
+    },
+    {
+      "title": "November 2025",
+      "link": "1MwMRayFOr_2BwDQCbTDRUtM1FTkOMwc6"
+    },
+    {
+      "title": "December 2025",
+      "link": "1UjNPxzTQvt41v9mQW1IyDaLNEQ2b6aM0"
+    },
+    {
+      "link": "1R6m8EBeTtsFoQM8XtM8-b_fxr9NKgv3L",
+      "title": "January 2026"
+    },
+    {
+      "title": "February 2026",
+      "link": "11zTtApOPX2D463tCbtgSWluKfq5ZIX49"
+    },
+    {
+      "title": "March 2026",
+      "link": "1KvXXfLV0YMHwsl3P3wpHH3KS1UaoOjSx"
+    },
+    {
+      "link": "1VMvQLfLzfu_0MRj9Iz8Pkd2Sr0giCipJ",
+      "title": "April 2026"
+    },
+    {
+      "link": "15VZCwrWCY_AUdRIQqlKE-1z38G8WUUqa",
+      "title": "May 2026"
+    },
+    {
+      "title": "June 2026",
+      "link": "1A5scFCO5-R4SwxwUaClkR3z86wz2ZsUc"
+    },
+    {
+      "title": "August 2026",
+      "link": "1VlSke_dK66LmyixEkns7E0x2F0clNzUh"
+    }
+  ],
+  "vsf": {
+    "heroImg": "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240131154755_19d9228a-c050-11ee-b929-f5a9fff8a41a.svg",
+    "speakers": [
+      "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240225141800_ae25d326-d3e8-11ee-ad34-455bf54b5af7.jpg",
+      "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240225141800_ae25d325-d3e8-11ee-ad34-455bf54b5af7.jpg"
+    ],
+    "partners": [
+      "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240225120951_c788d5bc-d3d6-11ee-ad34-455bf54b5af7.png",
+      "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240225120951_c788d5bd-d3d6-11ee-ad34-455bf54b5af7.jpg"
+    ],
+    "youtubeLink": "https://www.youtube.com/watch?time_continue=1&v=WyRXFLb_2qM&embeds_referring_euri=https%3A%2F%2Fedc.paruluniversity.ac.in%2F"
+  }
+}

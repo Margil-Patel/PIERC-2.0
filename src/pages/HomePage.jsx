@@ -12,6 +12,7 @@ import FabLabSection from '../components/sections/FabLabSection';
 import FlagshipsSection from '../components/sections/FlagshipsSection';
 import RegionalStudiosSection from '../components/sections/RegionalStudiosSection';
 import LeadershipSection from '../components/sections/LeadershipSection';
+import LinkedInSection from '../components/sections/LinkedInSection';
 import CtaSection from '../components/sections/CtaSection';
 
 export default function HomePage({
@@ -75,6 +76,11 @@ export default function HomePage({
       {/* 9.5 Moments Photo Reel */}
       <SpatialScene id="scene-moments-reel" index={9.5}>
         <MomentsPhotoReel />
+      </SpatialScene>
+
+      {/* 9.7 Latest Updates from LinkedIn */}
+      <SpatialScene id="scene-linkedin" index={9.7}>
+        <LinkedInSection />
       </SpatialScene>
 
       {/* 10. Call to Action */}

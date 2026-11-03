@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Lightbulb, FlaskConical, Hammer, Users, Rocket, TrendingUp } from 'lucide-react';
+import ParallaxCard from '../common/ParallaxCard';
 
 /* ==========================================================================
    DESKTOP CHECKPOINTS DATA & HELPERS (PRESERVED UNCHANGED)
@@ -987,7 +988,8 @@ export default function JourneySection({ onOpenIncubationModal }) {
                         : 'opacity-40 translate-y-8 scale-95'
                     }`}
                   >
-                    <div
+                    <ParallaxCard
+                      index={idx}
                       className={`p-4 sm:p-6 rounded-2xl transition-all duration-500 border ${
                         isPassed
                           ? 'bg-gradient-to-br from-white via-pink-50/90 to-pink-100/60 border-2 border-pink-300 shadow-lg shadow-pink-200/50 hover:border-rose-400'
@@ -1053,7 +1055,7 @@ export default function JourneySection({ onOpenIncubationModal }) {
                         <span>→</span>
                       </button>
 
-                    </div>
+                    </ParallaxCard>
                   </div>
 
                   {/* STANDALONE IDEA SPARK LIGHTBULB ON OPPOSITE SIDE OF CURVED TRAJECTORY */}

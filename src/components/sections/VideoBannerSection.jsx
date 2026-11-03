@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import piercWhiteLogo from '../../assets/pierc-white-logo.svg';
-import heroBgVideo from '../../assets/hero-bg-video.mp4';
+import cellVideo from '../../assets/cell-video.mp4';
 
 export default function VideoBannerSection() {
+  const videoRef = useRef(null);
+
   const handleScrollToHero = () => {
     const el = document.getElementById('main-hero-section');
     if (el) {
@@ -10,17 +12,26 @@ export default function VideoBannerSection() {
     }
   };
 
+  const handleTimeUpdate = () => {
+    if (videoRef.current && videoRef.current.currentTime >= 47) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+    }
+  };
+
   return (
     <section className="relative w-full h-[70vh] sm:h-[82vh] min-h-[500px] max-h-[760px] overflow-hidden bg-slate-950 flex flex-col items-center justify-center isolation-isolate">
-      {/* 1. Background Video Reel */}
+      {/* 1. Background Video Reel (first 47s of cell video) */}
       <video
+        ref={videoRef}
+        onTimeUpdate={handleTimeUpdate}
         autoPlay
         loop
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover opacity-80 filter brightness-[0.9] contrast-[1.1] pointer-events-none"
       >
-        <source src={heroBgVideo} type="video/mp4" />
+        <source src={cellVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

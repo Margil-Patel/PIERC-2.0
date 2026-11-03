@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import ParallaxCard from '../components/common/ParallaxCard';
 
 export default function ApplyIncubationPage() {
   const [searchParams] = useSearchParams();
@@ -150,15 +151,15 @@ export default function ApplyIncubationPage() {
               <form onSubmit={handleSubmit} className="space-y-8">
                 
                 {/* STEP PROGRESS BAR */}
-                <div className="flex items-center justify-between border-b border-slate-200 pb-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-200 pb-6 gap-4">
                   <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full font-bold text-xs flex items-center justify-center transition-all ${
+                    <div className={`w-8 h-8 rounded-full font-bold text-xs flex items-center justify-center shrink-0 transition-all ${
                       step === 1 ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-100 text-slate-500'
                     }`}>
                       1
                     </div>
                     <div>
-                      <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Step 1</div>
+                      <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-rose-600">Step 1 of 2</div>
                       <div className="text-sm font-bold text-slate-900">Venture &amp; Program Profile</div>
                     </div>
                   </div>
@@ -166,13 +167,13 @@ export default function ApplyIncubationPage() {
                   <div className="hidden sm:block h-[1px] w-16 bg-slate-200" />
 
                   <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full font-bold text-xs flex items-center justify-center transition-all ${
+                    <div className={`w-8 h-8 rounded-full font-bold text-xs flex items-center justify-center shrink-0 transition-all ${
                       step === 2 ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-100 text-slate-500'
                     }`}>
                       2
                     </div>
                     <div>
-                      <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Step 2</div>
+                      <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Step 2 of 2</div>
                       <div className="text-sm font-bold text-slate-900">Founder &amp; Pitch Specs</div>
                     </div>
                   </div>
@@ -191,7 +192,7 @@ export default function ApplyIncubationPage() {
                         name="program"
                         value={formData.program}
                         onChange={handleChange}
-                        className="w-full py-3.5 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                        className="w-full py-3.5 px-3 pr-8 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm font-medium truncate focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                       >
                         <option value="nivesh">Startup Nivesh 3.0 (Seed Capital &amp; VC Syndication)</option>
                         <option value="healthtech">HealthTech Accelerator (Clinical Trial Sandbox &amp; BioNEST)</option>
@@ -215,7 +216,7 @@ export default function ApplyIncubationPage() {
                           value={formData.startupName}
                           onChange={handleChange}
                           placeholder="e.g. NeuroAura Technologies"
-                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                         />
                       </div>
 
@@ -227,7 +228,7 @@ export default function ApplyIncubationPage() {
                           name="sector"
                           value={formData.sector}
                           onChange={handleChange}
-                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                          className="w-full py-3 px-3 pr-8 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm truncate focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                         >
                           <option value="DeepTech & AI">DeepTech, AI &amp; Quantum</option>
                           <option value="HealthTech & BioTech">HealthTech &amp; BioTech</option>
@@ -250,7 +251,7 @@ export default function ApplyIncubationPage() {
                           name="stage"
                           value={formData.stage}
                           onChange={handleChange}
-                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                          className="w-full py-3 px-3 pr-8 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm truncate focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                         >
                           <option value="Idea / Concept">Idea / Concept Phase</option>
                           <option value="Proof of Concept">Proof of Concept (PoC / Lab Scale)</option>
@@ -268,7 +269,7 @@ export default function ApplyIncubationPage() {
                           name="fundingNeeded"
                           value={formData.fundingNeeded}
                           onChange={handleChange}
-                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                          className="w-full py-3 px-3 pr-8 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm truncate focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                         >
                           <option value="Under ₹5L (Grant)">Under ₹5L (Student PoC Grant)</option>
                           <option value="₹5L - ₹25L (SSIP / SISFS)">₹5L - ₹25L (SSIP 2.0 / SISFS Seed Grant)</option>
@@ -287,7 +288,7 @@ export default function ApplyIncubationPage() {
                         name="hasPatent"
                         value={formData.hasPatent}
                         onChange={handleChange}
-                        className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                        className="w-full py-3 px-3 pr-8 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm truncate focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                       >
                         <option value="Filed / Under Process">Patent Filed / Provisional Granted</option>
                         <option value="Granted Patent">Patent Granted / Commercialized</option>
@@ -308,7 +309,7 @@ export default function ApplyIncubationPage() {
                             alert('Please enter your Startup / Venture Name');
                           }
                         }}
-                        className="px-8 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm transition-all shadow-lg hover:shadow-rose-600/20 flex items-center gap-2"
+                        className="w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm transition-all shadow-lg hover:shadow-rose-600/20 flex items-center gap-2"
                       >
                         Continue to Step 2 →
                       </button>
@@ -333,7 +334,7 @@ export default function ApplyIncubationPage() {
                           value={formData.founderName}
                           onChange={handleChange}
                           placeholder="e.g. Dr. Aravind Sharma"
-                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                         />
                       </div>
 
@@ -348,7 +349,7 @@ export default function ApplyIncubationPage() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="founder@venture.io"
-                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                         />
                       </div>
                     </div>
@@ -366,7 +367,7 @@ export default function ApplyIncubationPage() {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="+91 98765 43210"
-                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                         />
                       </div>
 
@@ -378,7 +379,7 @@ export default function ApplyIncubationPage() {
                           name="affiliation"
                           value={formData.affiliation}
                           onChange={handleChange}
-                          className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                          className="w-full py-3 px-3 pr-8 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm truncate focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                         >
                           <option value="Student">Current PU Student / Scholar</option>
                           <option value="Alumnus">PU Alumnus</option>
@@ -400,7 +401,7 @@ export default function ApplyIncubationPage() {
                         value={formData.pitchSummary}
                         onChange={handleChange}
                         placeholder="Detail the core problem you are solving, your technological innovation, current validation, and how PIERC incubation will accelerate your growth..."
-                        className="w-full p-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                        className="w-full p-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                       />
                     </div>
 
@@ -415,23 +416,23 @@ export default function ApplyIncubationPage() {
                         value={formData.deckLink}
                         onChange={handleChange}
                         placeholder="https://drive.google.com/file/d/..."
-                        className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                        className="w-full py-3 px-4 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
                       />
                     </div>
 
                     {/* FORM ACTION BUTTONS */}
-                    <div className="pt-6 flex items-center justify-between">
+                    <div className="pt-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-3">
                       <button
                         type="button"
                         onClick={() => setStep(1)}
-                        className="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition-all border border-slate-300"
+                        className="w-full sm:w-auto justify-center px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition-all border border-slate-300"
                       >
                         ← Back to Step 1
                       </button>
 
                       <button
                         type="submit"
-                        className="px-9 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm transition-all shadow-lg hover:shadow-rose-600/20"
+                        className="w-full sm:w-auto justify-center px-9 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm transition-all shadow-lg hover:shadow-rose-600/20"
                       >
                         Submit Incubation Proposal →
                       </button>
@@ -446,7 +447,7 @@ export default function ApplyIncubationPage() {
           <div className="lg:col-span-4 space-y-6">
             
             {/* INCUBATION PERKS CARD */}
-            <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-sm">
+            <ParallaxCard index={0} className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-sm">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
                 <h3 className="text-base font-extrabold text-slate-900">Incubation Ecosystem Perks</h3>
@@ -474,10 +475,10 @@ export default function ApplyIncubationPage() {
                   <span><strong>$100,000+ Cloud Credits</strong> from AWS, Google Cloud &amp; Azure.</span>
                 </li>
               </ul>
-            </div>
+            </ParallaxCard>
 
             {/* SELECTION TIMELINE */}
-            <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-sm font-mono text-xs">
+            <ParallaxCard index={1} className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-sm font-mono text-xs">
               <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider text-rose-600">
                 Selection Roadmap
               </h3>
@@ -501,10 +502,10 @@ export default function ApplyIncubationPage() {
                   <div className="text-slate-500">Grant Approval &amp; Office Onboarding</div>
                 </div>
               </div>
-            </div>
+            </ParallaxCard>
 
             {/* CONTACT HELPDESK */}
-            <div className="bg-slate-900 text-white rounded-3xl p-6 space-y-3 text-xs">
+            <ParallaxCard index={2} className="bg-slate-900 text-white rounded-3xl p-6 space-y-3 text-xs">
               <div className="font-bold text-white text-sm">Need Help With Application?</div>
               <p className="text-slate-300 leading-relaxed">
                 Contact our Incubation Secretariat for pitch guidance or eligibility queries:
@@ -513,7 +514,7 @@ export default function ApplyIncubationPage() {
                 <div>📞 Call: <a href="tel:02668260350" className="text-rose-400 hover:underline">0266-8260350</a></div>
                 <div>✉️ Email: <a href="mailto:pierc@paruluniversity.ac.in" className="text-rose-400 hover:underline">pierc@paruluniversity.ac.in</a></div>
               </div>
-            </div>
+            </ParallaxCard>
 
           </div>
 

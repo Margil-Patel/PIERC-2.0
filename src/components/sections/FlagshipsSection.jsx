@@ -58,23 +58,24 @@ export default function FlagshipsSection({ onSelectPlatform }) {
             <ParallaxCard
               key={item.id}
               index={idx}
-              className="p-5 sm:p-6 rounded-2xl bg-surface-card border border-hairline-light shadow-2xs hover:border-primary/40 transition-all space-y-4 flex flex-col justify-between group"
+              onClick={() => onSelectPlatform(item)}
+              className="p-5 sm:p-6 rounded-2xl bg-surface-card border border-hairline-light shadow-2xs hover:border-primary/40 space-y-4 flex flex-col justify-between group cursor-pointer"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-caps text-[10px] font-semibold uppercase tracking-wider">
+                  <span className="px-2.5 py-0.5 rounded-full bg-surface-container group-hover:bg-primary/15 text-primary font-label-caps text-[10px] font-semibold uppercase tracking-wider transition-colors duration-300">
                     {item.category}
                   </span>
-                  <div className="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-surface-container group-hover:bg-primary group-hover:text-on-primary group-hover:scale-110 group-hover:rotate-6 flex items-center justify-center text-primary shadow-xs transition-all duration-300">
                     <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-headline-md text-lg sm:text-xl font-bold text-on-surface">
+                  <h3 className="font-headline-md text-lg sm:text-xl font-bold text-on-surface group-hover:text-primary transition-colors duration-300">
                     {item.title}
                   </h3>
-                  <p className="font-label-code text-xs text-primary font-semibold mt-0.5">
+                  <p className="font-label-code text-xs text-primary font-semibold mt-0.5 group-hover:translate-x-1 transition-transform duration-300">
                     {item.tagline}
                   </p>
                 </div>
@@ -86,7 +87,7 @@ export default function FlagshipsSection({ onSelectPlatform }) {
                 {/* Highlights tags */}
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {item.highlights.map((h, hIdx) => (
-                    <span key={hIdx} className="px-2 py-0.5 rounded-md bg-surface-container-low text-[10px] font-medium text-on-surface-variant">
+                    <span key={hIdx} className="px-2 py-0.5 rounded-md bg-surface-container-low group-hover:bg-surface-container text-[10px] font-medium text-on-surface-variant transition-colors duration-300">
                       {h}
                     </span>
                   ))}
@@ -95,10 +96,14 @@ export default function FlagshipsSection({ onSelectPlatform }) {
 
               <div className="pt-3 border-t border-hairline-light/60 flex items-center justify-between font-label-code text-xs text-primary font-semibold">
                 <button
-                  onClick={() => onSelectPlatform(item)}
-                  className="hover:underline flex items-center gap-1 group-hover:text-primary-container"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelectPlatform(item);
+                  }}
+                  className="w-full py-2 px-3.5 rounded-xl bg-surface-container group-hover:bg-primary text-primary group-hover:text-on-primary text-xs font-semibold font-label-caps uppercase tracking-wider transition-all duration-300 flex items-center justify-between shadow-xs group-hover:shadow-md group-hover:shadow-primary/20 active:scale-95"
                 >
-                  <span>{item.badgeText}</span>
+                  <span>{item.badgeText.replace(' →', '').replace(' ->', '')}</span>
+                  <span className="transform group-hover:translate-x-1.5 transition-transform duration-300 font-bold text-sm">→</span>
                 </button>
               </div>
             </ParallaxCard>

@@ -35,32 +35,33 @@ export default function IncubationModal({ isOpen, onClose, initialProgram = 'niv
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-graphite-deep/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-2xl bg-surface-card border border-hairline-light rounded-3xl shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-graphite-deep/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
+      <div className="relative w-full max-w-2xl bg-surface-card border border-hairline-light rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         
         {/* Modal Header */}
-        <div className="bg-graphite-deep text-canvas-light px-6 py-5 flex items-center justify-between border-b border-graphite-border">
+        <div className="bg-graphite-deep text-canvas-light px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between border-b border-graphite-border shrink-0">
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-electric-glow animate-pulse"></span>
-              <span className="font-label-caps text-xs text-electric-glow uppercase tracking-wider font-semibold">
+              <span className="font-label-caps text-[10px] sm:text-xs text-electric-glow uppercase tracking-wider font-semibold">
                 PIERC Venture Application Portal
               </span>
             </div>
-            <h3 className="font-headline-sm text-xl font-bold text-canvas-light mt-1">
+            <h3 className="font-headline-sm text-lg sm:text-xl font-bold text-canvas-light mt-0.5">
               Apply for Incubation &amp; Acceleration
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-graphite-surface hover:bg-graphite-border text-canvas-light flex items-center justify-center transition-colors"
+            className="w-10 h-10 rounded-full bg-graphite-surface hover:bg-graphite-border text-canvas-light flex items-center justify-center transition-colors shrink-0"
+            aria-label="Close Modal"
           >
-            <span className="material-symbols-outlined text-[18px]">close</span>
+            <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-8">
+        <div className="p-5 sm:p-8 overflow-y-auto flex-1">
           {submitted ? (
             <div className="text-center py-8 space-y-4 animate-fadeIn">
               <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">

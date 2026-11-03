@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { fabLabBays } from '../../data/ecosystemData';
+import ParallaxCard from '../common/ParallaxCard';
 
 export default function FabLabSection({ onOpenBookingModal }) {
   const [selectedBay, setSelectedBay] = useState(0);
@@ -57,8 +58,9 @@ export default function FabLabSection({ onOpenBookingModal }) {
                   desc: 'Spectrophotometry, autoclave sterility suites, live cell culture incubators, and clinical sample storage.'
                 }
               ].map((item, idx) => (
-                <div
+                <ParallaxCard
                   key={idx}
+                  index={idx}
                   onClick={() => {
                     setSelectedBay(item.bayIndex);
                     onOpenBookingModal(fabLabBays[item.bayIndex].name);
@@ -87,7 +89,7 @@ export default function FabLabSection({ onOpenBookingModal }) {
                       {item.desc}
                     </p>
                   </div>
-                </div>
+                </ParallaxCard>
               ))}
             </div>
 
@@ -104,8 +106,9 @@ export default function FabLabSection({ onOpenBookingModal }) {
           {/* Right Interactive Prototyping Showcase (4 Bays Grid) */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 reveal-stagger">
             {fabLabBays.map((bay, idx) => (
-              <div
+              <ParallaxCard
                 key={bay.id}
+                index={idx}
                 onClick={() => {
                   setSelectedBay(idx);
                   onOpenBookingModal(bay.name);
@@ -158,7 +161,7 @@ export default function FabLabSection({ onOpenBookingModal }) {
                 >
                   Reserve {bay.name} Slot →
                 </button>
-              </div>
+              </ParallaxCard>
             ))}
           </div>
 

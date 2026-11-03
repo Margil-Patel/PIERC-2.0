@@ -240,7 +240,7 @@ export const fabLabBays = [
     description: "Continuous carbon fiber composite manufacturing with 20-micron surface resolution.",
     category: "Additive Manufacturing",
     icon: "print",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuALAEdFCkUD0-Dtst1X253CwqbBNEqP8_MWIX_I4nY-2rPxlRZkilAK-ws8Fs31nivMgO4uRC4KUcdN7iXYUMel49BrUGQby46VeIjPdru7EUJsiBf_Vd0ZM9COXR2FULNf4mkv8sPhm36mQJCiY8ccAZf3lRVwxZNdlML_USs43igMwYSXnvNxIlmyeQHDdeNpEfQQpCJKahEMB8lxTVpF3QTjzkHGj9_EY7N2_GU9znvoszN2sCbY",
+    image: "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c30b-b701-11ee-b929-f5a9fff8a41a.jpg",
     specs: [
       "Industrial SLA, SLS & High-Temp FDM Printers",
       "Aerospace PEEK & Ultem Resin Capabilities",
@@ -255,7 +255,7 @@ export const fabLabBays = [
     description: "Rapid embedded firmware debugging, IoT sensor calibration, and antenna tuning.",
     category: "Electronics & PCB",
     icon: "memory",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAUumR1I7DmL54mI0euqnXftKVIjiCGMGWCMsFRbSuQJs67gsW_JG6JkH_cvqr0RqZfClw7W2oVX7upsJS_AN2F7djRMChood0GDw1YppxRQ2_Vbvf82TPYc2e3SjLn1PwZeAk5njYdpMpp9Uxa9oknE1tKyJlERRtRnpMJ-E7njQAlpg0nrvMfy5Y7MHjCnClSjjkeGagANQwO-I-SowMTqAaOe2V1dICKQqTXR4Wv71WNt_uasjKa",
+    image: "https://api.ignitehost.in/api/v-1/view/a6319350-b6cf-11ee-b929-f5a9fff8a41a/file_20240119193005_25d3c307-b701-11ee-b929-f5a9fff8a41a.jpg",
     specs: [
       "4-Channel 1GHz Digital Storage Oscilloscopes",
       "Multi-Zone SMD Reflow Ovens & BGA Rework Station",
@@ -270,7 +270,7 @@ export const fabLabBays = [
     description: "Rapid metal chassis production, sheet metal bending, and composite finishing.",
     category: "Subtractive & Laser",
     icon: "carpenter",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBqGpYeIMd1yLMkxFny-dDf5bKCyd1Bz3H6iNK1H4LrdiXDfJfKyfx-GEMx44uYZqK0wOSTVJ8_kT8XqBY5RD78rJEgaIJDl5WOv8XNL-MYVB38jIezJS1XnNaPvqWQ70xHlmP1kZY1_VKffMGMt4lCNAA1gE9VsRlYhjn07fEGBvhKwb-Wj7b66-_H8zrChApjvSn1glM4Z_KopYYYbM1hew1UWQ25eU__mK_ukuBeVx-C3M_e-DI9",
+    image: "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2FLaser%20Cutter.png?alt=media&token=c719b9b4-bcbc-4b53-89b7-4a7b00286425",
     specs: [
       "High-Precision 5-Axis CNC Milling Center",
       "150W CO2 Laser Cutters & Fiber Laser Engravers",
@@ -285,7 +285,7 @@ export const fabLabBays = [
     description: "Spectrophotometry, autoclave sterility suites, and live cell culture incubators.",
     category: "Biomedical & Life Sciences",
     icon: "biotech",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDphTaEIrwBCsnmNlaX9cII1kRj4EVXU2B_okaos4zpWOQVG-YW1imvGZXhylRxDWBT0L6pE2VZe52zEBCjCzpo8chOAsypZzAE0b5YjF5ZSNlin0BIxxMtMLEQN1jB5IA_cnQJRk1txOOHCqpSNd82bLAQmdH74sMtyfvcRLxnt1Rhch4tkxeXI94Ux_WVOuIsjWgPjiRmLjmeHyjr7GhIILKzNTA5h6bg6UqOuma91khE_c5i0xrf",
+    image: "https://firebasestorage.googleapis.com/v0/b/edc-pierc.appspot.com/o/fablab%2F3D%20SCANNER.png?alt=media&token=646c8285-2721-4c0b-bef0-d13253a2cfa3",
     specs: [
       "Class II Biosafety Cabinets & CO2 Incubators",
       "UV-Vis Spectrophotometers & Thermal Cyclers",
@@ -409,62 +409,33 @@ export const regionalStudios = [
   }
 ];
 
-export const boardOfGovernors = [
-  {
-    initials: "DP",
-    name: "Dr. Devanshu J Patel",
-    role: "President, Parul University",
-    bio: "Dynamic visionary who has spearheaded Parul University's massive expansion and committed focus on innovation, translational research, and entrepreneurship."
-  },
-  {
-    initials: "PP",
-    name: "Dr. Parul Patel",
-    role: "Vice President, Parul University",
-    bio: "Managing Trustee championing student affairs, incubation governance, and creating empathetic founder-friendly campus ecosystems."
-  },
-  {
-    initials: "GP",
-    name: "Dr. Geetika M. Patel",
-    role: "VP (Quality, Research) & Medical Director",
-    bio: "Gold medalist physician and researcher overseeing clinical validation pipelines for biotech, medical device, and life sciences startups."
-  },
-  {
-    initials: "MP",
-    name: "Prof. Manish Pandya",
-    role: "Registrar, Parul University",
-    bio: "Over 19 years in higher education leadership, driving institutional compliance, IP policy frameworks, and regulatory acceleration."
-  }
-];
+import piercData from './piercLiveEcosystem.json';
 
-export const operatingLeadership = [
-  {
-    name: "Jay Sudani",
-    role: "Chief Executive Officer",
-    domain: "Venture Execution & Strategy"
-  },
-  {
-    name: "Ajay Barot",
-    role: "Strategic Lead",
-    domain: "Ecosystem Alliances & Partnerships"
-  },
-  {
-    name: "Hardik Kharva",
-    role: "Deputy Director",
-    domain: "Incubation Policy & Grants"
-  },
-  {
-    name: "Hutesh Baviskar",
-    role: "Incubation Manager",
-    domain: "Cohort Operations & Portfolio"
-  },
-  {
-    name: "Sonal Sudani",
-    role: "Incubation Manager",
-    domain: "Founder Onboarding & Screening"
-  },
-  {
-    name: "Divyansh Thakur",
-    role: "FabLab Engineer",
-    domain: "Hardware Prototyping & R&D"
-  }
-];
+export const boardOfGovernors = (piercData.governors || []).map((gov) => ({
+  id: gov.id,
+  initials: gov.initials || gov.name.split(' ').map(n => n[0]).join('').slice(0, 2),
+  name: gov.name,
+  role: gov.role,
+  bio: gov.bio || 'Governing leader advancing incubation governance and translational research at Parul University.',
+  image: gov.image,
+}));
+
+export const operatingLeadership = (piercData.team || []).map((member) => ({
+  id: member.id,
+  name: member.name,
+  role: member.role,
+  domain: member.role,
+  image: member.image,
+  linkedIn: member.linkedIn,
+  facebook: member.facebook,
+  initials: member.initials || member.name.split(' ').map(n => n[0]).join('').slice(0, 2),
+}));
+
+export const fabLabInventory = piercData.inventory || [];
+export const creativeSpaces = piercData.creativeSpaces || [];
+export const ecosystemAchievers = piercData.achievers || [];
+export const ecosystemAchievements = piercData.achievements || [];
+export const ecosystemNewsletters = piercData.newsletters || [];
+export const vsfData = piercData.vsf || {};
+
+

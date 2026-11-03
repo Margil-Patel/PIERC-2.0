@@ -4,23 +4,24 @@ export default function PlatformModal({ platform, isOpen, onClose, onRegister })
   if (!isOpen || !platform) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-graphite-deep/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-2xl bg-surface-card border border-hairline-light rounded-3xl shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-graphite-deep/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
+      <div className="relative w-full max-w-2xl bg-surface-card border border-hairline-light rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         
         {/* Header */}
-        <div className="bg-graphite-deep text-canvas-light px-6 py-6 border-b border-graphite-border relative">
+        <div className="bg-graphite-deep text-canvas-light px-5 sm:px-6 py-5 border-b border-graphite-border relative shrink-0">
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 w-8 h-8 rounded-full bg-graphite-surface hover:bg-graphite-border text-canvas-light flex items-center justify-center transition-colors"
+            className="absolute top-5 right-5 w-10 h-10 rounded-full bg-graphite-surface hover:bg-graphite-border text-canvas-light flex items-center justify-center transition-colors shrink-0"
+            aria-label="Close Modal"
           >
-            <span className="material-symbols-outlined text-[18px]">close</span>
+            <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
 
           <span className="px-3 py-1 rounded-full bg-primary/30 border border-primary/50 text-electric-glow font-label-caps text-xs uppercase font-semibold">
             {platform.category}
           </span>
 
-          <h3 className="font-headline-xl text-2xl sm:text-3xl font-extrabold text-canvas-light mt-3">
+          <h3 className="font-headline-xl text-xl sm:text-3xl font-extrabold text-canvas-light mt-3 pr-10">
             {platform.title}
           </h3>
           <p className="font-label-code text-xs text-electric-glow mt-1 font-semibold">
@@ -29,7 +30,7 @@ export default function PlatformModal({ platform, isOpen, onClose, onRegister })
         </div>
 
         {/* Content */}
-        <div className="p-6 sm:p-8 space-y-6">
+        <div className="p-5 sm:p-8 space-y-6 overflow-y-auto flex-1">
           <div>
             <h4 className="font-label-caps text-xs uppercase tracking-wider text-outline font-bold mb-2">
               Platform Overview &amp; Mandate

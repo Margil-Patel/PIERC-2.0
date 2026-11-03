@@ -1,6 +1,7 @@
 import React from 'react';
 import LeadershipSection from '../components/sections/LeadershipSection';
 import CtaSection from '../components/sections/CtaSection';
+import ParallaxCard from '../components/common/ParallaxCard';
 
 export default function LeadershipPage({ onOpenMentorModal, onOpenIncubationModal }) {
   return (
@@ -47,23 +48,23 @@ export default function LeadershipPage({ onOpenMentorModal, onOpenIncubationModa
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <ParallaxCard index={0} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
               <span className="text-xs font-bold uppercase tracking-wider text-purple-600">Domain Excellence</span>
               <h3 className="text-xl font-bold text-slate-900">Deep-Tech &amp; AI Mentors</h3>
               <p className="text-slate-600 text-sm">Engineers and researchers from top IITs, IISc, and global tech labs guiding algorithm design and AI infrastructure.</p>
-            </div>
+            </ParallaxCard>
 
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <ParallaxCard index={1} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
               <span className="text-xs font-bold uppercase tracking-wider text-purple-600">Regulatory &amp; Legal</span>
               <h3 className="text-xl font-bold text-slate-900">IP Attorneys &amp; Compliance</h3>
               <p className="text-slate-600 text-sm">Patent agents helping founders draft non-provisional patent applications, trademark registrations, and FDA/CDSCO filings.</p>
-            </div>
+            </ParallaxCard>
 
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <ParallaxCard index={2} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
               <span className="text-xs font-bold uppercase tracking-wider text-purple-600">Capital Growth</span>
               <h3 className="text-xl font-bold text-slate-900">VCs &amp; Angel Investors</h3>
               <p className="text-slate-600 text-sm">Active institutional investors, venture debt providers, and angel syndicate leads reviewing monthly cohort pitches.</p>
-            </div>
+            </ParallaxCard>
           </div>
         </div>
       </section>

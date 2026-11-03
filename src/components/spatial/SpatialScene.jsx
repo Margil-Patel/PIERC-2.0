@@ -144,18 +144,24 @@ export function SpatialScene({ id, children, className = '', index = 0 }) {
 
   const filterStyleString = isReducedMotion || transforms.blur <= 0.2 ? 'none' : `blur(${transforms.blur}px)`;
 
+  const isTransitioning = transforms.opacity < 0.92 || transforms.translateZ < -90;
+
   return (
     <div
       ref={containerRef}
       id={id}
       className={`spatial-scene-wrapper relative w-full ${className}`}
       style={{
+        perspective: isReducedMotion ? 'none' : isMobile ? '1000px' : '1400px',
+        perspectiveOrigin: '50% 50%',
         transformStyle: 'preserve-3d',
         backfaceVisibility: 'hidden',
         willChange: 'transform, filter, opacity',
         transform: transformStyleString,
         filter: filterStyleString,
         opacity: transforms.opacity,
+        pointerEvents: isTransitioning ? 'none' : 'auto',
+        zIndex: isTransitioning ? 1 : 10,
         transition: 'transform 0.05s linear, filter 0.05s linear, opacity 0.05s linear',
       }}
     >
